@@ -1,0 +1,154 @@
+.main-card {
+    margin-top: calc(20vh - 120px);
+    height: 50vh;
+
+    transition: margin-top .3s;
+}
+.ana-card {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+}
+.ana-card  > #use-icon {
+    color: var(--color-font-1);
+    font-family: Arial;
+    font-size: 15rem;
+}
+.ana-card > div {
+    justify-content: center;
+    flex-direction: column;
+    max-width: 75%;
+    display: flex;
+    height: 45vh;
+
+    transition: height .5s;
+}
+.ana-card > div > #ana {
+    margin-right: 100px;
+    margin-left: 50px;
+    font-size: 2rem;
+
+    transition: font-size .4s, opacity .5s;
+}
+
+.control-space {
+    height: 60px;
+}
+
+.con-title {
+    letter-spacing: 0.1rem;
+    font-weight: 300;
+    font-size: 1rem;
+    display: flex;
+    height: 60px;
+}
+.con-title > div {
+    background: var(--color-blue);
+    border-radius: 5px;
+    margin-right: 15px;
+    height: 100%;
+    width: 5px;
+}
+.con-title span {
+    margin-top: -2px;
+}
+
+.like {
+    margin-left: 20px;
+    height: 60px;
+    width: 60px;
+}
+.like i {
+    color: var(--color-font);
+    font-size: 20px;
+
+    transition: color .3s;
+}
+.like:hover i {
+    color: #f1c4c4;
+}
+
+.flash {
+    margin-left: 20px;
+    margin-top: -60px;
+    float: right;
+    height: 60px;
+    width: 60px;
+}
+.flash i {
+    color: var(--color-font);
+    transform: rotate(0deg);
+    margin-left: 2px;
+    font-size: 20px;
+
+    transition: transform .4s ease-in, color .3s;
+}
+.flash:hover i {
+    color: var(--color-blue);
+}
+
+.bl-pad {
+    position: relative;
+    pointer-events:none;
+    margin-left: -700px;
+    margin-top: 280px;
+
+    transition: margin .5s;
+}
+.bl-pad svg {
+    color: var(--color-card-1);
+    position: absolute;
+    margin-top: -50px;
+    opacity: 0.5;
+    width: 800px;
+}
+
+@media screen and (max-width: 1200px) {
+    .ana-card > div {;
+        justify-content: center;
+        flex-direction: column;
+        display: flex;
+        height: 50vh;
+    }
+    .ana-card > div > #ana {
+        margin-left: -30px;
+        margin-right: 0;
+        font-size: 1.7rem;;
+    }
+    .ana-card > #use-icon {
+        color: var(--color-font-1);
+        font-family: Arial;
+        font-size: 13rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .ana-card > #use-icon {
+        display: none;
+    }
+    .ana-card > div > #ana {
+        margin-right: 0;
+        font-size: 1.2rem;
+        margin-left: 0;
+        margin-top: -50px;
+    }
+    .main-card {
+        margin-top: 0;
+        height: auto;
+    }
+    .ana-card > div {
+        justify-content: center;
+        flex-direction: column;
+        display: flex;
+        height: 200px;
+    }
+    .bl-pad {
+        position: relative;
+        pointer-events: none;
+        margin-left: -400px;
+        margin-top: 80px;
+    }
+    .con-title {
+        width: calc(100% - 160px);
+    }
+}

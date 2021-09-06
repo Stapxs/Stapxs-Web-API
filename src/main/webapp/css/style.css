@@ -1,0 +1,81 @@
+.ss-card {
+    -webkit-box-shadow:0 0 5px transparent;
+    -moz-box-shadow:0 0 5px transparent;
+    box-shadow:0 0 5px transparent;
+    background-color: var(--color-card);
+    border-radius: 7px;
+    min-height: 40px;
+    min-width: 40px;
+    padding: 20px;
+
+    transition: -webkit-box-shadow .3s;
+    transition: -moz-box-shadow .3s;
+    transition: box-shadow .3s;
+}
+.ss-card:hover {
+     -webkit-box-shadow:0 0 5px var(--color-shader);
+     -moz-box-shadow:0 0 5px var(--color-shader);
+     box-shadow:0 0 5px var(--color-shader);
+ }
+.ss-card #card-title-hd {
+    background: var(--color-blue);
+    border-radius: 5px;
+    height: 25px;
+    float: left;
+    width: 5px;
+}
+.ss-card header {
+    margin-left: 20px;
+    font-size: 1.02rem;
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+}
+
+.ss-button {
+    background: var(--color-blue);
+    color: var(--color-font);
+    border-radius: 7px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    height: 33px;
+    border: 0;
+}
+.ss-button:hover {
+    opacity: 0.95;
+}
+.ss-button:focus {
+    outline: none;
+}
+.ss-button:active {
+    opacity: 0.9;
+}
+
+footer > div:first-child {
+    color: var(--color-font);
+    margin-bottom: 20px;
+}
+footer > div:first-child > span {
+    margin-left: 20px;
+    font-size: 0.7rem;
+}
+footer > div:last-child {
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: -10px;
+    font-size: 0.7rem;
+}
+footer > div:last-child span a {
+    color: var(--color-font-1);
+}
+footer header {
+    color: var(--color-blue);
+}
+footer header span {
+    color: var(--color-font-1);
+    font-size: 0.7rem;
+    margin-left: 10px;
+}
+
+.cls-1 {
+    fill: var(--color-card-1);
+}

@@ -1,0 +1,129 @@
+.list-card {
+    padding-bottom: 30px !important;
+    background: var(--color-card);
+    padding-top: 30px !important;
+    flex-direction: column;
+    border-radius: 7px;
+    position: absolute;
+    display: flex;
+    width: 250px;
+    border: 0;
+}
+.list-card li {
+    background: var(--color-card) !important;
+    margin-right: 20px !important;
+    margin-left: 20px !important;
+    margin-top: 5px !important;
+    border: 0 !important;
+    border-radius: 7px;
+
+    transition: background .2s;
+}
+.list-card li:hover {
+    background: var(--color-card-1) !important;
+}
+.list-card li a {
+    padding: 11px 20px 10px 20px !important;
+    color: var(--color-font) !important;
+    display: flex;
+    width: 100%;
+}
+.list-card li a i {
+    font-size: 1.4rem;
+    width: 45px;
+}
+.list-card li a span {
+    line-height: 1.5rem;
+}
+
+.ui-widget-content .ui-state-active {
+    background: var(--color-card-1) !important;
+
+    -webkit-box-shadow:0 0 5px var(--color-shader);
+    -moz-box-shadow:0 0 5px var(--color-shader);
+    box-shadow:0 0 5px var(--color-shader);
+}
+.ui-widget-content .ui-state-active > a {
+      color: var(--color-blue) !important;
+  }
+.ui-widget-content {
+    background: transparent !important;
+    border: 0 !important;
+}
+.ui-tabs .ui-tabs-panel {
+    padding: 0 !important;
+}
+
+.main-card {
+    margin-left: 270px;
+}
+
+.ana-card {
+    display: flex;
+    color: var(--color-font);
+    font-size: 1.02rem;
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+}
+.ana-card div {
+    background: var(--color-blue);
+    border-radius: 5px;
+    height: 24px;
+    width: 5px;
+}
+.ana-card span {
+    margin-left: 20px;
+}
+
+.api-list-card {
+    margin-top: 20px;
+    display: flex;
+    cursor: hand;
+}
+.api-list-card span {
+    color: var(--color-font-1);
+    font-size: 0.95rem;
+    line-height: 1.2rem;
+}
+.api-list-card > div:first-child {
+    background: var(--color-blue);
+    border-radius: 5px;
+    width: 5px;
+    transform: scaleY(0);
+
+    transition: transform .2s;
+}
+.api-list-card:hover > div:first-child {
+    transform: scaleY(1);
+}
+.api-list-card > div:last-child div:first-child {
+    color: var(--color-font);
+    display: flex;
+}
+@media screen and (max-width: 1200px) {
+    .main-card {
+        margin-left: 0;
+    }
+    .list-card {
+        padding-bottom: 10px !important;
+        background: var(--color-card);
+        padding-top: 4px !important;
+        border-radius: 7px;
+        display: flex;
+        border: 0;
+        margin-bottom: 20px !important;
+        flex-direction: unset;
+        width: calc(100% - 5px);
+        justify-content: center;
+    }
+    .list-card li {
+        margin-right: 10px !important;
+        margin-left: 10px !important;
+    }
+    .list-card li a span {
+        display: none;
+    }
+    .list-card li a i {
+        width: auto;
+    }
+}
