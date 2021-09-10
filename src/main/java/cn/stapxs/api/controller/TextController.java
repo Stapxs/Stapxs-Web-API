@@ -4,6 +4,7 @@ import cn.stapxs.api.appInfo;
 import cn.stapxs.api.domain.msg.AnaMsg;
 import cn.stapxs.api.domain.msg.BaseMsg;
 import cn.stapxs.api.service.AnaService;
+import cn.stapxs.api.util.Number;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,28 +49,58 @@ public class TextController {
         }
         // 处理
         String SSAnaFile = appInfo.root + "Anas/SS.txt";
-        AnaMsg ana;
-        if(id.isPresent()) {
-            ana = anaService.getAna(SSAnaFile, id.get());
-        } else {
-            ana = anaService.getAna(SSAnaFile);
-        }
-        if(ana != null) {
-            model.addAttribute("stat", "200");
-            if(type.isPresent() && type.get().equals("json")) {
-                String jsonObject = gson.toJson(ana);
-                model.addAttribute("str", jsonObject);
-            } else {
-                model.addAttribute("str", ana.getAna());
+        AnaMsg ana = null;
+        /*
+         * 如果 type 不是 json / txt 并且是数字就直接显示为主页
+         * 其他情况正常请求
+        **/
+        if(type.isPresent()) {
+            switch (type.get()) {
+                case "json" :
+                case "txt" : {
+                    if(id.isPresent()) {
+                        ana = anaService.getAna(SSAnaFile, id.get());
+                    } else {
+                        ana = anaService.getAna(SSAnaFile);
+                    }
+                    // 输出 API
+                    if(ana != null) {
+                        model.addAttribute("stat", "200");
+                        if(type.get().equals("json")) {
+                            String jsonObject = gson.toJson(ana);
+                            model.addAttribute("str", jsonObject);
+                        } else {
+                            model.addAttribute("str", ana.getAna());
+                        }
+                    } else {
+                        model.addAttribute("stat", "404");
+                        if(type.get().equals("json")) {
+                            model.addAttribute("str", gson.toJson(new BaseMsg(404, "未找到指定语录！")));
+                        } else {
+                            model.addAttribute("str", "未找到指定语录！");
+                        }
+                    }
+                    return "api";
+                }
+                case "view": {
+                    break;
+                }
+                default: {
+                    if(Number.isInteger(type.get())) {
+                        // 返回主页
+                        ana = anaService.getAna(SSAnaFile, Integer.parseInt(type.get()));
+                        model.addAttribute("title", "林槐语录");
+                        model.addAttribute("id", String.valueOf(ana.getId()));
+                        model.addAttribute("ana", ana.getAna());
+                        return "SS-Ana";
+                    }
+                }
             }
-        } else {
-            model.addAttribute("stat", "404");
-            if(type.isPresent() && type.get().equals("json")) {
-                model.addAttribute("str", gson.toJson(new BaseMsg(404, "未找到指定语录！")));
-            } else {
-                model.addAttribute("str", "未找到指定语录！");
-            }
         }
+        // 返回 400
+        model.addAttribute("stat", "400");
+        model.addAttribute("str", "调用方式错误！");
+        model.addAttribute("show", true);
         return "api";
     }
 }

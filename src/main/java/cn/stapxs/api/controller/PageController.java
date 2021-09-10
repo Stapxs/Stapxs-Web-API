@@ -1,10 +1,9 @@
 package cn.stapxs.api.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,11 +23,12 @@ public class PageController {
     public String List() { return "list"; }
     @RequestMapping("Doc")
     public String Doc() { return "doc"; }
-
     @RequestMapping("SS-Ana")
-    public String SSAna(String id, Model model) {
-        model.addAttribute("title", "林槐语录");
-        model.addAttribute("id", id);
-        return "SS-Ana";
+    public String SSAna() { return "SS-Ana"; }
+
+    @RequestMapping("Error")
+    public String Error(boolean debug, Model model) {
+        model.addAttribute("debug", debug);
+        return "err/error";
     }
 }

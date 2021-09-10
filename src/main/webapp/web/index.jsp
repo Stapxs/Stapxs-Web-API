@@ -7,8 +7,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
-<html>
+<html prefix="og: https://ogp.me/ns#">
 <head>
     <title>林槐服务接口</title>
     <jsp:include page="../module/head.jsp"/>

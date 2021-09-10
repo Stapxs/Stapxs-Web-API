@@ -104,7 +104,7 @@
 }
 
 @media screen and (max-width: 1200px) {
-    .ana-card > div {;
+    .ana-card > div {
         justify-content: center;
         flex-direction: column;
         display: flex;

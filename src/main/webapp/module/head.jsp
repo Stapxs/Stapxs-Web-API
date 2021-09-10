@@ -4,6 +4,10 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="theme-color" content="#3A3A3A">
 
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:site_name" content="林槐的杂货铺">
+<meta property="og:type" content="blog">
+
 <link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="../css/color.css">

@@ -1,5 +1,7 @@
 package cn.stapxs.api.config;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.ServletContext;
@@ -25,13 +27,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
-//    @Override
-//    public void onStartup(ServletContext servletContext) throws ServletException {
-//        //配置字符过滤器
-//        FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encodingFilter", new CharacterEncodingFilter());
-//        encodingFilter.setInitParameter("encoding", "utf-8");
-//        encodingFilter.setInitParameter("forceEncoding", "true");
-//        encodingFilter.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD), false, "/*");
-//        super.onStartup(servletContext);
-//    }
 }
