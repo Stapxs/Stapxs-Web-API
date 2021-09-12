@@ -43,7 +43,7 @@
         }
     }
 
-    if(show != null && (boolean) show) {
+    if(show != null && (boolean) show && request.getAttribute("str") != null) {
         msgInfo = (String) request.getAttribute("str");
     }
 %>

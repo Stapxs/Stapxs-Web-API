@@ -6,6 +6,7 @@ import cn.stapxs.api.domain.BingPicInfo;
 import cn.stapxs.api.domain.msg.BaseMsg;
 import cn.stapxs.api.service.BingPicService;
 import cn.stapxs.api.util.Number;
+import cn.stapxs.api.util.UI;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,13 +50,11 @@ public class PicController {
         BingPicInfo pic = bingPicService.getInfo(dayInt);
         String baseUrl = "https://www.bing.com" + pic.getUrlbase();
         String url = baseUrl + "_" + size.get() + ".jpg";
-            model.addAttribute("stat", "302");
-            model.addAttribute("str", url);
-        return "api";
+        return UI.JumpAPI(302, url, model);
     }
 
-    @GetMapping(value = {"/PicLib", "/PicLib/{lib}"}, name = "林槐图片库/获取 SS 收集在库的一些图片。")
-    public String ssPicLib(@PathVariable Optional<String> lib, Model model, HttpServletResponse response) throws IOException {
+    @GetMapping(value = {"/PicLib", "/PicLib/{lib}", "/PicLib/{lib}/{type}"}, name = "林槐图片库/获取 SS 收集在库的一些图片。")
+    public String ssPicLib(@PathVariable Optional<String> type, @PathVariable Optional<String> lib, Model model, HttpServletResponse response) throws IOException {
         String picRoot = appInfo.root + "Pics";
         List<BaseClass> allType = new ArrayList<>();
         if(!lib.isPresent()) {
@@ -71,8 +70,7 @@ public class PicController {
                     }
                 }
             }
-            model.addAttribute("stat", "200");
-            model.addAttribute("str", new Gson().toJson(allType));
+            return UI.JumpAPI(200, new Gson().toJson(allType), model);
         } else {
             // 抽取图片
             File file = new File(picRoot + "/" + lib.get());
@@ -87,14 +85,19 @@ public class PicController {
                     IOUtils.copy(fis, response.getOutputStream());
                     return null;
                 } else {
-                    model.addAttribute("stat", "404");
-                    model.addAttribute("str", new Gson().toJson(new BaseMsg(404, "此存储库没有图片。")));
+                    if(type.isPresent() && type.get().equals("json")) {
+                        return UI.JumpAPI(404, new Gson().toJson(new BaseMsg(404, "此存储库没有图片。")), model);
+                    } else {
+                        return UI.JumpError(404, "此存储库没有图片", model);
+                    }
                 }
             } else {
-                model.addAttribute("stat", "404");
-                model.addAttribute("str", new Gson().toJson(new BaseMsg(404, "此存储库不存在。")));
+                if(type.isPresent() && type.get().equals("json")) {
+                    return UI.JumpAPI(404, new Gson().toJson(new BaseMsg(404, "此存储库不存在。")), model);
+                } else {
+                    return UI.JumpError(404, "此存储库不存在", model);
+                }
             }
         }
-        return "api";
     }
 }

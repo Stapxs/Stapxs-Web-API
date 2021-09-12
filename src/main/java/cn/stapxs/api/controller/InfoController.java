@@ -1,6 +1,7 @@
 package cn.stapxs.api.controller;
 
 import cn.stapxs.api.domain.ApiInfo;
+import cn.stapxs.api.util.UI;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,9 +79,6 @@ public class InfoController {
         apis.setOther(other);
 
         String json = gson.toJson(apis);
-        model.addAttribute("stat", "200");
-        model.addAttribute("str", json);
-
-        return "api";
+        return UI.JumpAPI(200, json, model);
     }
 }

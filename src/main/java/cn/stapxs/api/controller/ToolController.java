@@ -1,9 +1,12 @@
 package cn.stapxs.api.controller;
 
 import cn.stapxs.api.domain.msg.BaseMsg;
+import cn.stapxs.api.service.MCService;
 import cn.stapxs.api.util.Number;
 import cn.stapxs.api.util.ServerListPing17;
+import cn.stapxs.api.util.UI;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +28,14 @@ public class ToolController {
 
     private static final Gson gson = new Gson();
 
+    @Autowired
+    MCService mcService;
+
     @GetMapping(value = {"/MC-Sever/{address}/", "/MC-Sever/{address}/{type}"}, name = "Minecraft 服务器信息获取/获取 MC 服务器基础信息，包括标题、玩家、PING 等。")
     public String getMCSInfo(@PathVariable Optional<String> type, @PathVariable String address, Model model) {
         System.out.println(address);
         try {
+            // 初始化数据
             String add = "";
             int pot = 25565;
             if (address.indexOf(":") > 0) {
@@ -37,6 +44,7 @@ public class ToolController {
             } else {
                 add = address;
             }
+            // 请求服务器
             InetSocketAddress socket = null;
             if (!add.equals("")) {
                 socket = new InetSocketAddress(InetAddress.getByName(add), pot);
@@ -46,9 +54,7 @@ public class ToolController {
                 if(type.isPresent()) {
                     switch (type.get()) {
                         case "json": {
-                            model.addAttribute("stat", "200");
-                            model.addAttribute("str", response);
-                            break;
+                            return UI.JumpAPI(200, response, model);
                         }
                         case "view": {
                             break;
@@ -63,57 +69,10 @@ public class ToolController {
                     return "tool/MC-Server";
                 }
             }
-        } catch (UnknownHostException e) {
-            if (type.isPresent()) {
-                e.printStackTrace();
-                switch (type.get()) {
-                    case "json": {
-                        model.addAttribute("stat", "500");
-                        model.addAttribute("str", gson.toJson(new BaseMsg(500, "无法解析 IP / 域名！")));
-                        break;
-                    }
-                    case "view": {
-                        break;
-                    }
-                    default: {
-                        model.addAttribute("inn", true);
-                        model.addAttribute("code", "500");
-                        model.addAttribute("str", "无法解析 IP / 域名！");
-                        return "err/error";
-                    }
-                }
-            } else {
-                model.addAttribute("inn", true);
-                model.addAttribute("code", "500");
-                model.addAttribute("str", "无法解析 IP / 域名！");
-                return "err/error";
-            }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-            if (type.isPresent()) {
-                switch (type.get()) {
-                    case "json": {
-                        model.addAttribute("stat", "500");
-                        model.addAttribute("str", gson.toJson(new BaseMsg(500, e.getMessage())));
-                        break;
-                    }
-                    case "view": {
-                        break;
-                    }
-                    default: {
-                        model.addAttribute("inn", true);
-                        model.addAttribute("code", "500");
-                        model.addAttribute("str", e.getMessage());
-                        return "err/error";
-                    }
-                }
-            } else {
-                model.addAttribute("inn", true);
-                model.addAttribute("code", "500");
-                model.addAttribute("str", e.getMessage());
-                return "err/error";
-            }
+            return mcService.MCInfoErr(type, e.getMessage(), model);
         }
-        return "api";
+        return UI.JumpError(400, model);
     }
 }

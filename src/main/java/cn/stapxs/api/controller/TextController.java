@@ -5,6 +5,7 @@ import cn.stapxs.api.domain.msg.AnaMsg;
 import cn.stapxs.api.domain.msg.BaseMsg;
 import cn.stapxs.api.service.AnaService;
 import cn.stapxs.api.util.Number;
+import cn.stapxs.api.util.UI;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,22 +70,18 @@ public class TextController {
                     }
                     // 输出 API
                     if(ana != null) {
-                        model.addAttribute("stat", "200");
                         if(type.get().equals("json")) {
-                            String jsonObject = gson.toJson(ana);
-                            model.addAttribute("str", jsonObject);
+                            return UI.JumpAPI(200, gson.toJson(ana), model);
                         } else {
-                            model.addAttribute("str", ana.getAna());
+                            return UI.JumpAPI(200, ana.getAna(), model);
                         }
                     } else {
-                        model.addAttribute("stat", "404");
                         if(type.get().equals("json")) {
-                            model.addAttribute("str", gson.toJson(new BaseMsg(404, "未找到指定语录！")));
+                            return UI.JumpAPI(404, gson.toJson(new BaseMsg(404, "未找到指定语录！")), model);
                         } else {
-                            model.addAttribute("str", "未找到指定语录！");
+                            return UI.JumpAPI(404, "未找到指定语录！", model);
                         }
                     }
-                    return "api";
                 }
                 case "view": {
                     break;
@@ -102,9 +99,6 @@ public class TextController {
             }
         }
         // 返回 400
-        model.addAttribute("stat", "400");
-        model.addAttribute("str", "调用方式错误！");
-        model.addAttribute("show", true);
-        return "api";
+        return UI.JumpError(400, model);
     }
 }
