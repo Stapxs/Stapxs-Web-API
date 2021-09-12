@@ -2,6 +2,8 @@ package cn.stapxs.api.service;
 
 import cn.stapxs.api.domain.msg.AnaMsg;
 
+import java.io.IOException;
+
 /**
  * @Version: 1.0
  * @Date: 2021/9/1 下午 4:34
@@ -10,6 +12,6 @@ import cn.stapxs.api.domain.msg.AnaMsg;
  * @Description TO DO
  **/
 public interface AnaService {
-    public AnaMsg getAna(String file);
-    public AnaMsg getAna(String file, int index);
+    public AnaMsg getAna(String file) throws IOException;
+    public AnaMsg getAna(String file, int index) throws IOException;
 }

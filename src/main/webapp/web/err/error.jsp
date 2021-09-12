@@ -10,14 +10,15 @@
     Object code = request.getAttribute("javax.servlet.error.status_code");
     Object info = request.getAttribute("javax.servlet.error.message");
     Object error = request.getAttribute("javax.servlet.error.exception_type");
+    Object show = request.getAttribute("inn");
 
-    boolean debug = (boolean) request.getAttribute("debug");
+    Object debug = request.getAttribute("debug");
 
     String strInfo = info == null ? "null" : info.toString();
     String strError = error == null ? "null" : error.toString();
     String strCode = code == null ? "200" : code.toString();
 
-    if((boolean) request.getAttribute("inn")) {
+    if(show != null && (boolean) show) {
         strCode = (String) request.getAttribute("code");
     }
 
@@ -42,7 +43,7 @@
         }
     }
 
-    if((boolean) request.getAttribute("inn")) {
+    if(show != null && (boolean) show) {
         msgInfo = (String) request.getAttribute("str");
     }
 %>
@@ -50,17 +51,17 @@
 <html>
 <head>
     <title>喵喵喵 - 林槐服务接口</title>
-    <jsp:include page="../../module/head.jsp"/>
-    <link rel="stylesheet" href="../../css/error.css">
+    <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/error.css">
 </head>
 
 <body style="background: var(--color-bg);">
-<jsp:include page="../../module/navbar.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/module/navbar.jsp"/>
 <div style="display: flex;flex-direction: column;height: calc(100vh - 76px);">
     <div class="container-lg" style="flex: 1;">
         <%-- Code Here …… --%>
-        <div align="center" class="main-card" <%if(debug)out.print("style=\"margin-top: 0;\"");%>>
-            <div class="ss-card info-card" <%if(debug)out.print("style=\"display: none;\"");%>>
+        <div align="center" class="main-card" <%if(debug != null && (boolean) debug)out.print("style=\"margin-top: 0;\"");%>>
+            <div class="ss-card info-card" <%if(debug != null && (boolean) debug)out.print("style=\"display: none;\"");%>>
                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="fish" class="svg-inline--fa fa-fish fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                     <path fill="currentColor"
                           d="<%=svg%>"
@@ -70,7 +71,7 @@
                 <div id="info"><span><%=msgInfo%></span></div>
                 <button onclick="window.location.href = '../..';">回去看看</button>
             </div>
-            <div class="debug-card ss-card" <%if(!debug)out.print("style=\"display: none;\"");%>>
+            <div class="debug-card ss-card" <%if(debug == null || !(boolean) debug)out.print("style=\"display: none;\"");%>>
                 <div id="card-title-hd"></div>
                 <header>Debug Info</header>
                 <div style="padding: 20px;">
@@ -101,9 +102,9 @@
             </div>
         </div>
     </div>
-    <jsp:include page="../../module/footer.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}/module/footer.jsp"/>
 </div>
 </body>
-<%@include file="../../module/js.html"%>
-<script src="../../js/index.js"></script>
+<jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
+<script src="${pageContext.request.contextPath}/js/index.js"></script>
 </html>

@@ -29,5 +29,9 @@
             }
             break;
         }
+        case "500": {
+            out.print(str);
+            break;
+        }
     }
 %>

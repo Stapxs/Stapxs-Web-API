@@ -5,10 +5,7 @@ import cn.stapxs.api.service.AnaService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,7 +22,7 @@ import java.util.Random;
 public class AnaServiceImpl implements AnaService {
 
     @Override
-    public AnaMsg getAna(String file) {
+    public AnaMsg getAna(String file) throws IOException {
         List<String> ana = readAna(file);
         if(ana.get(0).equals("err")) {
             return null;
@@ -35,9 +32,9 @@ public class AnaServiceImpl implements AnaService {
     }
 
     @Override
-    public AnaMsg getAna(String file, int index) {
+    public AnaMsg getAna(String file, int index) throws IOException {
         List<String> ana = readAna(file);
-        if(ana.get(0).equals("err") || index > ana.size()) {
+        if(ana.size() == 0 || index > ana.size()) {
             return null;
         }
         AnaMsg anaRet = new AnaMsg();
@@ -51,9 +48,9 @@ public class AnaServiceImpl implements AnaService {
 
     // ------------------------------------------------------------
 
-    private List<String> readAna(String file) {
+    private List<String> readAna(String file) throws IOException {
         List<String> back = new ArrayList<>();
-        try {
+
             File filename = new File(file);
             InputStreamReader reader = new InputStreamReader(
                     new FileInputStream(filename));
@@ -65,12 +62,7 @@ public class AnaServiceImpl implements AnaService {
                 line = br.readLine();
                 back.add(line);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            back = new ArrayList<>();
-            back.add("err");
-            return back;
-        }
+
         return back;
     }
 }

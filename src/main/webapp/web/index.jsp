@@ -104,6 +104,6 @@
     <jsp:include page="../module/footer.jsp"/>
 </div>
 </body>
-<%@include file="../module/js.html"%>
+<jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
 <script src="../js/index.js"></script>
 </html>

@@ -12,7 +12,7 @@ fetch('/SS-Ana/Get?type=json')
 $(document).ready(function(){
     // 语录点击事件
     $("div.ana-card").click(function () {
-        window.location.href = "/SS-Ana?id=" + document.getElementById('ana').dataset.id;
+        window.location.href = "/SS-Ana/" + document.getElementById('ana').dataset.id;
     });
     // 主卡片分类
     $("#main-more div").click( function () {

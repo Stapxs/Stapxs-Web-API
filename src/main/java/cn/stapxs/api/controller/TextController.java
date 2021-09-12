@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class TextController {
     AnaService anaService;
 
     @GetMapping(value = {"/SS-Ana/{type}", "/SS-Ana/{type}/{id}"}, name = "林槐语录/获取林槐语录（负能量警告）。")
-    public String getSSAna(@PathVariable Optional<Integer> id, @PathVariable Optional<String> type, Model model, HttpServletRequest request) {
+    public String getSSAna(@PathVariable Optional<Integer> id, @PathVariable Optional<String> type, Model model, HttpServletRequest request) throws IOException {
         // 兼容旧访问方式（非 RESTful 的 Get 方式）
         if(type.isPresent() && type.get().equals("Get")) {
             Enumeration names = request.getParameterNames();
@@ -45,6 +46,9 @@ public class TextController {
                 if(name.equals("type")) {
                     type =  Optional.of(value);
                 }
+            }
+            if(type.get().equals("Get")) {
+                type = Optional.of("txt");
             }
         }
         // 处理
@@ -92,7 +96,7 @@ public class TextController {
                         model.addAttribute("title", "林槐语录");
                         model.addAttribute("id", String.valueOf(ana.getId()));
                         model.addAttribute("ana", ana.getAna());
-                        return "SS-Ana";
+                        return "tool/SS-Ana";
                     }
                 }
             }

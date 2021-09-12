@@ -29,7 +29,7 @@
                 <a class="nav-item nav-link <%if(servletPath.equals("/web/index.jsp"))out.print("active");%>" href="${pageContext.request.contextPath}/">主页</a>
                 <a class="nav-item nav-link <%if(servletPath.equals("/web/list.jsp"))out.print("active");%>" href="${pageContext.request.contextPath}/List">列表</a>
                 <a class="nav-item nav-link <%if(servletPath.equals("/web/doc.jsp"))out.print("active");%>" href="${pageContext.request.contextPath}/Doc">文档</a>
-                <a class="nav-item nav-link" href="#">关于</a>
+                <a class="nav-item nav-link <%if(servletPath.equals("/web/about.jsp"))out.print("active");%>" href="${pageContext.request.contextPath}/About">关于</a>
             </div>
         </div>
     </div>

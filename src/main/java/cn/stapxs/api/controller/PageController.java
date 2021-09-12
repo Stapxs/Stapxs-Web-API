@@ -1,11 +1,8 @@
 package cn.stapxs.api.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Version: 1.0
@@ -23,8 +20,14 @@ public class PageController {
     public String List() { return "list"; }
     @RequestMapping("Doc")
     public String Doc() { return "doc"; }
+    @RequestMapping("About")
+    public String About() { return "about"; }
+
     @RequestMapping("SS-Ana")
-    public String SSAna() { return "SS-Ana"; }
+    public String SSAna(String id, Model model) {
+        model.addAttribute("id", id);
+        return "tool/SS-Ana";
+    }
 
     @RequestMapping("Error")
     public String Error(boolean debug, Model model) {

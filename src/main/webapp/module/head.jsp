@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -8,7 +9,7 @@
 <meta property="og:site_name" content="林槐的杂货铺">
 <meta property="og:type" content="blog">
 
-<link rel="stylesheet" href="../bootstrap/bootstrap.min.css">
-<link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="../css/color.css">
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/color.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">

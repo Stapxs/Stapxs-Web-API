@@ -10,16 +10,16 @@
 <html>
 <head>
     <title>林槐语录 - 林槐服务接口</title>
-    <jsp:include page="../module/head.jsp"/>
-    <link rel="stylesheet" href="../css/SS-Ana.css">
+    <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
+    <link rel="stylesheet" href="../../css/SS-Ana.css">
 
     <meta property="og:title" content="林槐语录">
-    <meta property="og:description" content="<%=request.getAttribute("ana")%>>">
+    <meta property="og:description" content="<%=request.getAttribute("ana")%>">
     <meta property="og:url" content="https://api/stapxs.cn/SS-Ana/<%=request.getAttribute("id")%>">
 </head>
 
 <body style="background: var(--color-bg);color: var(--color-font)">
-<jsp:include page="../module/navbar.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/module/navbar.jsp"/>
 <div style="display: flex;flex-direction: column;height: calc(100vh - 76px);">
     <div class="container-lg" style="flex: 1;">
         <div class="main-card">
@@ -76,10 +76,10 @@
             </div>
         </div>
     </div>
-<jsp:include page="../module/footer.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/module/footer.jsp"/>
 </div>
 </body>
-<%@include file="../module/js.html"%>
+<jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
 <script>
     <%
         String id = (String) request.getAttribute("id");
@@ -92,5 +92,5 @@
         }
     %>
 </script>
-<script src="../js/SS-Ana.js"></script>
+<script src="${pageContext.request.contextPath}/js/SS-Ana.js"></script>
 </html>

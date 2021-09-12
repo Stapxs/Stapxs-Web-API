@@ -10,10 +10,10 @@ import com.google.gson.Gson;
  * @Description TO DO 应用信息
  **/
 public class appInfo {
-    public static final String version = "1.0.0";
-    public static final int build = 0;
-    public static final String type = "Dev";
-    public static final double verNum = 1.0;
+    public static String version = "1.0.0";
+    public static int build = 0;
+    public static String type = "Dev";
+    public static double verNum = 1.0;
 
-    public static final String root = "C://Users/Stapxs/Desktop/SS-Web-API/";
+    public static String root = "C://Users/Stapxs/Desktop/SS-Web-API/";
 }
