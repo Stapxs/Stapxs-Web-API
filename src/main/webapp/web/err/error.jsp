@@ -106,5 +106,4 @@
 </div>
 </body>
 <jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
-<script src="${pageContext.request.contextPath}/js/index.js"></script>
 </html>

@@ -38,6 +38,8 @@ public class UI {
     public static String JumpAPI(int code, String str, Model model) {
         model.addAttribute("stat", String.valueOf(code));
         switch (code) {
+            case 400:
+            case 403:
             case 404:
             case 302:
             case 200: {

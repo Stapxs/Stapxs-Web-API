@@ -13,6 +13,11 @@
             out.print(str);
             break;
         }
+        case "403": {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            out.print(str);
+            break;
+        }
         case "302": {
             response.sendRedirect(str);
             break;

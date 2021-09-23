@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -77,7 +78,7 @@ public class ServerListPing17 {
         dataOutputStream = new DataOutputStream(outputStream);
 
         inputStream = socket.getInputStream();
-        inputStreamReader = new InputStreamReader(inputStream);
+        inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         DataOutputStream handshake = new DataOutputStream(b);
