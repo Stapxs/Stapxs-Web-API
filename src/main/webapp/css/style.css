@@ -80,3 +80,65 @@ footer header span {
 .cls-1 {
     fill: var(--color-card-1);
 }
+
+.bar-search {
+    border: 0;
+    height: 35px;
+    font-size: 15px;
+    margin-right: 0 !important;
+    background: var(--color-card-1);
+}
+.bar-search:focus {
+    background: var(--color-card-1);
+    outline: none;
+
+    -webkit-box-shadow:0 0 5px var(--color-shader);
+    -moz-box-shadow:0 0 5px var(--color-shader);
+    box-shadow:0 0 5px var(--color-shader);
+}
+
+.avatar {
+    cursor: hand;
+    overflow: hidden;
+    margin-left: 20px;
+    --main-size: 36px;
+    margin-right: 5px;
+    width: var(--main-size);
+    height: var(--main-size);
+    border-radius: var(--main-size);
+    background: var(--color-card-1);
+}
+.avatar img {
+    width: var(--main-size);
+    height: var(--main-size);
+}
+
+.user-name {
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+    .avatar {
+        width: auto;
+        height: auto;
+        margin-left: 0;
+        border-radius: 0;
+        background: none;
+    }
+    .avatar img {
+        display: none;
+    }
+
+    .bar-search {
+        display: none !important;
+    }
+
+    .user-name {
+        display: unset;
+        cursor: pointer;
+        color: var(--color-font-2);
+    }
+    .user-name:hover {
+        color: var(--color-font-1);
+    }
+}

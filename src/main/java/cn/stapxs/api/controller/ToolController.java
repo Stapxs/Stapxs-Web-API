@@ -1,8 +1,6 @@
 package cn.stapxs.api.controller;
 
-import cn.stapxs.api.domain.msg.BaseMsg;
 import cn.stapxs.api.service.MCService;
-import cn.stapxs.api.service.NetEaseService;
 import cn.stapxs.api.util.Number;
 import cn.stapxs.api.util.ServerListPing17;
 import cn.stapxs.api.util.UI;
@@ -31,9 +29,6 @@ public class ToolController {
 
     @Autowired
     MCService mcService;
-
-    @Autowired
-    NetEaseService netEaseService;
 
     @GetMapping(value = {"/MC-Sever/{address}/", "/MC-Sever/{address}/{type}"}, name = "Minecraft 服务器信息获取/获取 MC 服务器基础信息，包括标题、玩家、PING 等。")
     public String getMCSInfo(@PathVariable Optional<String> type, @PathVariable String address, Model model) {
@@ -78,18 +73,5 @@ public class ToolController {
             return mcService.MCInfoErr(type, e.getMessage(), model);
         }
         return UI.JumpError(400, model);
-    }
-
-    @GetMapping(value = {"/NetEase/{type}/{id}"}, name = "网易云音乐解析/获取网易云音乐音乐直链以及乐曲相关信息。")
-    public String getNetEast(@PathVariable String type, @PathVariable String id, Model model) {
-        if(!Number.isInteger(id)) {
-            return UI.JumpAPI(400, gson.toJson(new BaseMsg(400, "非法 ID")), model);
-        }
-        System.out.println(id + " / " + type);
-        if(!netEaseService.setInfo(type, id)) {
-            return UI.JumpAPI(400, gson.toJson(new BaseMsg(400, "非法类型")), model);
-        }
-        String back = netEaseService.getJson();
-        return "api";
     }
 }

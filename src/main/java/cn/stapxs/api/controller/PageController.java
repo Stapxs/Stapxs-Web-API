@@ -22,6 +22,10 @@ public class PageController {
     public String Doc() { return "doc"; }
     @RequestMapping("About")
     public String About() { return "about"; }
+    @RequestMapping("Account")
+    public String Account() { return "account"; }
+    @RequestMapping("Center")
+    public String Center() { return "center"; }
 
     @RequestMapping("SS-Ana")
     public String SSAna(String id, Model model) {

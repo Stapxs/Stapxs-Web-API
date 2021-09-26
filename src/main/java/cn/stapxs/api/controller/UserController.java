@@ -36,13 +36,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    /**
-     * @Author Stapxs
-     * @Description 获取登录公钥
-     * @Date 上午 9:07 2021/9/23
-     * @Param [name, model]
-     * @return java.lang.String
-    **/
     @GetMapping("/acc/getKey/{name}")
     public String getKey(@PathVariable String name, Model model) throws NoSuchAlgorithmException {
         Optional<UserBase> user = Optional.ofNullable(userService.getUserByName(name));
@@ -60,6 +53,8 @@ public class UserController {
 
     @PostMapping("/acc/loginAcc")
     public String loginAcc(int id, String str, Model model) {
+        System.out.println("操作 > 登陆账号 > loginAcc > " + id + " / " + str);
+        str = str.replace(" ", "+");
         Optional<UserBase> user = Optional.ofNullable(userService.getUserByID(id));
         if(user.isPresent()) {
             boolean passLogin = false;
@@ -149,5 +144,13 @@ public class UserController {
             return UI.JumpAPI(500, null, model);
         }
         return UI.JumpAPI(403, null, model);
+    }
+
+    // ----------------------------------------------------------------------
+
+    @GetMapping("/acc/info/getNick/{id}")
+    public String getNick(@PathVariable int id, Model model) {
+        Optional<String> nick = Optional.ofNullable(userService.getNick(id));
+        return nick.map(s -> UI.JumpAPI(200, gson.toJson(new BaseMsg(200, s)), model)).orElseGet(() -> UI.JumpAPI(404, gson.toJson(new BaseMsg(404, "没有找到这个账号！")), model));
     }
 }

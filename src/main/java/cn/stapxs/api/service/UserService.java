@@ -22,4 +22,6 @@ public interface UserService {
     public void saveToken(int id, String token);
 
     public boolean verifyLogin(int id, String token);
+
+    public String getNick(int id);
 }

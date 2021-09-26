@@ -90,4 +90,9 @@ public class UserServiceImpl implements UserService {
         System.out.println("操作 > 验证登陆 > verifyLogin > 失败");
         return false;
     }
+
+    @Override
+    public String getNick(int id) {
+        return userDao.getUserNick(id);
+    }
 }

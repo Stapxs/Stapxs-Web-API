@@ -1,0 +1,119 @@
+.main-pan {
+    width: 30%;
+    transition: margin .3s;
+    margin: calc(50vh - 330px) auto 0;
+}
+
+.login-pan {
+    height: 440px;
+    text-align: center;
+    transition: width .3s;
+}
+
+.fish {
+    width: 40px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: var(--color-blue);
+}
+
+.main-title {
+    color: var(--color-font);
+    font-size: 1.2rem;
+}
+
+.login-pan input {
+    border: 0;
+    width: 90%;
+    margin: 15px auto 0 auto;
+    color: var(--color-font);
+    caret-color: var(--color-blue);
+    background: var(--color-card-1);
+}
+.login-pan input:focus {
+    color: var(--color-font);
+    background: var(--color-card-1);
+    -webkit-box-shadow:0 0 5px var(--color-shader);
+    -moz-box-shadow:0 0 5px var(--color-shader);
+    box-shadow:0 0 5px var(--color-shader);
+}
+
+.fog-pwd {
+    width: 90%;
+    margin: 0 auto;
+    text-align: right;
+}
+.fog-pwd span {
+    margin-right: 5px;
+    font-size: 0.9rem;
+    line-height: 2.5rem;
+    color: var(--color-font-1);
+}
+
+.no-acc {
+    font-size: 0.9rem;
+    line-height: 3rem;
+    color: var(--color-font-1);
+}
+.no-acc span {
+    color: var(--color-blue);
+}
+
+.login-bt {
+    border: 0;
+    width: 55px;
+    height: 55px;
+    margin-top: 10px;
+    border-radius: 45px;
+    transition: opacity .3s;
+    color: var(--color-font);
+    background: var(--color-blue);
+}
+.login-bt:focus {
+    outline: none;
+    opacity: 0.9;
+}
+.login-bt:hover {
+    opacity: 0.95;
+}
+.login-bt svg {
+    width: 40px;
+    margin-top: 3px;
+    margin-left: 13px;
+}
+
+.err-pan {
+    display: flex;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: 0.97rem;
+    color: var(--color-font);
+    background: var(--color-blue);
+}
+.err-pan svg {
+    width: 17px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+.err-pan span {
+    line-height: 30px;
+}
+
+@media screen and (max-width: 1200px) {
+    .main-pan {
+        width: 45%;
+    }
+}
+
+@media screen and (max-width: 992px){
+    .main-pan {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .main-pan {
+        width: 100%;
+        margin-top: 0;
+    }
+}
