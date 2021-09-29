@@ -10,7 +10,7 @@
     String servletPath=request.getServletPath();
     String title = (String) request.getAttribute("title");
 %>
-<nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--color-card);margin-bottom: 20px">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background: var(--color-card);margin-bottom: 20px;">
     <div class="container-lg" style="padding-left: 30px;">
         <a class="navbar-brand" href="${pageContext.request.contextPath}/">
             <%

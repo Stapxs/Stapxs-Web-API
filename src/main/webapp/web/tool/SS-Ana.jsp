@@ -84,11 +84,11 @@
     <%
         String id = (String) request.getAttribute("id");
         if(id == null) {
-            out.print("const id = -1;");
+            out.print("const ana_id = -1;");
         } else if(!Number.isInteger(id)) {
-            out.print("const id = -2;");
+            out.print("const ana_id = -2;");
         } else {
-            out.print("const id = " + id + ";");
+            out.print("const ana_id = " + id + ";");
         }
     %>
 </script>

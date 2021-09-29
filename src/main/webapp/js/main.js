@@ -21,3 +21,16 @@ if(name !== '') {
 function Login() {
     window.location.href = "/Account"
 }
+
+function changeColor(type) {
+    const oldLink = document.getElementsByTagName("link").item(0);
+    const newLink = document.createElement("link");
+    newLink.setAttribute("rel", "stylesheet");
+    newLink.setAttribute("type", "text/css");
+    if(type === "dark") {
+        newLink.setAttribute("href", "/css/color-dark.css");
+    } else {
+        newLink.setAttribute("href", "/css/color-light.css");
+    }
+    document.getElementsByTagName("head").item(0).replaceChild(newLink, oldLink);
+}

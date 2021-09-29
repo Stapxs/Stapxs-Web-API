@@ -1,0 +1,22 @@
+:root {
+    /* 卡片颜色 */
+    --color-bg: #1E2529;
+    --color-card: #313D43;
+    --color-card-1: #38444B;
+    --color-card-2: #425058;
+
+    /* 字体颜色 */
+    --color-font: var(--color-main);
+    --color-font-1: #809CAA;
+    --color-font-2: #688291;
+
+    /* 字体颜色（反转） */
+    --color-font-r: var(--color-bg);
+    --color-font-1-r: var(--color-card);
+
+    /* 阴影颜色 */
+    --color-shader: var(--color-card-2);
+
+    /* 主题色 */
+    --color-main: #BDE6FB;
+}

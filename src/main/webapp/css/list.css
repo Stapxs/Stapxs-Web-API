@@ -44,7 +44,7 @@
     box-shadow:0 0 5px var(--color-shader);
 }
 .ui-widget-content .ui-state-active > a {
-      color: var(--color-blue) !important;
+      color: var(--color-main) !important;
   }
 .ui-widget-content {
     background: transparent !important;
@@ -66,7 +66,7 @@
     letter-spacing: 0.1rem;
 }
 .ana-card div {
-    background: var(--color-blue);
+    background: var(--color-main);
     border-radius: 5px;
     height: 24px;
     width: 5px;
@@ -86,7 +86,7 @@
     line-height: 1.2rem;
 }
 .api-list-card > div:first-child {
-    background: var(--color-blue);
+    background: var(--color-main);
     border-radius: 5px;
     width: 5px;
     transform: scaleY(0);

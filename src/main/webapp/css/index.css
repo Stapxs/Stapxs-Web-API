@@ -46,7 +46,7 @@
 .wel-icon {
     --main-size: 90px;
     margin-left: calc(50% - var(--main-size) / 2);
-    background-color: var(--color-blue);
+    background-color: var(--color-main);
     border-radius: var(--main-size);
     height: var(--main-size);
     width: var(--main-size);
@@ -54,6 +54,7 @@
     margin-top: 15%;
 }
 .wel-icon i {
+    color: var(--color-font-r);
     font-size: 2.5rem;
     margin-top: 25px;
 }
@@ -66,7 +67,7 @@
     font-weight: 100;
 }
 .ana-card div {
-    background: var(--color-blue);
+    background: var(--color-main);
     border-radius: 5px;
     height: 100%;
     width: 5px;
@@ -125,6 +126,7 @@
     -moz-box-shadow .3s,
     box-shadow .3s,
     background .4s,
+    opacity .3s,
     color .3s;
 }
 .main-card #main-more div:hover {
@@ -132,7 +134,8 @@
     -moz-box-shadow:0 0 20px var(--color-shader);
     box-shadow:0 0 20px var(--color-shader);
     background: var(--color-card-2);
-    color: var(--color-blue);
+    color: var(--color-main);
+    opacity: 0.7;
 }
 .main-card #main-more div i {
     font-size: 2rem;

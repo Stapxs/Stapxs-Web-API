@@ -1,6 +1,6 @@
 let link = "/SS-Ana/Get?type=json";
-if(id > -1) {
-    link = "/SS-Ana/Get?type=json&id=" + id;
+if(ana_id > -1) {
+    link = "/SS-Ana/Get?type=json&id=" + ana_id;
 }
 fetch(link)
     .then(response => response.json())

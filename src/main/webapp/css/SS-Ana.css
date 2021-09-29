@@ -43,7 +43,7 @@
     height: 60px;
 }
 .con-title > div {
-    background: var(--color-blue);
+    background: var(--color-main);
     border-radius: 5px;
     margin-right: 15px;
     height: 100%;
@@ -84,7 +84,7 @@
     transition: transform .4s ease-in, color .3s;
 }
 .flash:hover i {
-    color: var(--color-blue);
+    color: var(--color-main);
 }
 
 .bl-pad {

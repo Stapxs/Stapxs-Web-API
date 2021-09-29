@@ -21,12 +21,12 @@
     font-size: 0.9rem;
 }
 .info-card #code {
-    color: var(--color-blue);
+    color: var(--color-main);
     font-size: 1.5rem;
     font-weight: 300;
 }
 .info-card button {
-    background: var(--color-blue);
+    background: var(--color-main);
     color: var(--color-font);
     font-size: 0.95rem;
     border-radius: 7px;
@@ -55,7 +55,7 @@
 .debug-card i {
     font-size: 1.5rem;
     font-style: normal;
-    color: var(--color-blue);
+    color: var(--color-main);
     font-weight: 200;
 }
 .debug-card span {

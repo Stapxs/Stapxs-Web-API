@@ -14,13 +14,6 @@
     <link rel="stylesheet" href="../css/jquery-ui.css">
     <link rel="stylesheet" href="../css/list.css">
 </head>
-<script src="../js/jquery-1.12.4.js"></script>
-<script>
-    // 初始化 tabs
-    $(function() {
-        $("#tabs").tabs();
-    });
-</script>
 <body style="background: var(--color-bg);color: var(--color-font)">
     <jsp:include page="../module/navbar.jsp"/>
     <div style="display: flex;flex-direction: column;height: calc(100vh - 76px);">
@@ -64,8 +57,13 @@
         <jsp:include page="../module/footer.jsp"/>
     </div>
 </body>
-<script src="../bootstrap/popper.min.js"></script>
-<script src="../bootstrap/bootstrap.min.js"></script>
+<jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
 <script src="../js/jquery-ui.js"></script>
 <script src="../js/list.js"></script>
+<script>
+    // 初始化 tabs
+    $(function() {
+        $("#tabs").tabs();
+    });
+</script>
 </html>

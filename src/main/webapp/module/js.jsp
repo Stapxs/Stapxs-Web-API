@@ -1,4 +1,8 @@
-<script src="${pageContext.request.contextPath}/bootstrap/jquery-3.4.1.slim.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-1.12.4.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/popper.min.js"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/main.js"></script>
+<%
+    // TODO 在此处处理是否启用自动暗黑模式
+%>
+<script src="${pageContext.request.contextPath}/js/auto-theme.js"></script>

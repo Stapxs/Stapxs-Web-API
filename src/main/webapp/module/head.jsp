@@ -3,13 +3,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="format-detection" content="telephone=no">
-<meta name="theme-color" content="#3A3A3A">
+<meta name="theme-color" content="#313D43">
 
 <meta property="og:locale:alternate" content="zh_CN">
 <meta property="og:site_name" content="林槐的杂货铺">
 <meta property="og:type" content="blog">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/color-light.css">
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/color.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
