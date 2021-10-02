@@ -18,4 +18,7 @@ $(document).ready(function(){
     $("#main-more div").click( function () {
         window.location.href = "/List";
     });
+    $("#see-history").click( function () {
+        window.location.href = "/About#history";
+    })
 });

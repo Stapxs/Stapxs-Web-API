@@ -31,7 +31,7 @@
                     out.print(appInfo.type + " - " + appInfo.version);
                 %>
             </span><br>
-            <button class="ss-button" style="margin-top: 20%;width: 80%;">更新日志</button>
+            <button id="see-history" class="ss-button" style="margin-top: 20%;width: 80%;">更新日志</button>
         </div>
         <div id="wel-bl-pad" style="position: relative;pointer-events:none;">
             <svg style="opacity: 1;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="info" class="svg-inline--fa fa-info fa-w-6" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 512">

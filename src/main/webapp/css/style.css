@@ -25,6 +25,7 @@
     width: 5px;
 }
 .ss-card header {
+    color: var(--color-font);
     margin-left: 20px;
     margin-bottom: 10px;
     font-size: 1.02rem;

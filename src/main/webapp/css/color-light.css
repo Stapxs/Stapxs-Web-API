@@ -3,7 +3,7 @@
     --color-bg: #F8F9FA;
     --color-card: #FFFFFF;
     --color-card-1: #F1F3F5;
-    --color-card-2: #d7dde2;
+    --color-card-2: #e3e8ec;
 
     /* 字体颜色 */
     --color-font: #50534F;
@@ -18,5 +18,5 @@
     --color-shader: var(--color-card-2);
 
     /* 主题色 */
-    --color-main: #6994F8;
+    --color-main: #99B3DB;
 }

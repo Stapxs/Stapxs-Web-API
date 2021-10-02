@@ -1,0 +1,147 @@
+.bcd-about {
+    text-align: center;
+    flex: 1;
+}
+.bcd-about > div {
+    margin: 20px auto;
+    width: 240px;
+}
+.bcd-about > div > div {
+    justify-content: flex-end;
+    display: flex;
+    height: 17px;
+}
+.bcd-about span {
+    color: var(--color-main);
+    font-size: 1rem;
+    font-weight: 300;
+}
+.bcd-about a {
+    color: var(--color-font-2);
+    font-size: 0.8rem;
+}
+.bcd-body {
+    background: var(--color-card-1);
+}
+
+.thanks {
+    flex-direction: row;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-top: 10px;
+    display: flex;
+}
+.thanks > div {
+    display: flex;
+    flex: 1;
+}
+.thanks > div > div:first-child {
+    background: var(--color-card-1);
+    background-size: 100%;
+    border-radius: 55px;
+    margin-right: 20px;
+    height: 55px;
+    width: 55px;
+}
+.thanks > div > div:last-child span {
+    color: var(--color-font);
+    font-size: 1rem;
+}
+.thanks > div > div:last-child a {
+    color: var(--color-font-2);
+    font-size: 0.8rem;
+}
+
+.github-pop {
+    background: var(--color-card-1);
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 30px;
+    display: flex;
+}
+.github-pop > div {
+    background-size: 100%;
+    border-radius: 40px;
+    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+#history-body {
+    height: calc(100% - 40px);
+    padding-right: 20px;
+    padding-left: 20px;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+#history-body a {
+    color: var(--color-font-2);
+    font-family: Consolas;
+    font-size: 0.8rem;
+    margin-left: 30px;
+    font-weight: 300;
+    white-space:pre;
+}
+#history-body > div > #history-dot {
+    border-radius: var(--history-dot);
+    background: var(--color-card-2);
+    height: var(--history-dot);
+    width: var(--history-dot);
+    --history-dot: 20px;
+    margin-right: 10px;
+    margin-top: 2px;
+    padding: 5px;
+    float: left;
+}
+#history-body > div > #history-dot > div {
+    background: var(--color-main);
+    border-radius: 100%;
+    height: 100%;
+    width: 100%;
+}
+#history-body header {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+#history-body svg {
+    animation: fa-spin 1.5s infinite linear;
+    color: var(--color-main);
+    margin-bottom: 10px;
+    margin-top: 10%;
+    height: 50px;
+}
+#history-body i {
+    color: var(--color-main);
+    font-style: normal;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-main);
+    border-radius: 6px;
+}
+::-webkit-scrollbar {
+    background-color:var(--color-card-1);
+    width:6px;
+}
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+@media screen and (max-width: 992px) {
+    .thanks {
+        display: unset;
+    }
+
+    .bcd-about {
+        display: none;
+    }
+
+    .history {
+        flex: 1;
+        margin-right: 0 !important;
+    }
+}
