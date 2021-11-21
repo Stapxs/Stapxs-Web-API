@@ -66,6 +66,9 @@
     height: 40px;
     width: 40px;
 }
+.github-pop svg {
+    color: var(--color-font);
+}
 
 #history-body {
     height: calc(100% - 40px);
@@ -83,7 +86,7 @@
     font-weight: 300;
     white-space:pre;
 }
-#history-body > div > #history-dot {
+.history-dot {
     border-radius: var(--history-dot);
     background: var(--color-card-2);
     height: var(--history-dot);
@@ -94,7 +97,7 @@
     padding: 5px;
     float: left;
 }
-#history-body > div > #history-dot > div {
+.history-dot > div {
     background: var(--color-main);
     border-radius: 100%;
     height: 100%;
@@ -131,6 +134,79 @@
     display: none;
 }
 
+.about-text {
+    padding: 20px;
+}
+.about-text i {
+    color: var(--color-font-1);
+    margin-bottom: 10px;
+    font-style: normal;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-indent: 2em;
+    display: block;
+}
+.about-top {
+    background: var(--color-card-1);
+    text-align: center;
+    font-size: 0.96rem;
+    margin-top: 20px;
+    font-weight: 400;
+}
+
+.lis-button {
+    background: transparent;
+    text-align: left;
+    height: 25px;
+    width: 100%;
+    padding: 0;
+    border: 0;
+}
+.lis-button:focus {
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none;
+    border: 0;
+}
+.lis-button:hover {
+    background: transparent;
+}
+.lis-button svg {
+    transition: transform .2s ease-in;
+    color: var(--color-main);
+    margin-right: 10px;
+    margin-top: -36px;
+    height: 30px;
+    float: right;
+}
+.lis-info {
+    background: var(--color-card-1);
+    color: var(--color-font);
+    margin-right: 20px;
+    font-size: 0.96rem;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-weight: 400;
+}
+.lis-info i {
+    margin-right: 10px;
+    font-style: normal;
+    font-size: 1rem;
+}
+.lis-info a {
+    color: var(--color-font-1);
+    font-size: 0.8rem;
+}
+.lis-info div:nth-of-type(1) {
+    background: var(--color-main);
+    color: var(--color-font-1-r);
+    border-radius: 30px;
+    padding: 3px 15px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    float: right;
+}
+
 @media screen and (max-width: 992px) {
     .thanks {
         display: unset;
@@ -143,5 +219,12 @@
     .history {
         flex: 1;
         margin-right: 0 !important;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .wel-card-right {
+        height: auto !important;
+        float: inherit !important;
     }
 }

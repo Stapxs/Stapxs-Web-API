@@ -34,3 +34,40 @@ function changeColor(type) {
     }
     document.getElementsByTagName("head").item(0).replaceChild(newLink, oldLink);
 }
+
+function foldChange(sender) {
+    const svg = sender.getElementsByTagName('svg');
+    if(svg[0].style.transform === 'rotate(-90deg)') {
+        svg[0].style.transform = 'rotate(90deg)'
+        animateScroll(sender, 40)
+    } else {
+        svg[0].style.transform = 'rotate(-90deg)'
+    }
+}
+
+function animateScroll(element, speed) {
+    let rect=element.getBoundingClientRect()
+    let top=window.pageYOffset+rect.top
+    let currentTop=document.documentElement.scrollTop
+    let requestId
+    function step(timestamp) {
+        currentTop+=speed
+        if(currentTop<=top){
+            window.scrollTo(0,currentTop)
+            requestId=window.requestAnimationFrame(step)
+        }else{
+            window.cancelAnimationFrame(requestId)
+        }
+    }
+    window.requestAnimationFrame(step)
+}
+
+function scrollDiv(sender) {
+    const par_body = sender.parentNode
+    const line = par_body.getElementsByClassName('scroll-top')[0];
+    if(sender.scrollTop === 0) {
+        line.style.display = 'none'
+    } else {
+        line.style.display = 'block'
+    }
+}

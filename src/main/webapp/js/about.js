@@ -37,7 +37,7 @@ function updateHistory() {
         for (let i = 0; i < data.length; i++) {
             const msg = data[i]["commit"]["message"].split("\n")
             if (msg.length >= 1) {
-                const inn = String.raw`<div id="history-dot"><div></div></div><header>{1}</header>`
+                const inn = String.raw`<div class="history-dot"><div></div></div><header>{1}</header>`
                 const his = String.raw`<a>{1}</a><br>`
                 let str = '<div>' + inn.replace("{1}", msg[0] + " - " + data[i]["commit"]["author"]["date"])
                 for (let i = 1; i < msg.length; i++) {

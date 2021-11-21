@@ -56,6 +56,29 @@
             <div class="ss-card more-card" style="margin-top: 0;flex: 1;">
                 <div id="card-title-hd"></div>
                 <header>关于 Stapxs Web API</header>
+                <div class="ss-card about-top">
+                    『这是林槐语录API独有的一条哦！』 —— 要好好对待自己QWQ
+                </div>
+                <div class="about-text">
+                    <i>
+                        上面是林槐语录 API 里的一句，它曾经被安排在了第 32 位，一个我一直很喜欢的数字，而 SS Web API 也诞生于林槐语录。
+                        2020 年 3 月，我把林槐语录全部文本化后放在了 blog 上，之后我想在更多地方显示林槐语录，于是
+                        在 2020 年 7 月，我写下了第一个用于获取林槐语录的 PHP API —— 林槐语录 API，那只是个简短的 PHP 单文件。
+                    </i>
+                    <i>
+                        之后，因为更多乱七八糟的功能添加了进来，blog 下的 api 目录逐渐变成了一堆 PHP 文件的合集，杂乱无章的提供着各种功能的接口。
+                        在 2020 年大二，我学习了 Spring Boot，于是我规划着想把 API 整合成一个更规范完善的整体，由于学业繁忙，这个想法一直被搁置着。
+                        2021 年的假期，我终于想起了 API 重构的计划着手开始重写 —— 这就是你现在看见的 Stapxs Web API！
+                    </i>
+                    <i>
+                        还是那句熟悉的话：
+                        它有着并不是特别好看的界面，有着并不是特别规范的代码，有着看起来非常鸡肋的彩蛋。
+                        但是这些都不重要，重要的是，它是 SS 第一个用来学习和练习 Spring Boot 的程序。
+                    </i>
+                    <i style="text-align: right;">
+                        林槐出品，必属稽品
+                    </i>
+                </div>
             </div>
         </div>
         <div class="ss-card" style="margin-top: 20px;">
@@ -97,7 +120,8 @@
             <div class="ss-card history" style="width: 60%;margin-right: 20px;">
                 <div id="card-title-hd"></div>
                 <header>更新记录</header>
-                <div id="history-body">
+                <div class="scroll-top" style="display: none;"></div>
+                <div id="history-body" onscroll="scrollDiv(this);">
                     <div id="history-wait">
                         <svg id="history-load" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cog" class="svg-inline--fa fa-cog fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M487.4 315.7l-42.6-24.6c4.3-23.2 4.3-47 0-70.2l42.6-24.6c4.9-2.8 7.1-8.6 5.5-14-11.1-35.6-30-67.8-54.7-94.6-3.8-4.1-10-5.1-14.8-2.3L380.8 110c-17.9-15.4-38.5-27.3-60.8-35.1V25.8c0-5.6-3.9-10.5-9.4-11.7-36.7-8.2-74.3-7.8-109.2 0-5.5 1.2-9.4 6.1-9.4 11.7V75c-22.2 7.9-42.8 19.8-60.8 35.1L88.7 85.5c-4.9-2.8-11-1.9-14.8 2.3-24.7 26.7-43.6 58.9-54.7 94.6-1.7 5.4.6 11.2 5.5 14L67.3 221c-4.3 23.2-4.3 47 0 70.2l-42.6 24.6c-4.9 2.8-7.1 8.6-5.5 14 11.1 35.6 30 67.8 54.7 94.6 3.8 4.1 10 5.1 14.8 2.3l42.6-24.6c17.9 15.4 38.5 27.3 60.8 35.1v49.2c0 5.6 3.9 10.5 9.4 11.7 36.7 8.2 74.3 7.8 109.2 0 5.5-1.2 9.4-6.1 9.4-11.7v-49.2c22.2-7.9 42.8-19.8 60.8-35.1l42.6 24.6c4.9 2.8 11 1.9 14.8-2.3 24.7-26.7 43.6-58.9 54.7-94.6 1.5-5.5-.7-11.3-5.6-14.1zM256 336c-44.1 0-80-35.9-80-80s35.9-80 80-80 80 35.9 80 80-35.9 80-80 80z"></path></svg>
                         <br><i id="history-err">少女祈祷中</i>
@@ -165,18 +189,31 @@
                 <a>Version - 1.7</a>
             </div>
         </div>
-        <div class="ss-card" style="margin-top: 20px;height: 64px;">
-            <div id="card-title-hd"></div>
-            <header>许可版权声明</header>
-            <svg style="height: 30px;float: right;margin-top: -36px;color: var(--color-main);" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" class="svg-inline--fa fa-angle-right fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>
-        </div>
-        <div style="margin-top: 20px;margin-bottom: 20px;display: flex;height: 164px;">
-            <div class="ss-card" style="flex: 1;">
+        <div class="ss-card" style="margin-top: 20px;margin-bottom: 20px;">
+            <button onclick="foldChange(this)" class="btn btn-primary lis-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 <div id="card-title-hd"></div>
-                <header>版本信息</header>
-            </div>
-            <div class="ss-card" style="width: 164px;margin-left: 20px;">
-
+                <header>许可版权声明</header>
+                <svg style="transform: rotate(-90deg);" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" class="svg-inline--fa fa-angle-right fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>
+            </button>
+            <div class="collapse" id="collapseExample">
+                <div class="ss-card lis-info">
+                    <i>Bootstrap</i><a>By Bootstrap team</a>
+                    <div>MIT License</div>
+                    <div style="clear: both;display: block;"></div>
+                </div>
+                <div class="ss-card lis-info">
+                    <i>JQuery & JQuery UI</i><a>By OpenJS Foundation</a>
+                    <div>MIT License</div>
+                    <div style="clear: both;display: block;"></div>
+                </div>
+                <div class="ss-card lis-info">
+                    <i>Jsencrypt</i><a>By travist</a>
+                    <div>MIT License</div>
+                    <div style="clear: both;display: block;"></div>
+                </div>
+                <div class="ss-card lis-info">
+                    <i>Font Awesome</i><a>By Fonticons, Inc.</a>
+                </div>
             </div>
         </div>
     </div>

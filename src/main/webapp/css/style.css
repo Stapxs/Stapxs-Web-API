@@ -118,6 +118,11 @@ footer header span {
     display: none;
 }
 
+.scroll-top {
+    border-top: 1px dashed var(--color-main);
+    margin: 0 30px;
+}
+
 @media screen and (max-width: 992px) {
     .avatar {
         width: auto;

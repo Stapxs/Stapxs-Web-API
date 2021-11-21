@@ -1,14 +1,14 @@
 :root {
     /* 卡片颜色 */
-    --color-bg: #1E2529;
-    --color-card: #313D43;
-    --color-card-1: #38444B;
-    --color-card-2: #425058;
+    --color-bg: #2D2D2D;
+    --color-card: #3A3A3A;
+    --color-card-1: #494949;
+    --color-card-2: #5F5F5F;
 
     /* 字体颜色 */
-    --color-font: var(--color-main);
-    --color-font-1: #809CAA;
-    --color-font-2: #688291;
+    --color-font: #FFFFFF;
+    --color-font-1: #CFCFCF;
+    --color-font-2: #B0B0B0;
 
     /* 字体颜色（反转） */
     --color-font-r: var(--color-bg);
