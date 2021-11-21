@@ -27,7 +27,7 @@
 }
 .info-card button {
     background: var(--color-main);
-    color: var(--color-font);
+    color: var(--color-font-r);
     font-size: 0.95rem;
     border-radius: 7px;
     padding: 5px 20px;

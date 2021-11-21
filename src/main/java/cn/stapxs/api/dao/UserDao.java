@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserDao {
-
     // Select
     @Select("select * from sac_user where user_name=#{name}")
     public UserBase getUserByName(String name);

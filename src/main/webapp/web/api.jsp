@@ -19,7 +19,8 @@
             break;
         }
         case "302": {
-            response.sendRedirect(str);
+            // response.sendRedirect(str);
+            out.print("<script>window.location.replace(\"" + str + "\");</script>");
             break;
         }
         case "400": {
