@@ -122,18 +122,6 @@
     font-weight: 300;
 }
 
-::-webkit-scrollbar-thumb {
-    background: var(--color-main);
-    border-radius: 6px;
-}
-::-webkit-scrollbar {
-    background-color:var(--color-card-1);
-    width:6px;
-}
-::-webkit-scrollbar-button {
-    display: none;
-}
-
 .about-text {
     padding: 20px;
 }
@@ -182,9 +170,7 @@
 .lis-info {
     background: var(--color-card-1);
     color: var(--color-font);
-    margin-right: 20px;
     font-size: 0.96rem;
-    margin-left: 20px;
     margin-top: 20px;
     font-weight: 400;
 }

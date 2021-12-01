@@ -23,16 +23,24 @@ function Login() {
 }
 
 function changeColor(type) {
-    const oldLink = document.getElementsByTagName("link").item(0);
-    const newLink = document.createElement("link");
-    newLink.setAttribute("rel", "stylesheet");
-    newLink.setAttribute("type", "text/css");
-    if(type === "dark") {
-        newLink.setAttribute("href", "/css/color-dark.css");
-    } else {
-        newLink.setAttribute("href", "/css/color-light.css");
+    let match_list = ['color-.*\.css', 'prism-.*\.css']
+    const css_list = document.getElementsByTagName("link")
+    for(let i=0; i<css_list.length; i++) {
+        name = css_list[i].href
+        match_list.forEach(function (value) {
+            if(name.match(value) != null) {
+                const newLink = document.createElement("link");
+                newLink.setAttribute("rel", "stylesheet");
+                newLink.setAttribute("type", "text/css");
+                if(type === "dark") {
+                    newLink.setAttribute("href", name.replace('light', 'dark'));
+                } else {
+                    newLink.setAttribute("href", name.replace('dark', 'light'));
+                }
+                document.getElementsByTagName("head").item(0).replaceChild(newLink, css_list[i]);
+            }
+        })
     }
-    document.getElementsByTagName("head").item(0).replaceChild(newLink, oldLink);
 }
 
 function foldChange(sender) {

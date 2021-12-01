@@ -12,6 +12,17 @@
     transition: -moz-box-shadow .3s;
     transition: box-shadow .3s;
 }
+.ss-card div[class="ss-card"] {
+    min-height: 65px;
+    padding: 0;
+}
+.ss-card div[class="ss-card"] header {
+    margin: 20px 0 0 20px;
+}
+.ss-card div[class="ss-card"] > button > svg {
+    margin-right: 20px;
+    margin-top: -25px;
+}
 .ss-card:hover {
      -webkit-box-shadow:0 0 5px var(--color-shader);
      -moz-box-shadow:0 0 5px var(--color-shader);
@@ -121,6 +132,59 @@ footer header span {
 .scroll-top {
     border-top: 1px dashed var(--color-main);
     margin: 0 30px;
+}
+
+pre {
+    margin: 5px -10px -60px -10px !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+pre:before {
+    display: none !important;
+}
+pre:after {
+    display: none !important;
+}
+pre > code {
+    padding: 1rem !important;
+}
+pre > code span {
+    background: transparent !important;
+}
+pre[class*=language-]>code {
+    /*background-image: linear-gradient(transparent 50%,rgba(69,142,209,.04) 50%) !important;*/
+    background-image: none !important;
+    /*box-shadow: -1px 0 0 0 var(--color-main), 0 0 0 1px var(--color-shader) !important;*/
+    border-left: 0px solid var(--color-main) !important;
+    background-color: var(--color-card-2) !important;
+    border-left: 10px solid #358ccb;
+    background-origin: content-box;
+    background-attachment: local;
+    box-shadow: none !important;
+    background-size: 3em 3em;
+    border-radius: 7px;
+    position: relative;
+    opacity: 0.8;
+    z-index: 1;
+}
+code[class*=language-] {
+    max-height: inherit;
+    height: inherit;
+    padding: 0 1em;
+    display: block;
+    overflow: auto;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-main);
+    border-radius: 6px;
+}
+::-webkit-scrollbar {
+    background-color:var(--color-card-1);
+    width:6px;
+}
+::-webkit-scrollbar-button {
+    display: none;
 }
 
 @media screen and (max-width: 992px) {

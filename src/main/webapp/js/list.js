@@ -3,7 +3,7 @@ fetch('/sys/getInfo')
     .then(response => response.json())
     .then(data => {
         const html = String.raw`
-                                <div class="ss-card api-list-card" data-url="{1}">
+                                <div class="ss-card api-list-card" data-name="{1}">
                                     <div></div>
                                     <div>
                                         <div>
@@ -18,7 +18,7 @@ fetch('/sys/getInfo')
         for(let i=1; i<= name.length; i++) {
             for (let j = 0; j < data[name[i-1]].length; j++) {
                 let str = html;
-                str = str.replace("{1}", data[name[i-1]][j]["url"]);
+                str = str.replace("{1}", data[name[i-1]][j]["name"]);
                 str = str.replace("{2}", data[name[i-1]][j]["name"]);
                 str = str.replace("{3}", data[name[i-1]][j]["info"]);
                 let strCha = "#tabs-" + i;
@@ -32,6 +32,6 @@ fetch('/sys/getInfo')
 $(document).ready(function(){
     // 列表卡片点击事件
     $("div").delegate(".api-list-card", "click", function () {
-        window.location.href = "/Doc#" + $(this).data("url");
+        window.location.href = "/Doc#" + $(this).data("name");
     });
 });

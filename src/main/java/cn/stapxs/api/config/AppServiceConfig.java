@@ -28,8 +28,7 @@ public class AppServiceConfig implements WebMvcConfigurer {
     }
     //配置静态资源处理
     @Override
-    public void
-    configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 }

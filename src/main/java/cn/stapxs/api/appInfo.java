@@ -1,6 +1,8 @@
 package cn.stapxs.api;
 
-import com.google.gson.Gson;
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.context.annotation.Bean;
 
 /**
  * @Version: 1.0
@@ -9,11 +11,21 @@ import com.google.gson.Gson;
  * @Author: Stapxs
  * @Description TO DO 应用信息
  **/
+@Data
+@Builder
 public class appInfo {
-    public static String version = "1.0.0";
-    public static int build = 0;
+    public static String version = "1.0.1";
+    public static int build = 15;
     public static String type = "Dev";
     public static double verNum = 1.0;
 
     public static String root = "C://Users/Stapxs/Desktop/SS-Web-API/";
+
+    public String getVersion() {
+        return version;
+    }
+
+    public int getBuild() {
+        return build;
+    }
 }

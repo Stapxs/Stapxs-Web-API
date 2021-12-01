@@ -1,0 +1,249 @@
+.doc-main-nav {
+    transition: margin-top .2s;
+    padding-top: 0;
+    display: block;
+    width: 350px;
+    -webkit-box-shadow: 0 0 5px var(--color-shader);
+    -moz-box-shadow: 0 0 5px var(--color-shader);
+    box-shadow: 0 0 5px var(--color-shader);
+    pointer-events: all;
+}
+.ml-main {
+    position: fixed;
+    left: 0;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    top: 0;
+    transition: margin .2s;
+}
+.ml-tool {
+    display: flex;
+    justify-content: right;
+    margin-bottom: 10px;
+    margin-top: -22px;
+}
+.ml-tool i {
+    transition: transform .2s ease-in;
+    color: var(--color-main);
+    font-size: 1.3rem;
+    margin-left: 20px;
+}
+.ml-tool a {
+
+}
+
+.ana-card {
+    display: flex;
+    color: var(--color-font);
+    font-size: 1.02rem;
+    font-weight: 300;
+    letter-spacing: 0.1rem;
+    margin-bottom: 20px;
+}
+.ana-card div {
+    background: var(--color-main);
+    border-radius: 5px;
+    height: 24px;
+    width: 5px;
+}
+.ana-card span {
+    margin-left: 20px;
+}
+
+.doc-body {
+    padding: 20px 20px 0 20px;
+}
+.doc-body p {
+    color: var(--color-font-1);
+    margin-left: 20px;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+.doc-body i {
+    color: var(--color-main);
+    font-style: normal;
+    font-size: 1rem;
+}
+.doc-body hr {
+    border: 1px dashed var(--color-main);
+    margin-bottom: 25px;
+    margin-top: 5px;
+}
+.doc-body ul li {
+    list-style: none;
+}
+
+.add-card {
+    background: var(--color-card-1);
+    margin-bottom: 20px;
+}
+.add-card a {
+    background: var(--color-main);
+    color: var(--color-font-1-r);
+    border-radius: 35px;
+    font-style: normal;
+    font-size: 0.9rem;
+    padding: 2px 10px;
+    float: right;
+}
+.add-card code {
+    color: var(--color-font);
+}
+.add-card i {
+    color: var(--color-main);
+    margin-right: 10px;
+    margin-top: 5px;
+    font-size: 1rem;
+    float: left;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    -webkit-box-shadow: 0 0 5px var(--color-shader);
+    -moz-box-shadow: 0 0 5px var(--color-shader);
+    box-shadow: 0 0 5px var(--color-shader);
+    background-color: var(--color-card-1);
+    margin-bottom: 3px !important;
+    color: var(--color-main);
+}
+.nav-pills .nav-link.active .list-fa {
+    visibility: visible;
+}
+.nav-ss-link:hover {
+     background-color: var(--color-card-1);
+    color: var(--color-font);
+ }
+.nav-ss-link {
+    color: var(--color-font);
+}
+
+.list-fa {
+    visibility: hidden;
+}
+
+.left-nav-1 i:first-child {
+    font-style: normal;
+    font-size: 1.4rem;
+    margin-left: 3px;
+    margin-top: 2px;
+    width: 20px;
+    float: left;
+}
+.left-nav-1 i:nth-child(2) {
+    font-style: normal;
+}
+
+.cs-body {
+    padding: 20px 0;
+}
+.cs-body > div {
+    border-radius: 7px;
+    padding: 10px 20px;
+    display: flex;
+}
+.cs-body > div:hover {
+    background: var(--color-card-1);
+}
+.cs-body > div a {
+    color: var(--color-main);
+    width: 20%;
+}
+.cs-body > div > a:hover {
+    color: var(--color-main);
+}
+.cs-body > div i {
+    background: var(--color-main);
+    color: var(--color-font-1-r);
+    border-radius: 20px;
+    font-style: normal;
+    font-size: 0.7rem;
+    margin-right: 20%;
+    display: initial;
+    padding: 0 10px;
+    margin-top: 5px;
+    height: 21px;
+}.cs-body > div > ul {
+     margin-bottom: 0 !important;
+ }
+.cs-body > div > ul i {
+    margin-right: 10px;
+}
+.cs-body > div > ul li {
+    color: var(--color-font-1);
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+}
+.cs-body > div > ul li code {
+    color: var(--color-font-1);
+    line-height: 1rem;
+}
+
+.info-body {
+    padding: 20px;
+}
+.info-body-title {
+    color: var(--color-main) !important;
+    font-size: 1.3rem !important;
+    margin-right: 15px;
+}
+
+.loading-doc {
+    padding: 40px 0;
+}
+.loading-doc svg {
+    animation: fa-spin 1.5s infinite linear;
+    color: var(--color-main);
+    margin-bottom: 10px;
+    height: 50px;
+}
+.loading-doc i {
+    color: var(--color-main);
+    font-style: normal;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.main-title {
+    background: var(--color-main);
+    color: var(--color-font-1-r);
+    border-radius: 7px 7px 0 0;
+    width: calc(100% + 40px);
+    margin-bottom: 20px;
+    margin-left: -20px;
+    padding-left: 20px;
+    height: 7px;
+}
+
+.lis-button {
+    background: transparent;
+    text-align: left;
+    height: 25px;
+    width: 100%;
+    padding: 0;
+    border: 0;
+}
+.lis-button:focus {
+     background: transparent !important;
+     box-shadow: none !important;
+     outline: none;
+     border: 0;
+ }
+.lis-button:hover {
+    background: transparent;
+}
+.lis-button svg {
+    transition: transform .2s ease-in;
+    color: var(--color-main);
+    margin-right: 10px;
+    margin-top: -36px;
+    height: 30px;
+    float: right;
+}
+
+.ss-card header > i {
+    margin-right: 10px !important;
+    font-size: 1.1rem !important;
+}
