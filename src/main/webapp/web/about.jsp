@@ -54,8 +54,7 @@
         </div>
         <div class="wel-card-right">
             <div class="ss-card more-card" style="margin-top: 0;flex: 1;">
-                <div id="card-title-hd"></div>
-                <header>关于 Stapxs Web API</header>
+                <header><div></div>关于 Stapxs Web API</header>
                 <div class="ss-card about-top">
                     『这是林槐语录API独有的一条哦！』 —— 要好好对待自己QWQ
                 </div>
@@ -82,8 +81,7 @@
             </div>
         </div>
         <div class="ss-card" style="margin-top: 20px;">
-            <div id="card-title-hd"></div>
-            <header>特别感谢</header>
+            <header><div></div>特别感谢</header>
             <div class="thanks">
                 <div>
                     <div style="background-image: url('/img/google.ico')"></div>
@@ -118,8 +116,7 @@
         </div>
         <div id="history" style="display: flex;margin-top: 20px;height: 310px;">
             <div class="ss-card history" style="width: 60%;margin-right: 20px;">
-                <div id="card-title-hd"></div>
-                <header>更新记录</header>
+                <header><div></div>更新记录</header>
                 <div class="scroll-top" style="display: none;"></div>
                 <div id="history-body" onscroll="scrollDiv(this);">
                     <div id="history-wait">
@@ -191,8 +188,7 @@
         </div>
         <div class="ss-card" style="margin-top: 20px;margin-bottom: 20px;">
             <button onclick="foldChange(this)" class="btn btn-primary lis-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                <div id="card-title-hd"></div>
-                <header>许可版权声明</header>
+                <header><div></div>许可版权声明</header>
                 <svg style="transform: rotate(-90deg);" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" class="svg-inline--fa fa-angle-right fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>
             </button>
             <div class="collapse" id="collapseExample" style="padding: 10px;">

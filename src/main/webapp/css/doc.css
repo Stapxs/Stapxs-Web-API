@@ -1,30 +1,31 @@
 .doc-main-nav {
-    transition: margin-top .2s;
-    padding-top: 0;
-    display: block;
-    width: 350px;
     -webkit-box-shadow: 0 0 5px var(--color-shader);
     -moz-box-shadow: 0 0 5px var(--color-shader);
     box-shadow: 0 0 5px var(--color-shader);
+    transition: margin-top .2s;
     pointer-events: all;
+    padding-top: 0;
+    display: block;
+    width: 350px;
 }
 .ml-main {
-    position: fixed;
-    left: 0;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-    top: 0;
     transition: margin .2s;
+    pointer-events: none;
+    align-items: center;
+    position: fixed;
+    display: flex;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
 }
 .ml-tool {
-    display: flex;
     justify-content: right;
     margin-bottom: 10px;
     margin-top: -22px;
+    display: flex;
 }
 .ml-tool i {
     transition: transform .2s ease-in;
@@ -37,12 +38,12 @@
 }
 
 .ana-card {
-    display: flex;
     color: var(--color-font);
-    font-size: 1.02rem;
-    font-weight: 300;
     letter-spacing: 0.1rem;
     margin-bottom: 20px;
+    font-size: 1.02rem;
+    font-weight: 300;
+    display: flex;
 }
 .ana-card div {
     background: var(--color-main);

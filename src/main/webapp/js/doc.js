@@ -45,8 +45,7 @@ fetch('/sys/getInfo')    .then(response => response.json())
 function getInfo(type_id, tool_id, name) {
     let html = ''
     // 创建卡片顶部
-    const base_top = String.raw`                                    <div id="card-title-hd"></div>
-                                    <header>{1}</header>`.replace('{1}', name)
+    const base_top = String.raw`                                    <header><div></div>{1}</header>`.replace('{1}', name)
     html += base_top
     // 创建本体
     let back
@@ -226,7 +225,7 @@ function createValues(values) {
                                     </button>
                                     <div class="collapse" id="{2}" style="padding: 10px;">
                                         <pre class="language-json">
-                                            <code class="language-json">{3}</code>
+                                            <code class="language-json" style="margin-left: -10px;margin-right: -10px;">{3}</code>
                                         </pre>
                                     </div>
                                 </div>`

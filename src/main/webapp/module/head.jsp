@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/color-dark.css?version=<%=appInfo.version%>-<%=appInfo.build%>">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/prism-dark.css?version=<%=appInfo.version%>-<%=appInfo.build%>">
 
+<link rel="stylesheet" href="${pageContext.request.contextPath}/font/fira_code.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?version=<%=appInfo.version%>-<%=appInfo.build%>">

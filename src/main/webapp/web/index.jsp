@@ -97,8 +97,7 @@
         </div>
     </div>
     <div class="ss-card more-card">
-        <div id="card-title-hd"></div>
-        <header>近期新增</header>
+        <header><div></div>近期新增</header>
     </div>
 </div>
     <jsp:include page="../module/footer.jsp"/>

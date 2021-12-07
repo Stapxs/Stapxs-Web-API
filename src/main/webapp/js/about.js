@@ -41,7 +41,9 @@ function updateHistory() {
                 const his = String.raw`<a>{1}</a><br>`
                 let str = '<div>' + inn.replace("{1}", msg[0] + " - " + data[i]["commit"]["author"]["date"])
                 for (let i = 1; i < msg.length; i++) {
-                    str += his.replace("{1}", msg[i])
+                    if(msg[i].indexOf('| BCUI |') < 0) {
+                        str += his.replace("{1}", msg[i])
+                    }
                 }
                 document.getElementById("history-body").insertAdjacentHTML("beforeend", str + "</div>")
             }

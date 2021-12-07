@@ -17,7 +17,7 @@
     padding: 0;
 }
 .ss-card div[class="ss-card"] header {
-    margin: 20px 0 0 20px;
+    padding: 20px 0 0 20px;
 }
 .ss-card div[class="ss-card"] > button > svg {
     margin-right: 20px;
@@ -28,20 +28,27 @@
      -moz-box-shadow:0 0 5px var(--color-shader);
      box-shadow:0 0 5px var(--color-shader);
  }
-.ss-card #card-title-hd {
+.ss-card header {
+    color: var(--color-font);
+    letter-spacing: 0.1rem;
+    padding-bottom: 10px;
+    font-size: 1.02rem;
+    font-weight: 300;
+    text-indent: 0;
+}
+.ss-card header div:first-child {
     background: var(--color-main);
+    margin-right: 20px;
     border-radius: 5px;
     height: 25px;
     float: left;
     width: 5px;
 }
-.ss-card header {
-    color: var(--color-font);
-    margin-left: 20px;
-    margin-bottom: 10px;
-    font-size: 1.02rem;
-    font-weight: 300;
-    letter-spacing: 0.1rem;
+.ss-card header > i:first-child {
+    color: var(--color-main);
+    margin-right: 10px;
+    font-size: 1.1rem;
+    display: inline;
 }
 
 .ss-button {
@@ -61,6 +68,24 @@
 }
 .ss-button:active {
     opacity: 0.9;
+}
+
+.ana-card {
+    color: var(--color-font);
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 100;
+    display: flex;
+    height: 60px;
+}
+.ana-card div {
+    background: var(--color-main);
+    border-radius: 5px;
+    height: 100%;
+    width: 5px;
+}
+.ana-card span {
+    width: 100%;
 }
 
 footer > div:first-child {
@@ -135,8 +160,8 @@ footer header span {
 }
 
 pre {
-    margin: 5px -10px -60px -10px !important;
     background: transparent !important;
+    overflow: visible !important;
     padding: 0 !important;
 }
 pre:before {
@@ -146,33 +171,60 @@ pre:after {
     display: none !important;
 }
 pre > code {
+    font-family: 'Fira Code', monospace !important;
     padding: 1rem !important;
+}
+@supports (font-variation-settings: normal) {
+    pre > code
+    {
+        font-family: 'Fira Code VF', monospace !important;
+    }
 }
 pre > code span {
     background: transparent !important;
 }
 pre[class*=language-]>code {
-    /*background-image: linear-gradient(transparent 50%,rgba(69,142,209,.04) 50%) !important;*/
-    background-image: none !important;
-    /*box-shadow: -1px 0 0 0 var(--color-main), 0 0 0 1px var(--color-shader) !important;*/
     border-left: 0px solid var(--color-main) !important;
     background-color: var(--color-card-2) !important;
+    background-image: none !important;
     border-left: 10px solid #358ccb;
     background-origin: content-box;
     background-attachment: local;
     box-shadow: none !important;
     background-size: 3em 3em;
+    margin-bottom: -75px;
     border-radius: 7px;
     position: relative;
-    opacity: 0.8;
+    margin-top: -10px;
     z-index: 1;
 }
 code[class*=language-] {
     max-height: inherit;
+    font-size: 0.8rem;
     height: inherit;
     padding: 0 1em;
     display: block;
     overflow: auto;
+}
+
+.about-text {
+    padding: 20px;
+}
+.about-text i {
+    color: var(--color-font-1);
+    margin-bottom: 10px;
+    font-style: normal;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-indent: 2em;
+    display: block;
+}
+.about-text a {
+    color: var(--color-font);
+    font-weight: bold;
+}
+.no-indent i {
+    text-indent: 0;
 }
 
 ::-webkit-scrollbar-thumb {
