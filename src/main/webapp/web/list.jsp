@@ -28,25 +28,25 @@
                     </ul>
                     <div class="main-card">
                         <div id="tabs-1">
-                            <div class="ss-card ana-card">
+                            <div class="ss-card ana-card ana-card-left">
                                 <div></div>
                                 <span>图片分类</span>
                             </div>
                         </div>
                         <div id="tabs-2">
-                            <div class="ss-card ana-card">
+                            <div class="ss-card ana-card ana-card-left">
                                 <div></div>
                                 <span>文本分类</span>
                             </div>
                         </div>
                         <div id="tabs-3">
-                            <div class="ss-card ana-card">
+                            <div class="ss-card ana-card ana-card-left">
                                 <div></div>
                                 <span>工具分类</span>
                             </div>
                         </div>
                         <div id="tabs-4">
-                            <div class="ss-card ana-card">
+                            <div class="ss-card ana-card ana-card-left">
                                 <div></div>
                                 <span>其他分类</span>
                             </div>

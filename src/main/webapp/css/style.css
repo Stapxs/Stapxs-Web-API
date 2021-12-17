@@ -8,7 +8,7 @@
     min-width: 40px;
     padding: 20px;
 
-    transition: -webkit-box-shadow .3s;
+    transition: -webkit-box-shadow.3s;
     transition: -moz-box-shadow .3s;
     transition: box-shadow .3s;
 }
@@ -86,6 +86,9 @@
 }
 .ana-card span {
     width: 100%;
+}
+.ana-card-left {
+    text-align: left;
 }
 
 footer > div:first-child {

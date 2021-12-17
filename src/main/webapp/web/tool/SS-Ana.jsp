@@ -39,7 +39,7 @@
             </div>
             <div class="ss-card" style="margin-top: 20px;overflow: hidden;">
                 <div style="display: flex;flex-wrap: wrap;">
-                    <div class="ana-card">
+                    <div class="show-card">
                         <span id="use-icon">“</span>
                         <div>
                             <span id="ana">没有这条语录哦</span>

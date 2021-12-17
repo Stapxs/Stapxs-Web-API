@@ -4,17 +4,17 @@
 
     transition: margin-top .3s;
 }
-.ana-card {
+.show-card {
     justify-content: center;
     display: flex;
     width: 100%;
 }
-.ana-card  > #use-icon {
+.show-card  > #use-icon {
     color: var(--color-font-1);
     font-family: Arial;
     font-size: 15rem;
 }
-.ana-card > div {
+.show-card > div {
     justify-content: center;
     flex-direction: column;
     max-width: 75%;
@@ -23,7 +23,7 @@
 
     transition: height .5s;
 }
-.ana-card > div > #ana {
+.show-card > div > #ana {
     margin-right: 100px;
     margin-left: 50px;
     font-size: 2rem;
@@ -104,18 +104,18 @@
 }
 
 @media screen and (max-width: 1200px) {
-    .ana-card > div {
+    .show-card > div {
         justify-content: center;
         flex-direction: column;
         display: flex;
         height: 50vh;
     }
-    .ana-card > div > #ana {
+    .show-card > div > #ana {
         margin-left: -30px;
         margin-right: 0;
         font-size: 1.7rem;;
     }
-    .ana-card > #use-icon {
+    .show-card > #use-icon {
         color: var(--color-font-1);
         font-family: Arial;
         font-size: 13rem;
@@ -123,10 +123,10 @@
 }
 
 @media screen and (max-width: 576px) {
-    .ana-card > #use-icon {
+    .show-card > #use-icon {
         display: none;
     }
-    .ana-card > div > #ana {
+    .show-card > div > #ana {
         margin-right: 0;
         font-size: 1.2rem;
         margin-left: 0;
@@ -136,7 +136,7 @@
         margin-top: 0;
         height: auto;
     }
-    .ana-card > div {
+    .show-card > div {
         justify-content: center;
         flex-direction: column;
         display: flex;

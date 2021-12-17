@@ -5,11 +5,11 @@ fetch('/sys/getInfo')
         const html = String.raw`
                                 <div class="ss-card api-list-card" data-name="{1}">
                                     <div></div>
-                                    <div>
+                                    <div style="margin-left: 20px;">
                                         <div>
                                             <header>{2}</header>
                                         </div>
-                                        <div style="margin-left: 20px;margin-top: 10px;">
+                                        <div style="margin-left: 20px;">
                                             <span>{3}</span>
                                         </div>
                                     </div>

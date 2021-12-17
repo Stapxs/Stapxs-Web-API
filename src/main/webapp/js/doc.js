@@ -129,6 +129,7 @@ function createTypeTitle(id, name) {
     div.id = 'item-' + id
     div.classList.add('ss-card')
     div.classList.add('ana-card')
+    div.classList.add('ana-card-left')
     div.innerHTML = title_base
     body.append(div)
 }

@@ -188,10 +188,13 @@
         </div>
         <div class="ss-card" style="margin-top: 20px;margin-bottom: 20px;">
             <button onclick="foldChange(this)" class="btn btn-primary lis-button" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                <header><div></div>许可版权声明</header>
+                <header><div></div>许可版权声明<i style="font-size: 0.5rem;font-style: normal;"> 按首字母排序</i></header>
                 <svg style="transform: rotate(-90deg);" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="angle-right" class="svg-inline--fa fa-angle-right fa-w-8" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path fill="currentColor" d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"></path></svg>
             </button>
             <div class="collapse" id="collapseExample" style="padding: 10px;">
+                <div class="ss-card lis-info">
+                    <i>Font Awesome</i><a>By Fonticons, Inc.</a>
+                </div>
                 <div class="ss-card lis-info">
                     <i>Bootstrap</i><a>By Bootstrap team</a>
                     <div>MIT License</div>
@@ -208,7 +211,9 @@
                     <div style="clear: both;display: block;"></div>
                 </div>
                 <div class="ss-card lis-info">
-                    <i>Font Awesome</i><a>By Fonticons, Inc.</a>
+                    <i>PrismJS</i><a>By Lea Verou, Golmote, James DiGioia, Michael Schmidt & all these awesome people</a>
+                    <div>MIT License</div>
+                    <div style="clear: both;display: block;"></div>
                 </div>
             </div>
         </div>
