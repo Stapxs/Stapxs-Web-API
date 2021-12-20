@@ -1,0 +1,206 @@
+.avatar-center {
+    border-radius: var(--avatar-center-main-size);
+    height: var(--avatar-center-main-size);
+    width: var(--avatar-center-main-size);
+    background: var(--color-card-1);
+    --avatar-center-main-size: 120px;
+    transition: margin-top .5s;
+    margin: 0 40px 40px;
+    overflow: hidden;
+}
+.avatar-center img {
+    height: var(--avatar-center-main-size);
+    width: var(--avatar-center-main-size);
+}
+
+.info-line {
+    float: right;
+    height: 100%;
+    width: 7px;
+    background: var(--color-main);
+    border-radius: 0 7px 7px 0;
+}
+
+.info-panel {
+    flex: 1;
+}
+.info-panel i {
+    color: var(--color-font);
+    font-style: normal;
+    font-size: 1rem;
+    display: block;
+}
+.info-panel #id {
+    color: var(--color-font-1);
+    transition: font-size .5s;
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+.info-panel #name {
+    transition: font-size .5s;
+    font-weight: bold;
+    font-size: 2rem;
+}
+.info-panel #nick {
+    transition: font-size .5s;
+    font-size: 1.1rem;
+    font-weight: 200;
+    margin-top: 10px;
+}
+.info-panel #login_time,
+.info-panel #login_ip {
+    font-weight: 300;
+}
+.info-panel button {
+    margin-top: 15px;
+    width: 150px;
+}
+.info-panel button > i {
+    color: var(--color-font-r);
+    display: inherit;
+}
+
+.login-info {
+    min-width: 220px;
+    flex: 0;
+}
+.login-info > i:first-child {
+    font-weight: bolder;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.center-exit {
+    width: var(--exit-size) !important;
+    height: var(--exit-size) !important;
+    border-radius: var(--exit-size);
+    --exit-size: 70px;
+}
+.center-exit i {
+    font-size: 1.5rem;
+    margin-left: 5px;
+    margin-top: 2px;
+}
+
+.center-err {
+    transition: margin-bottom .3s;
+    background: var(--color-main);
+    color: var(--color-font-r);
+    font-size: 0.97rem;
+    display: none;
+    padding: 10px;
+}
+.center-err svg {
+    width: 17px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+.center-err span {
+    line-height: 30px;
+}
+
+.key-control {
+    flex-direction: row-reverse;
+    display: flex;
+}
+.key-control button {
+    margin-left: 5px;
+    padding: 0 11px;
+}
+
+.key-body {
+    transition: background .2s;
+    border-radius: 7px;
+    padding: 10px;
+}
+.key-body:hover {
+    background: var(--color-card-1);
+}
+.key-body:hover > div:first-child {
+    transform: scaleY(1);
+}
+.key-body span {
+    text-overflow: ellipsis;
+    display: inline-block;
+    line-height: 34px;
+    font-size: 0.9rem;
+    overflow: hidden;
+    flex: 1;
+}
+.key-body div:first-child {
+    background: var(--color-main);
+    transition: transform .2s;
+    transform: scaleY(0);
+    margin-right: 10px;
+    border-radius: 5px;
+    margin-top: 8px;
+    height: 20px;
+    width: 5px;
+}
+
+.style-set {
+    margin-right: 20px;
+    flex: 1;
+}
+
+.set-body {
+    transition: background .2s;
+    margin-bottom: 3px;
+    border-radius: 7px;
+    padding: 5px 10px;
+    display: flex;
+}
+.set-body span {
+    font-size: 0.95rem;
+    line-height: 30px;
+    font-weight: 300;
+    flex: 1;
+}
+.set-body button {
+    font-size: 0.8rem;
+    height: 30px;
+    opacity: 0.7;
+    width: 70px;
+}
+
+@media screen and (max-width: 768px) {
+    .avatar-center {
+        --avatar-center-main-size: 50px;
+        position: absolute;
+        margin-top: -10px;
+    }
+    .info-panel {
+        margin-left: 40px;
+    }
+    .info-panel i {
+        font-size: 0.85rem;
+    }
+    .info-panel button {
+        font-size: 0.9rem;
+        height: 30px;
+        width: 130px;
+    }
+    .info-panel #id {
+        font-size: 1rem;
+    }
+    .info-panel #name {
+        font-size: 1.3rem;
+    }
+    .info-panel #nick {
+        margin-top: 0;
+        font-size: 1.1rem;
+    }
+    .style-info {
+        margin-top: 55px;
+    }
+    .login-info > i:first-child {
+        font-size: 0.9rem;
+    }
+
+    .style-view {
+        display: none;
+    }
+    .style-set {
+        margin-right: 0;
+    }
+}

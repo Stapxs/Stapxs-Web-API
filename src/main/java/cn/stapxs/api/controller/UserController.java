@@ -1,14 +1,20 @@
 package cn.stapxs.api.controller;
 
+import cn.stapxs.api.appInfo;
 import cn.stapxs.api.domain.msg.BaseMsg;
 import cn.stapxs.api.domain.user.KeyInfo;
 import cn.stapxs.api.domain.user.UserBase;
+import cn.stapxs.api.domain.user.UserInfo;
+import cn.stapxs.api.domain.user.UserKey;
 import cn.stapxs.api.service.UserService;
 import cn.stapxs.api.util.PBKDF2;
 import cn.stapxs.api.util.RSAEncrypt;
 import cn.stapxs.api.util.UI;
 import com.google.gson.Gson;
+import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +23,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.crypto.BadPaddingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+import java.util.Random;
 
 /**
  * @Version: 1.0
@@ -52,7 +64,7 @@ public class UserController {
     }
 
     @PostMapping("/acc/loginAcc")
-    public String loginAcc(int id, String str, Model model) {
+    public String loginAcc(int id, String str, Model model, HttpServletRequest request) {
         System.out.println("操作 > 登陆账号 > loginAcc > " + id + " / " + str);
         str = str.replace(" ", "+");
         Optional<UserBase> user = Optional.ofNullable(userService.getUserByID(id));
@@ -90,6 +102,10 @@ public class UserController {
                 );
                 // 保存 token
                 userService.saveToken(user.get().getUser_id(), user.get().getUser_token());
+                // 刷新登录信息
+                String ip = request.getRemoteAddr();
+                userService.updateLoginInfo(id, ip);
+                // 返回
                 return UI.JumpAPI(200, back, model);
             } else {
                 return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "账号或密码错误")), model);
@@ -152,5 +168,91 @@ public class UserController {
     public String getNick(@PathVariable int id, Model model) {
         Optional<String> nick = Optional.ofNullable(userService.getNick(id));
         return nick.map(s -> UI.JumpAPI(200, gson.toJson(new BaseMsg(200, s)), model)).orElseGet(() -> UI.JumpAPI(404, gson.toJson(new BaseMsg(404, "没有找到这个账号！")), model));
+    }
+
+    @GetMapping("/acc/info/getAvatar/{id}")
+    public String getAvatar(@PathVariable int id, HttpServletResponse response) throws IOException {
+        File file = new File(appInfo.root + "User/Avatars/" + id + ".jpg");
+        if(file.exists()) {
+            FileInputStream fis = new FileInputStream(file);
+            response.setContentType("image/jpg");
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            IOUtils.copy(fis, response.getOutputStream());
+        }
+        return null;
+    }
+
+    @PostMapping("/acc/info/getInfo")
+    public String getInfo(int id, String token, Model model) {
+        // 验证登录
+        try {
+            if(userService.verifyLogin(id ,token)) {
+                // 获取 info
+                Optional<UserBase> base = Optional.ofNullable(userService.getUserByID(id));
+                Optional<UserInfo> info = Optional.ofNullable(userService.getUserInfoByID(id));
+                if(base.isPresent() && info.isPresent()) {
+                    info.get().setUser_name(base.get().getUser_name());
+                    return UI.JumpAPI(200, gson.toJson(info), model);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UI.JumpAPI(500, null, model);
+        }
+        return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "验证登陆失败！")), model);
+    }
+
+    // ----------------------------------------------------------------------
+
+    @PostMapping("/acc/key/new")
+    public String newKey(int id, String token, Model model) {
+        // 验证登录
+        try {
+            if(userService.verifyLogin(id ,token)) {
+                // 新建 key
+                boolean back = userService.createKey(id);
+                if(back) {
+                    return UI.JumpAPI(200, gson.toJson(new BaseMsg(200, "创建成功！")), model);
+                } else {
+                    return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "key 数量已满！")), model);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UI.JumpAPI(500, null, model);
+        }
+        return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "验证登陆失败！")), model);
+    }
+
+    @PostMapping("/acc/key/get")
+    public String getKey(int id, String token, Model model) {
+        // 验证登录
+        try {
+            if(userService.verifyLogin(id ,token)) {
+                // 获取 key
+                UserKey[] keys = userService.getKey(id);
+                return UI.JumpAPI(200, gson.toJson(keys), model);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UI.JumpAPI(500, null, model);
+        }
+        return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "验证登陆失败！")), model);
+    }
+
+    @PostMapping("/acc/key/delete")
+    public String deleteKey(int id, int num, String token, Model model) {
+        // 验证登录
+        try {
+            if(userService.verifyLogin(id ,token)) {
+                // 删除 key
+                userService.deleteKey(id, num);
+                return UI.JumpAPI(200, null, model);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UI.JumpAPI(500, null, model);
+        }
+        return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "验证登陆失败！")), model);
     }
 }

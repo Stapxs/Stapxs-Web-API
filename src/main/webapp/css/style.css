@@ -3,6 +3,7 @@
     -moz-box-shadow:0 0 5px transparent;
     box-shadow:0 0 5px transparent;
     background-color: var(--color-card);
+    color: var(--color-font);
     border-radius: 7px;
     min-height: 40px;
     min-width: 40px;
@@ -68,6 +69,9 @@
 }
 .ss-button:active {
     opacity: 0.9;
+}
+.ss-button:disabled {
+    opacity: 0.4;
 }
 
 .ana-card {
@@ -141,7 +145,7 @@ footer header span {
     cursor: hand;
     overflow: hidden;
     margin-left: 20px;
-    --main-size: 36px;
+    --main-size: 33px;
     margin-right: 5px;
     width: var(--main-size);
     height: var(--main-size);

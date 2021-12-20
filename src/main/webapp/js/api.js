@@ -16,7 +16,9 @@ if(name !== '') {
     document.getElementById("user-name").innerText = name;
 }
 // 加载头像
-// TODO 等待头像上传 API 和获取 API 完成后补充
+if(id >= 0) {
+    document.getElementById("avatar-img").src = "/acc/info/getAvatar/" + id
+}
 
 function Login() {
     window.location.href = "/Account"

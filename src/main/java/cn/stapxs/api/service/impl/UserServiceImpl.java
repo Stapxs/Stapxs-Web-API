@@ -2,6 +2,8 @@ package cn.stapxs.api.service.impl;
 
 import cn.stapxs.api.dao.UserDao;
 import cn.stapxs.api.domain.user.UserBase;
+import cn.stapxs.api.domain.user.UserInfo;
+import cn.stapxs.api.domain.user.UserKey;
 import cn.stapxs.api.service.UserService;
 import cn.stapxs.api.util.RSAEncrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,13 @@ public class UserServiceImpl implements UserService {
         System.out.println("操作 > 获取用户 > findUserByID > " + id);
         Optional<UserBase> userOptional = Optional.ofNullable(userDao.getUserByID(id));
         return userOptional.orElse(null);
+    }
+
+    @Override
+    public UserInfo getUserInfoByID(int id) {
+        System.out.println("操作 > 获取用户信息 > findUserInfoByID > " + id);
+        Optional<UserInfo> infoOptional = Optional.ofNullable(userDao.getUserInfoByID(id));
+        return infoOptional.orElse(null);
     }
 
     /**
@@ -89,6 +98,37 @@ public class UserServiceImpl implements UserService {
         }
         System.out.println("操作 > 验证登陆 > verifyLogin > 失败");
         return false;
+    }
+
+    @Override
+    public void updateLoginInfo(int id, String ip) {
+        userDao.setLoginInfo(id, ip);
+        // TODO 记得在注册的时候新建 info 表项
+    }
+
+    @Override
+    public boolean createKey(int id) {
+        // 获取 key 列表
+        UserKey[] keys = userDao.getUserKey(id);
+        if(keys.length < 5) {
+            // 生成 UUID
+            String key = UUID.randomUUID().toString();
+            key = key.replace("-", "");
+            // 保存 key
+            userDao.createKey(id, keys.length + 1, key);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public UserKey[] getKey(int id) {
+        return userDao.getUserKey(id);
+    }
+
+    @Override
+    public void deleteKey(int id, int num) {
+        userDao.deleteKet(id, num);
     }
 
     @Override

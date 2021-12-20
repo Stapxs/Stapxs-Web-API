@@ -14,10 +14,10 @@ import org.springframework.context.annotation.Bean;
 @Data
 @Builder
 public class appInfo {
-    public static String version = "1.0.1";
-    public static int build = 25;
+    public static String version = "1.1.0";
+    public static int build = 1;
     public static String type = "Dev";
-    public static double verNum = 1.0;
+    public static double verNum = 1.1;
 
     public static String root = "C://Users/Stapxs/Desktop/SS-Web-API/";
 

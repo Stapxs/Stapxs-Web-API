@@ -34,7 +34,7 @@
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2 bar-search" type="search" placeholder="搜索" aria-label="搜索">
                 <div id="user-avatar" class="avatar" title="登录" onclick="Login()">
-                    <img src="${pageContext.request.contextPath}/img/user-solid-dark.svg" alt="头像">
+                    <img id="avatar-img" src="${pageContext.request.contextPath}/img/user-solid-dark.svg" alt="头像">
                     <span id="user-name" class="user-name">登录</span>
                 </div>
             </form>
