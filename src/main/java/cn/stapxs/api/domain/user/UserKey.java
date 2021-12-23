@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserKey {
-    private int user_id;
     private int key_id;
+    private String key_name;
     private String key_value;
 }

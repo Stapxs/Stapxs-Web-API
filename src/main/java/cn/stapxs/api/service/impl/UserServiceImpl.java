@@ -132,6 +132,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateKeyName(int id, int num, String str) {
+        userDao.updateKeyName(id, num, str);
+    }
+
+    @Override
     public String getNick(int id) {
         return userDao.getUserNick(id);
     }

@@ -26,6 +26,8 @@ public interface UserDao {
     public void setUserToken(String token, Integer id);
     @Update("update sac_userinfo set time_login=NOW(), ip_login=#{ip} where user_id=#{id}")
     public void setLoginInfo(int id, String ip);
+    @Update("update sac_key set key_name=#{str} where user_id=#{id} and key_id=#{num}")
+    public void updateKeyName(int id, int num, String str);
 
     // Insert
     @Insert("insert into sac_key (user_id, key_id, key_value) values (#{id}, #{num}, #{value})")

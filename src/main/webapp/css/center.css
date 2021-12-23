@@ -113,11 +113,28 @@
     border-radius: 7px;
     padding: 10px;
 }
+.key-body input {
+    transition: background .3s;
+}
+.key-body input:hover {
+    background: var(--color-card);
+}
+.key-body input::-webkit-input-placeholder {
+    color: var(--color-font-1);
+    font-size: 0.9rem;
+}
 .key-body:hover {
     background: var(--color-card-1);
 }
 .key-body:hover > div:first-child {
     transform: scaleY(1);
+}
+.key-body:hover input {
+    background: var(--color-card);
+}
+.key-body:hover input::-webkit-input-placeholder {
+    color: var(--color-font-2);
+    font-size: 0.9rem;
 }
 .key-body span {
     text-overflow: ellipsis;
@@ -138,29 +155,57 @@
     width: 5px;
 }
 
-.style-set {
-    margin-right: 20px;
-    flex: 1;
+.key-copy i {
+    width: 12px;
+}
+
+.key-tip {
+    color: var(--color-main);
+    margin-right: 10px;
+    text-align: right;
+    max-width: 20%;
 }
 
 .set-body {
     transition: background .2s;
+    align-items: center;
     margin-bottom: 3px;
     border-radius: 7px;
     padding: 5px 10px;
     display: flex;
 }
+.set-body div {
+    flex: 1;
+}
 .set-body span {
     font-size: 0.95rem;
     line-height: 30px;
     font-weight: 300;
-    flex: 1;
+    display: block;
+}
+.set-body i {
+    color: var(--color-font-1);
+    font-style: normal;
+    margin-right: 10px;
+    margin-left: 10px;
+    font-size: 0.8rem;
+    font-weight: 200;
+    display: block;
 }
 .set-body button {
     font-size: 0.8rem;
     height: 30px;
-    opacity: 0.7;
     width: 70px;
+}
+.set-body label[class="ss-radio"] {
+    --radio-size: 28px;
+    margin-left: 5px;
+}
+.set-body label[class="ss-switch"] {
+    --switch-dot-border: 4px;
+    --switch-dot-margin: -4px;
+    --switch-height: 15px;
+    min-width: 37px;
 }
 
 @media screen and (max-width: 768px) {
@@ -202,5 +247,13 @@
     }
     .style-set {
         margin-right: 0;
+    }
+
+    .key-txt {
+        display: none !important;
+    }
+    .key-tip {
+        text-align: left;
+        max-width: 100%;
     }
 }

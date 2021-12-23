@@ -7,6 +7,7 @@ import cn.stapxs.api.domain.user.UserBase;
 import cn.stapxs.api.domain.user.UserInfo;
 import cn.stapxs.api.domain.user.UserKey;
 import cn.stapxs.api.service.UserService;
+import cn.stapxs.api.util.NetWork;
 import cn.stapxs.api.util.PBKDF2;
 import cn.stapxs.api.util.RSAEncrypt;
 import cn.stapxs.api.util.UI;
@@ -103,7 +104,10 @@ public class UserController {
                 // 保存 token
                 userService.saveToken(user.get().getUser_id(), user.get().getUser_token());
                 // 刷新登录信息
-                String ip = request.getRemoteAddr();
+                String ip = NetWork.getIP(request);
+                if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+                    ip = request.getRemoteAddr();
+                }
                 userService.updateLoginInfo(id, ip);
                 // 返回
                 return UI.JumpAPI(200, back, model);
@@ -252,6 +256,22 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return UI.JumpAPI(500, null, model);
+        }
+        return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "验证登陆失败！")), model);
+    }
+
+    @PostMapping("/acc/key/name")
+    public String changeName(int id, int num, String name, String token, Model model) {
+        // 验证登录
+        try {
+            if(userService.verifyLogin(id ,token)) {
+                // 更新备注
+                userService.updateKeyName(id, num, name);
+                return UI.JumpAPI(200, gson.toJson(new BaseMsg(200, "提交成功！")), model);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UI.JumpAPI(500, gson.toJson(new BaseMsg(500, e.getMessage())), model);
         }
         return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "验证登陆失败！")), model);
     }

@@ -49,7 +49,7 @@ try {
             if(json.value.time_login !== undefined) {
                 const time = Date.parse(json.value.time_login)
                 document.getElementById('login_time').innerText = new Date(time).toLocaleString()
-                document.getElementById('login_ip').innerText = json.value.ip_login
+                document.getElementById('login_ip').innerText = json.value.ip_login.substring(0, json.value.ip_login.indexOf(':'))
                 document.getElementById('login_info_pan').style.display = 'block'
                 document.getElementById('exit_button_pan').style.display = 'none'
             }
@@ -69,15 +69,26 @@ try {
     httpRequest.onreadystatechange = function () {
         if (httpRequest.readyState === 4 && httpRequest.status === 200) {
             const list = JSON.parse(httpRequest.responseText)
-            if(list.length >= 5) {
+            if (list.length <= 0) {
+                document.getElementById('key-loading').style.display = 'none'
+            }
+            if (list.length >= 5) {
                 document.getElementById('create-key').disabled = true
             }
-            for(let i=0; i<list.length; i++) {
+            for (let i = 0; i < list.length; i++) {
                 // 创建 key-body
-                const html = String.raw`<div></div>
-                    <span>{1}</span>
+                let html = String.raw`<div></div>
+                    <span class="key-txt">{1}</span>
+                    <span class="key-tip" style="display: {2};">[{3}]</span>
                     <button onclick="deleteKey(this);" class="ss-button" style="background: #e81123;color: #fff;" title="删除"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                    <button onclick="copyButton();" class="ss-button key-copy" title="复制"><i class="fa fa-clone" aria-hidden="true"></i></button>`.replace('{1}', list[i].key_value)
+                    <button onclick="copyButton();" class="ss-button key-copy" title="复制"><i class="fa fa-clone" aria-hidden="true"></i></button>
+                    <button onclick="changeName(this);" class="ss-button key-copy" title="修改备注"><i class="fa fa-pencil" aria-hidden="true"></i></button>`.replace('{1}', list[i].key_value)
+                if(list[i].key_name !== undefined) {
+                    html = html.replace('{2}', 'inline-block')
+                    html = html.replace('{3}', ' ' + list[i].key_name + ' ')
+                } else {
+                    html = html.replace('{2}', 'none')
+                }
                 let div = document.createElement("div")
                 div.classList.add("key-control")
                 div.classList.add("key-body")
@@ -96,17 +107,36 @@ try {
     document.getElementById('key-loading').style.display = 'none'
 }
 
+// 初始化设置项
+if(options !== '') {
+    const colors = document.getElementById("color-list").getElementsByTagName('label')
+    for(let i=0; i<colors.length; i++) {
+        if(colors[i].dataset.id === options[2]) {
+            colors[i].getElementsByTagName('input')[0].checked = true
+            break
+        }
+    }
+}
+
 function copyButton() {
     var clipboard = new ClipboardJS('.key-copy', {
-        target: function(trigger) {
-            return trigger.nextElementSibling.nextElementSibling
+        text: function(trigger) {
+            return trigger.parentNode.getElementsByClassName('key-txt')[0].innerText
         }
     })
-    clipboard.on('success', function (e) {
-        console.log("复制成功！")
-    })
     clipboard.on('error', function(e) {
-        showError('复制失败！')
+        showError('复制失败！' + e.trigger)
+    })
+    clipboard.on('success', function (e) {
+        e.trigger.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>'
+        $(e.trigger).popover({
+            content: '复制成功',
+            placement: 'top',
+            template: String.raw`<div class="popover ss-pop" role="tooltip"><div class="arrow"></div><div class="popover-body"></div></div>`
+        })
+        $(e.trigger).popover('show')
+        setTimeout(() => e.trigger.innerHTML = '<i class="fa fa-clone" aria-hidden="true"></i>', 1100)
+        setTimeout(() => $(e.trigger).popover('hide'), 1100)
     })
 }
 
@@ -143,6 +173,109 @@ function deleteKey(sender) {
         showError('删除用户 Key 错误：' + e.message)
     }
     location.reload();
+}
+
+function changeName(sender) {
+    sender.id = 'changeb' + sender.parentNode.dataset.id
+    const inputWay = sender.previousElementSibling.previousElementSibling.previousSibling
+    if(inputWay.nodeName === 'INPUT') {
+        // 改为笔
+        sender.innerHTML = '<i class="fa fa-pencil" aria-hidden="true"></i>'
+        // 确认修改
+        const reg = /^\S{0,5}$/
+        if(inputWay.value !== '') {
+            if (reg.test(inputWay.value)) {
+                try {
+                    const httpRequest = new XMLHttpRequest();
+                    httpRequest.open("POST", "/acc/key/name", true);
+                    httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                    httpRequest.send("id=" + idIn + "&token=" + tok + "&num=" + sender.parentNode.dataset.id + "&name=" + inputWay.value);
+
+                    httpRequest.onreadystatechange = function () {
+                        if (httpRequest.responseText.indexOf('status') > 0) {
+                            const info = JSON.parse(httpRequest.responseText)
+                            if (info.status === 200) {
+                                console.log('提交成功！')
+                                // 移除输入框
+                                inputWay.style.marginRight = '-30px'
+                                inputWay.style.width = '0'
+                                // 为了让动画能够工作，给一点点不存在的延时
+                                setTimeout(() => inputWay.remove(), 150)
+                                setTimeout(() => location.reload(), 150)
+                            } else {
+                                showError('更新用户 Key 错误(' + info.status + ')：' + info.message)
+                            }
+                        }
+                    };
+                } catch (e) {
+                    showError('更新用户 Key 错误：' + e.message)
+                }
+            } else {
+                showError('更新用户 Key 错误：内容不合法，最多包含 5 个字符，不能包含空白字符。')
+            }
+        }
+        // 移除输入框
+        inputWay.style.marginRight = '-30px'
+        inputWay.style.width = '0'
+        // 为了让动画能够工作，给一点点不存在的延时
+        setTimeout(() => inputWay.remove(), 150)
+    } else {
+        // 改为勾子
+        sender.innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>'
+        const addWhere = sender.previousElementSibling.previousElementSibling
+        // 创建输入框
+        let input = document.createElement('input')
+        input.style.flex = '0'
+        input.style.width = '0'
+        input.style.height = '33px'
+        input.style.transition = 'width, margin-right .3s'
+        input.style.marginRight = '-30px'
+        input.style.marginTop = '-1px'
+        input.classList.add('ss-input')
+        input.placeholder = '输入备注'
+        input.type = 'text'
+        input.id = 'change' + sender.parentNode.dataset.id
+        input.setAttribute('oninput','keyInChange(' + sender.parentNode.dataset.id + ');');
+        // 插入
+        sender.parentNode.insertBefore(input, addWhere)
+        // 为了让动画能够工作，给一点点不存在的延时
+        setTimeout(() => input.style.marginRight = '10px', 1)
+        setTimeout(() => input.style.width = '200px', 1)
+    }
+}
+
+function keyInChange(id) {
+    const sender = document.getElementById('change' + id)
+    const txt = sender.value
+    if(txt === '') {
+        document.getElementById('changeb' + id).innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>'
+        document.getElementById('changeb' + id).disabled = false
+    } else {
+        const reg = /^\S{0,5}$/
+        if(reg.test(sender.value)) {
+            document.getElementById('changeb' + id).innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>'
+            document.getElementById('changeb' + id).disabled = false
+        } else {
+            document.getElementById('changeb' + id).innerHTML = '<i class="fa fa-times" aria-hidden="true"></i>'
+            document.getElementById('changeb' + id).disabled = true
+        }
+    }
+}
+
+function setMainColor(sender) {
+    const color_id = sender.parentNode.dataset.id
+    changeMainColor(color_id)
+    // 保存颜色设置到 cookie
+    const exp = new Date();
+    exp.setTime(exp.getTime() + 50 * 60 * 1000);
+    // 拆分设置参数
+    let opt = "0|0|0"
+    if(options !== '') {
+        options[2] = color_id   // 颜色是第三位
+        // 构建设置参数
+        opt = saveOpt(options)
+    }
+    document.cookie = "options=" + opt + "; expires=" + exp.toGMTString() + "; path=/";
 }
 
 function showError(msg) {

@@ -1,3 +1,8 @@
+input {
+    caret-color: var(--color-main);
+    color: var(--color-font);
+}
+
 .ss-card {
     -webkit-box-shadow:0 0 5px transparent;
     -moz-box-shadow:0 0 5px transparent;
@@ -47,9 +52,10 @@
 }
 .ss-card header > i:first-child {
     color: var(--color-main);
+    display: inline-block;
     margin-right: 10px;
     font-size: 1.1rem;
-    display: inline;
+    min-width: 20px;
 }
 
 .ss-button {
@@ -72,6 +78,99 @@
 }
 .ss-button:disabled {
     opacity: 0.4;
+}
+
+.ss-input {
+    background: var(--color-card-1);
+    border-radius: 7px;
+    padding: 0 10px;
+    font-size: 15px;
+    height: 35px;
+    border: 0;
+}
+.ss-input:focus {
+    outline: 2px solid var(--color-card-1);
+}
+
+.ss-pop {
+    -webkit-box-shadow: 0 0 5px var(--color-shader);
+    -moz-box-shadow: 0 0 5px var(--color-shader);
+    box-shadow: 0 0 5px var(--color-shader);
+    background: var(--color-bg);
+}
+.ss-pop div[class="arrow"]:before {
+    border: none;
+}
+.ss-pop div[class="arrow"]:after {
+    border: none;
+}
+.ss-pop div {
+    color: var(--color-font);
+}
+
+.ss-radio {
+    --radio-size: 32px;
+
+    height: var(--radio-size);
+    margin-bottom: 0;
+}
+.ss-radio:hover > div:nth-child(2) {
+    padding: calc((var(--radio-size) / 4) + 1px);
+}
+.ss-radio > div:nth-child(2) {
+    padding: calc((var(--radio-size) / 4) + 2px);
+    border-radius: var(--radio-size);
+    background: var(--color-main);
+    height: var(--radio-size);
+    width: var(--radio-size);
+    transition: padding .1s;
+}
+.ss-radio > div:nth-child(2) > div {
+    background: #fff;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+}
+.ss-radio input {
+    display: none;
+}
+.ss-radio input:checked ~ div:nth-child(2) {
+    padding: calc(var(--radio-size) / 4);
+}
+
+.ss-switch {
+    --switch-dot-border: 4px;
+    --switch-dot-margin: 5px;
+    --switch-height: 30px;
+    min-width: 55px;
+}
+.ss-switch > div {
+    transition: background .3s;
+    border-radius: var(--switch-height);
+    background: var(--color-card-1);
+    height: var(--switch-height);
+    width: 100%;
+}
+.ss-switch > div > div {
+    transition: margin-left .3s cubic-bezier(0.85, 0, 0.12, 0.99), background .4s .1s;
+    border-radius: calc(var(--switch-height) - (var(--switch-dot-margin) * 2));
+    height: calc(var(--switch-height) - (var(--switch-dot-margin) * 2));
+    width: calc(var(--switch-height) - (var(--switch-dot-margin) * 2));
+    border: var(--switch-dot-border) solid #fff;
+    margin-left: var(--switch-dot-margin);
+    margin-top: var(--switch-dot-margin);
+    background: var(--color-main);
+    float: left;
+}
+.ss-switch input {
+    display: none;
+}
+.ss-switch input:checked ~ div {
+    background: var(--color-main);
+}
+.ss-switch input:checked ~ div > div {
+    margin-left: calc(100% - var(--switch-height) + var(--switch-dot-margin));
+    background: #fff;
 }
 
 .ana-card {

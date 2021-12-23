@@ -27,7 +27,6 @@
     width: 90%;
     margin: 15px auto 0 auto;
     color: var(--color-font);
-    caret-color: var(--color-main);
     background: var(--color-card-1);
 }
 .login-pan input:focus {

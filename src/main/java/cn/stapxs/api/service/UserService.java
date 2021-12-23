@@ -31,4 +31,5 @@ public interface UserService {
     public boolean createKey(int id);
     public UserKey[] getKey(int id);
     public void deleteKey(int id, int num);
+    public void updateKeyName(int id, int num, String str);
 }

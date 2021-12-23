@@ -66,30 +66,57 @@
                 </div>
             </div>
         </div>
-        <div style="display: flex;margin-bottom: 20px;">
-            <div class="ss-card style-set">
-                <header>
-                    <div></div>个性化
-                    <div class="key-control" style="float: right;">
-                        <button class="ss-button"><i class="fa fa-floppy-o" aria-hidden="true"></i> 保存</button>
-                    </div>
-                </header>
-                <div style="padding: 0 0 0 20px;margin-top: 10px;">
-                    <div class="set-body">
+        <div class="ss-card" style="margin-bottom: 20px;">
+            <header>
+                <div></div>个性化
+            </header>
+            <div style="padding: 0 0 0 20px;margin-top: 10px;">
+                <div class="set-body">
+                    <div>
                         <span>暗黑模式</span>
-                        <button disabled class="ss-button">开启</button>
+                        <i>启用更适合夜间以及 OLED 显示设备的暗黑模式。</i>
                     </div>
-                    <div class="set-body">
-                        <span>自动暗黑模式</span>
-                        <button class="ss-button">开启</button>
-                    </div>
-                    <div class="set-body">
-                        <span>主题色</span>
-                    </div>
+                    <label class="ss-switch">
+                        <input type="checkbox">
+                        <div><div></div></div>
+                    </label>
                 </div>
-            </div>
-            <div class="ss-card style-view" style="min-width: 300px;">
-
+                <div class="set-body">
+                    <div>
+                        <span>自动暗黑模式</span>
+                        <i>让页面自动跟随系统的颜色模式。</i>
+                    </div>
+                    <label class="ss-switch">
+                        <input type="checkbox">
+                        <div><div></div></div>
+                    </label>
+                </div>
+                <div class="set-body" id="color-list">
+                    <div>
+                        <span>主题色</span>
+                        <i>换个颜色换个心情 ~</i>
+                    </div>
+                    <label class="ss-radio" title="坏猫黄" data-id="5">
+                        <input type="radio" name="color" onclick="setMainColor(this);">
+                        <div style="background: var(--color-main-5);;"><div></div></div>
+                    </label>
+                    <label class="ss-radio" title="林槐蓝" data-id="4">
+                        <input type="radio" name="color" onclick="setMainColor(this);">
+                        <div style="background: var(--color-main-4);;"><div></div></div>
+                    </label>
+                    <label class="ss-radio" title="天牧红" data-id="3">
+                        <input type="radio" name="color" onclick="setMainColor(this);">
+                        <div style="background: var(--color-main-3);;"><div></div></div>
+                    </label>
+                    <label class="ss-radio" title="玄素黑" data-id="2">
+                        <input type="radio" name="color" onclick="setMainColor(this);">
+                        <div style="background: var(--color-main-2);;"><div></div></div>
+                    </label>
+                    <label class="ss-radio" title="Zorin 蓝（默认）" data-id="1">
+                        <input type="radio" name="color" onclick="setMainColor(this);">
+                        <div style="background: var(--color-main-1);"><div></div></div>
+                    </label>
+                </div>
             </div>
         </div>
     </div>
