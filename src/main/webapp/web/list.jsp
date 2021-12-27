@@ -58,8 +58,8 @@
     </div>
 </body>
 <jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
-<script src="../js/jquery-ui.js"></script>
-<script src="../js/list.js"></script>
+<script src="${pageContext.request.contextPath}/js/util/jquery-ui.js"></script>
+<script src="${pageContext.request.contextPath}/js/api/list.js"></script>
 <script>
     // 初始化 tabs
     $(function() {

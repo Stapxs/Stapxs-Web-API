@@ -106,12 +106,12 @@ function createInfo(name) {
         // 构建返回参数
         const back_html = createBacks(backs, name)
         // 拼接参数
-        if (value_html !== '') {
+        if (value_html === '') {
             main_html = main_html.replace('{5}', value_html)
         } else {
             main_html = main_html.replace('{5}', String.raw`<i class="fa fa-caret-right info-body-title" aria-hidden="true"></i><i>请求参数</i>` + value_html)
         }
-        if (back_html !== '') {
+        if (back_html === '') {
             main_html = main_html.replace('{6}', back_html)
         } else {
             main_html = main_html.replace('{6}', String.raw`<i class="fa fa-caret-right info-body-title" aria-hidden="true"></i><i>返回示例</i>` + back_html)
@@ -239,7 +239,7 @@ function createValues(values) {
          json = json.replace(new RegExp('\\+', 'mg'), '\n')
          json = Prism.highlight(json, Prism.languages.json, 'json');
          let its_back = back
-         its_back = its_back.replace(new RegExp('\\{2\\}', 'mg'), name.replace(' ', '-') + '-' + back_code)
+         its_back = its_back.replace(new RegExp('\\{2\\}', 'mg'), name.replace(new RegExp(' ', 'mg'), '-') + '-' + back_code)
          its_back = its_back.replace('{3}', json)
          let icon = icon_list[0]
          switch (back_code) {
@@ -250,6 +250,10 @@ function createValues(values) {
              case '404':
                  its_back = its_back.replace('{1}', '404 - NO FOUND')
                  icon = icon_list[1]
+                 break
+             case '403':
+                 its_back = its_back.replace('{1}', '403 - FORBIDDEN')
+                 icon = icon_list[2]
                  break
              case '500':
                  its_back = its_back.replace('{1}', '500 - SERVER ERR')

@@ -12,8 +12,8 @@
 <head>
     <title>关于 - 林槐服务接口</title>
     <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/about.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/about.css">
 </head>
 
 <body style="background: var(--color-bg);">
@@ -222,5 +222,5 @@
 </div>
 </body>
 <jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
-<script src="${pageContext.request.contextPath}/js/about.js"></script>
+<script src="${pageContext.request.contextPath}/js/api/about.js"></script>
 </html>

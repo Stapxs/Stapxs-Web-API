@@ -1,6 +1,12 @@
 package cn.stapxs.api.controller;
 
+import cn.stapxs.api.domain.msg.BaseMsg;
+import cn.stapxs.api.domain.tool.DoingMsg;
+import cn.stapxs.api.domain.user.UserKey;
+import cn.stapxs.api.service.DoingService;
 import cn.stapxs.api.service.MCService;
+import cn.stapxs.api.service.UserService;
+import cn.stapxs.api.service.impl.DoingServiceImpl;
 import cn.stapxs.api.util.Number;
 import cn.stapxs.api.util.ServerListPing17;
 import cn.stapxs.api.util.UI;
@@ -10,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
 import java.net.*;

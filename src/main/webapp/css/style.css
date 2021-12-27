@@ -4,19 +4,14 @@ input {
 }
 
 .ss-card {
-    -webkit-box-shadow:0 0 5px transparent;
-    -moz-box-shadow:0 0 5px transparent;
+    background-color: var(--color-card);;
     box-shadow:0 0 5px transparent;
-    background-color: var(--color-card);
+    transition: box-shadow .3s;
     color: var(--color-font);
     border-radius: 7px;
     min-height: 40px;
     min-width: 40px;
     padding: 20px;
-
-    transition: -webkit-box-shadow.3s;
-    transition: -moz-box-shadow .3s;
-    transition: box-shadow .3s;
 }
 .ss-card div[class="ss-card"] {
     min-height: 65px;
@@ -30,8 +25,6 @@ input {
     margin-top: -25px;
 }
 .ss-card:hover {
-     -webkit-box-shadow:0 0 5px var(--color-shader);
-     -moz-box-shadow:0 0 5px var(--color-shader);
      box-shadow:0 0 5px var(--color-shader);
  }
 .ss-card header {
@@ -54,6 +47,7 @@ input {
     color: var(--color-main);
     display: inline-block;
     margin-right: 10px;
+    text-align: center;
     font-size: 1.1rem;
     min-width: 20px;
 }
@@ -145,18 +139,19 @@ input {
     min-width: 55px;
 }
 .ss-switch > div {
-    transition: background .3s;
     border-radius: var(--switch-height);
     background: var(--color-card-1);
     height: var(--switch-height);
+    transition: background .4s;
     width: 100%;
 }
 .ss-switch > div > div {
-    transition: margin-left .3s cubic-bezier(0.85, 0, 0.12, 0.99), background .4s .1s;
+    transition: margin-left .3s cubic-bezier(0.85, 0, 0.12, 0.99), border .2s;
     border-radius: calc(var(--switch-height) - (var(--switch-dot-margin) * 2));
     height: calc(var(--switch-height) - (var(--switch-dot-margin) * 2));
     width: calc(var(--switch-height) - (var(--switch-dot-margin) * 2));
     border: var(--switch-dot-border) solid #fff;
+    box-shadow:0 0 5px var(--color-shader);
     margin-left: var(--switch-dot-margin);
     margin-top: var(--switch-dot-margin);
     background: var(--color-main);
@@ -169,8 +164,8 @@ input {
     background: var(--color-main);
 }
 .ss-switch input:checked ~ div > div {
+    border: calc((var(--switch-height) - var(--switch-dot-margin) * 2) / 2 + 0.5px) solid #fff;
     margin-left: calc(100% - var(--switch-height) + var(--switch-dot-margin));
-    background: #fff;
 }
 
 .ana-card {

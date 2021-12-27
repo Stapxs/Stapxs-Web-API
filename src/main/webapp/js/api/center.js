@@ -109,6 +109,12 @@ try {
 
 // 初始化设置项
 if(options !== '') {
+    if(options[0] === '1') {
+        document.getElementById('opt0').getElementsByTagName('input')[0].checked = true
+    }
+    if(options[1] === '1') {
+        document.getElementById('opt1').getElementsByTagName('input')[0].checked = true
+    }
     const colors = document.getElementById("color-list").getElementsByTagName('label')
     for(let i=0; i<colors.length; i++) {
         if(colors[i].dataset.id === options[2]) {
@@ -276,6 +282,23 @@ function setMainColor(sender) {
         opt = saveOpt(options)
     }
     document.cookie = "options=" + opt + "; expires=" + exp.toGMTString() + "; path=/";
+}
+
+function changeSet(sender) {
+    const setbody_id = sender.parentNode.dataset.id
+    const set_status = sender.checked
+    // 保存设置到 cookie
+    const exp = new Date();
+    exp.setTime(exp.getTime() + 50 * 60 * 1000);
+    // 拆分设置参数
+    let opt = "0|0|0"
+    if(options !== '') {
+        options[setbody_id] = set_status ? '1' : '0'
+        // 构建设置参数
+        opt = saveOpt(options)
+    }
+    document.cookie = "options=" + opt + "; expires=" + exp.toGMTString() + "; path=/";
+    uploadColor()
 }
 
 function showError(msg) {

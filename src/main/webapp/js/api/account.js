@@ -22,7 +22,11 @@ if(idIn !== -1 && tok !== '') {
 
         httpRequest.onreadystatechange = function () {
             if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-                window.location.href = "/Center"
+                if(getQueryVariable("back") !== false) {
+                    window.location.href = "/" + getQueryVariable("back")
+                } else {
+                    window.location.href = "/Center"
+                }
             } else if(httpRequest.status === 403 || httpRequest.status === 500) {
                 showErr(true, "验证登录失败，请重新登陆！")
             }
@@ -88,7 +92,11 @@ function loginAcc() {
                                 console.error(e)
                                 showErr(true, "获取信息失败！(1)")
                             })
-                        window.location.href = "/Center"
+                        if(getQueryVariable("back") !== false) {
+                            window.location.href = "/" + getQueryVariable("back")
+                        } else {
+                            window.location.href = "/Center"
+                        }
                     } else if(httpRequest.status === 403 || httpRequest.status === 500) {
                         showErr(true, "账号或密码错误！")
                     }
@@ -145,4 +153,33 @@ function loading(isLoad) {
         icon.style.width = "40px"
         icon.style.animation = "";
     }
+}
+
+function showRegPan() {
+    showErr(false)
+    document.getElementById('login-pan').classList.remove('login-box-1')
+    document.getElementById('login-pan').classList.add('login-box-2')
+    document.getElementById('login-body').classList.remove('login-body-1')
+    document.getElementById('login-body').classList.add('login-body-2')
+    document.getElementById('reg-pan').classList.remove('reg-box-1')
+    document.getElementById('reg-pan').classList.add('reg-box-2')
+
+    document.getElementById('err-card').style.display = 'none'
+
+    setTimeout(() => {
+        document.getElementById('login-body').style.opacity = '1'
+        document.getElementById('back-button').style.display = 'initial'
+    }, 300)
+}
+
+function backRegPan() {
+    document.getElementById('login-pan').classList.remove('login-box-2')
+    document.getElementById('login-pan').classList.add('login-box-1')
+    document.getElementById('login-body').classList.remove('login-body-2')
+    document.getElementById('login-body').classList.add('login-body-1')
+    document.getElementById('reg-pan').classList.remove('reg-box-2')
+    document.getElementById('reg-pan').classList.add('reg-box-1')
+
+    document.getElementById('back-button').style.display = 'none'
+    document.getElementById('err-card').style.display = 'block'
 }

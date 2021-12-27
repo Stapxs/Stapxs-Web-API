@@ -12,8 +12,8 @@
 <head>
     <title>用户中心 - 林槐服务接口</title>
     <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/center.css">
-    <script src="${pageContext.request.contextPath}/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/center.css">
+    <script src="${pageContext.request.contextPath}/js/util/clipboard.min.js"></script>
 </head>
 
 <body style="background: var(--color-bg);">
@@ -56,7 +56,7 @@
             </header>
             <div class="ss-card" style="background: var(--color-card-1);margin-bottom: 20px;padding: 20px;margin-top: 10px;">
                 <span style="font-size: 0.8rem;">
-                    你可以在下面管理属于你的用户 key，这个 key 将用于需要指向你的地方。它没有危险操作的权限，只用于代表 ”指向你创建的东西“，比如 <code>/PCL-Page/[你的 key]</code>。你最多可以创建五个 key。
+                    你可以在下面管理属于你的用户 key，这个 key 将用于需要指向你的地方。用于代表 ”指向你创建的东西“，你最多可以创建五个 key。<br>虽然在大部分情况下使用 key 的时候并不危险，但它有权绕过登录系统修改部分属于你的东西（比如在 Doing API 里修改你的 Doing 数据），请仅有必要的情况下分享你的 Key，或发现滥用情况时及时替换他们。
                 </span>
             </div>
             <div id="key-body">
@@ -76,8 +76,8 @@
                         <span>暗黑模式</span>
                         <i>启用更适合夜间以及 OLED 显示设备的暗黑模式。</i>
                     </div>
-                    <label class="ss-switch">
-                        <input type="checkbox">
+                    <label class="ss-switch" data-id="0" id="opt0">
+                        <input type="checkbox" onchange="changeSet(this);">
                         <div><div></div></div>
                     </label>
                 </div>
@@ -86,8 +86,8 @@
                         <span>自动暗黑模式</span>
                         <i>让页面自动跟随系统的颜色模式。</i>
                     </div>
-                    <label class="ss-switch">
-                        <input type="checkbox">
+                    <label class="ss-switch" data-id="1" id="opt1">
+                        <input type="checkbox" onchange="changeSet(this);">
                         <div><div></div></div>
                     </label>
                 </div>
@@ -96,25 +96,25 @@
                         <span>主题色</span>
                         <i>换个颜色换个心情 ~</i>
                     </div>
-                    <label class="ss-radio" title="坏猫黄" data-id="5">
-                        <input type="radio" name="color" onclick="setMainColor(this);">
-                        <div style="background: var(--color-main-5);;"><div></div></div>
-                    </label>
-                    <label class="ss-radio" title="林槐蓝" data-id="4">
+                    <label class="ss-radio" title="坏猫黄" data-id="4">
                         <input type="radio" name="color" onclick="setMainColor(this);">
                         <div style="background: var(--color-main-4);;"><div></div></div>
                     </label>
-                    <label class="ss-radio" title="天牧红" data-id="3">
+                    <label class="ss-radio" title="林槐蓝" data-id="3">
                         <input type="radio" name="color" onclick="setMainColor(this);">
                         <div style="background: var(--color-main-3);;"><div></div></div>
                     </label>
-                    <label class="ss-radio" title="玄素黑" data-id="2">
+                    <label class="ss-radio" title="天牧红" data-id="2">
                         <input type="radio" name="color" onclick="setMainColor(this);">
                         <div style="background: var(--color-main-2);;"><div></div></div>
                     </label>
-                    <label class="ss-radio" title="Zorin 蓝（默认）" data-id="1">
+                    <label class="ss-radio" title="玄素黑" data-id="1">
                         <input type="radio" name="color" onclick="setMainColor(this);">
-                        <div style="background: var(--color-main-1);"><div></div></div>
+                        <div style="background: var(--color-main-1);;"><div></div></div>
+                    </label>
+                    <label class="ss-radio" title="Zorin 蓝（默认）" data-id="0">
+                        <input type="radio" name="color" onclick="setMainColor(this);">
+                        <div style="background: var(--color-main-0);"><div></div></div>
                     </label>
                 </div>
             </div>
@@ -124,5 +124,5 @@
 </div>
 </body>
 <jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
-<script src="${pageContext.request.contextPath}/js/center.js?version=<%=appInfo.version%>-<%=appInfo.build%>"></script>
+<script src="${pageContext.request.contextPath}/js/api/center.js?version=<%=appInfo.version%>-<%=appInfo.build%>"></script>
 </html>

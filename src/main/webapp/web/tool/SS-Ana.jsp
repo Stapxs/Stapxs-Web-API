@@ -92,5 +92,5 @@
         }
     %>
 </script>
-<script src="${pageContext.request.contextPath}/js/SS-Ana.js"></script>
+<script src="${pageContext.request.contextPath}/js/tool/SS-Ana.js"></script>
 </html>

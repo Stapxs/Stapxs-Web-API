@@ -52,7 +52,7 @@
 <head>
     <title>喵喵喵 - 林槐服务接口</title>
     <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/error.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/error.css">
 </head>
 
 <body style="background: var(--color-bg);">

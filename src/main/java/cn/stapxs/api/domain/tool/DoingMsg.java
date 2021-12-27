@@ -1,14 +1,16 @@
-package cn.stapxs.api.domain.user;
+package cn.stapxs.api.domain.tool;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
  * @Version: 1.0
- * @Date: 2021/12/20 20:00
- * @ClassName: UserKey
+ * @Date: 2021/12/26 20:36
+ * @ClassName: DoingMsg
  * @Author: Stapxs
  * @Description TO DO
  **/
@@ -16,9 +18,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserKey {
+public class DoingMsg {
     private int user_id;
-    private int key_id;
-    private String key_name;
-    private String key_value;
+    private String name_platform;
+    private Date set_date;
+    private String doing;
 }

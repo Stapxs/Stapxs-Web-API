@@ -18,6 +18,8 @@ public interface UserDao {
     public String getUserNick(int id);
     @Select("select * from sac_key where user_id=#{id}")
     public UserKey[] getUserKey(int id);
+    @Select("select * from sac_key where key_value=#{key}")
+    public UserKey getKeyInfo(String key);
 
     // Update
     @Update("update sac_user set login_key=#{pkey} where user_id=#{id}")

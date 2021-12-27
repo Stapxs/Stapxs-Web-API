@@ -127,6 +127,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserKey getKeyInfo(String key) {
+        return userDao.getKeyInfo(key);
+    }
+
+    @Override
     public void deleteKey(int id, int num) {
         userDao.deleteKet(id, num);
     }

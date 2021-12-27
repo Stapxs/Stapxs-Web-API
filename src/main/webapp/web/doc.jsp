@@ -12,7 +12,7 @@
 <head>
     <title>文档 - 林槐服务接口</title>
     <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/doc.css?version=<%=appInfo.version%>-<%=appInfo.build%>">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/doc.css?version=<%=appInfo.version%>-<%=appInfo.build%>">
 </head>
 
 <body style="background: var(--color-bg);position: relative;" data-spy="scroll">
@@ -44,5 +44,5 @@
     </div>
 </body>
 <jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
-<script src="${pageContext.request.contextPath}/js/doc.js?version=<%=appInfo.version%>-<%=appInfo.build%>"></script>
+<script src="${pageContext.request.contextPath}/js/api/doc.js?version=<%=appInfo.version%>-<%=appInfo.build%>"></script>
 </html>

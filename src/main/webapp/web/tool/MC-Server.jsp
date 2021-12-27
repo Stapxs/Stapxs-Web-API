@@ -14,7 +14,7 @@
 <head>
     <title>MC 服务器信息 - 林槐服务接口</title>
     <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/error.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/error.css/error.css">
 </head>
 
 <script>
@@ -82,6 +82,6 @@
 </div>
 </body>
 <jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
-<script src="${pageContext.request.contextPath}/js/MC-Server.js"></script>
+<script src="${pageContext.request.contextPath}/js/tool/MC-Server.js"></script>
 </html>
 

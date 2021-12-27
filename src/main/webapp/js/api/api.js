@@ -25,9 +25,8 @@ if(id >= 0) {
     document.getElementById("avatar-img").src = "/acc/info/getAvatar/" + id
 }
 // 加载颜色
-if(options !== '') {
-    changeMainColor(options[2])
-}
+window.is_auto_dark = true
+uploadColor()
 
 function Login() {
     window.location.href = "/Account"
@@ -46,4 +45,27 @@ function saveOpt() {
 
 function changeMainColor(id) {
     document.documentElement.style.setProperty('--color-main', "var(--color-main-" + id + ")")
+}
+
+function uploadColor() {
+    if(options !== '') {
+        changeMainColor(options[2])
+        if(options[1] !== '1') {
+            is_auto_dark = false
+            if(options[0] === '0') {
+                changeColor('light')
+            } else {
+                changeColor('dark')
+            }
+            return;
+        }
+    }
+    let media = window.matchMedia('(prefers-color-scheme: dark)');
+    if(is_auto_dark) {
+        if (media.matches) {
+            changeColor("dark")
+        } else {
+            changeColor("light")
+        }
+    }
 }

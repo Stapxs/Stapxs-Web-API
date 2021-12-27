@@ -38,6 +38,10 @@ public class PageController {
         model.addAttribute("id", id);
         return "tool/SS-Ana";
     }
+    @RequestMapping("Doing")
+    public String SteveDoing() {
+        return "tool/Steve-Doing";
+    }
 
     @RequestMapping("Error")
     public String Error(boolean debug, Model model) {
