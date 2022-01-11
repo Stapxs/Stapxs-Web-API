@@ -23,6 +23,7 @@ public class UserInfo {
     private int user_id;
     private String user_name;
     private String user_nick;
+    private String user_mail;
     private Date time_create;
     private Date time_login;
     private String ip_login;

@@ -10,12 +10,12 @@
 <html>
 <head>
     <title>API 列表 - 林槐服务接口</title>
-    <jsp:include page="../module/head.jsp"/>
-    <link rel="stylesheet" href="../css/jquery-ui.css">
-    <link rel="stylesheet" href="../css/list.css">
+    <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/util/jquery-ui.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/list.css">
 </head>
 <body style="background: var(--color-bg);color: var(--color-font)">
-    <jsp:include page="../module/navbar.jsp"/>
+    <jsp:include page="${pageContext.request.contextPath}/module/navbar.jsp"/>
     <div style="display: flex;flex-direction: column;height: calc(100vh - 76px);">
         <div class="container-lg" style="flex: 1;">
             <%-- code here …… --%>

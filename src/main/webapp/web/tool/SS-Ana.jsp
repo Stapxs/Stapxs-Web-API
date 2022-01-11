@@ -1,4 +1,6 @@
-<%@ page import="cn.stapxs.api.util.Number" %><%--
+<%@ page import="cn.stapxs.api.util.Number" %>
+<%@ page import="cn.stapxs.api.appInfo" %>
+<%--
   Created by IntelliJ IDEA.
   User: Stapxs
   Date: 2021/9/1
@@ -11,11 +13,11 @@
 <head>
     <title>林槐语录 - 林槐服务接口</title>
     <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
-    <link rel="stylesheet" href="../../css/SS-Ana.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/tool/SS-Ana.css">
 
     <meta property="og:title" content="林槐语录">
     <meta property="og:description" content="<%=request.getAttribute("ana")%>">
-    <meta property="og:url" content="https://api/stapxs.cn/SS-Ana/<%=request.getAttribute("id")%>">
+    <meta property="og:url" content="https://<%=appInfo.domain%>/SS-Ana/<%=request.getAttribute("id")%>">
 </head>
 
 <body style="background: var(--color-bg);color: var(--color-font)">

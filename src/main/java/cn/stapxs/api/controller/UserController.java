@@ -6,6 +6,7 @@ import cn.stapxs.api.domain.user.KeyInfo;
 import cn.stapxs.api.domain.user.UserBase;
 import cn.stapxs.api.domain.user.UserInfo;
 import cn.stapxs.api.domain.user.UserKey;
+import cn.stapxs.api.service.MailService;
 import cn.stapxs.api.service.UserService;
 import cn.stapxs.api.util.NetWork;
 import cn.stapxs.api.util.PBKDF2;
@@ -16,6 +17,7 @@ import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpRequest;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +26,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.crypto.BadPaddingException;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Random;
 
@@ -48,6 +52,11 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    MailService mailService;
+
+    // ----------------------------------------------------------------------
+    // 账户登录登出相关
 
     @GetMapping("/acc/getKey/{name}")
     public String getKey(@PathVariable String name, Model model) throws NoSuchAlgorithmException {
@@ -119,6 +128,22 @@ public class UserController {
         }
     }
 
+    @PostMapping("/acc/OutAcc")
+    public String loginOutAcc(int id, String token, Model model) {
+        // 验证登录
+        try {
+            if(userService.verifyLogin(id ,token, true)) {
+                // 登出
+                userService.loginOut(id);
+                return UI.JumpAPI(200, gson.toJson(new BaseMsg(200, "操作成功！")), model);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UI.JumpAPI(500, null, model);
+        }
+        return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "验证登陆失败！")), model);
+    }
+
     @PostMapping("/acc/flashToken")
     public String flashToken(int id, String token, Model model) {
         Optional<UserBase> user = Optional.ofNullable(userService.getUserByID(id));
@@ -154,10 +179,16 @@ public class UserController {
     }
 
     @PostMapping("/acc/verifyLogin")
-    public String verifyLogin(int id, String token, Model model) {
+    public String verifyLogin(int id, String token, @Nullable boolean notBase, Model model) {
         try {
-            if(userService.verifyLogin(id ,token)) {
-                return UI.JumpAPI(200, null, model);
+            if(notBase) {
+                if (userService.verifyLogin(id, token)) {
+                    return UI.JumpAPI(200, null, model);
+                }
+            } else {
+                if (userService.verifyLogin(id, token, true)) {
+                    return UI.JumpAPI(200, null, model);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,6 +198,59 @@ public class UserController {
     }
 
     // ----------------------------------------------------------------------
+    // 账户注册相关
+    @PostMapping("/acc/verifyMail")
+    public String sendMail(int id, String token, String mail, Model model, HttpServletRequest request) {
+        // 验证邮箱验证状态（使用严格模式验证登陆）
+        try {
+            if(!userService.verifyLogin(id ,token)) {
+                // 判断发送是否频繁
+                UserBase base = userService.getUserByID(id);
+                if(base.getCode_time() != null) {
+                    Date afterDate = new Date(base.getCode_time().getTime() - 240000);
+                    if(afterDate.after(new Date())) {
+                        return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "操作频繁！")), model);
+                    }
+                }
+                // 发送
+                String code = mailService.sendCode(id, mail, request);
+                // 记录数据
+                userService.updateMail(id, mail);
+                userService.updateCode(id, code);
+                // 返回
+                return UI.JumpAPI(200, gson.toJson(new BaseMsg(200, "操作成功！")), model);
+            } else {
+                return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "邮箱已验证！")), model);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UI.JumpAPI(500, null, model);
+        }
+    }
+
+    @PostMapping("/acc/passMail")
+    public String passMail(int id, String token, String code, Model model) {
+        // 验证登录
+        try {
+            if(userService.verifyLogin(id ,token, true)) {
+                // 验证 Code
+                String back = userService.verifyCode(id, code);
+                if(back.equals("OK")) {
+                    userService.updateMailState(id, true);
+                    return UI.JumpAPI(200, gson.toJson(new BaseMsg(200, "验证完成！")), model);
+                } else {
+                    return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, back)), model);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return UI.JumpAPI(500, null, model);
+        }
+        return UI.JumpAPI(403, gson.toJson(new BaseMsg(403, "验证登陆失败！")), model);
+    }
+
+    // ----------------------------------------------------------------------
+    // 获取账户信息相关
 
     @GetMapping("/acc/info/getNick/{id}")
     public String getNick(@PathVariable int id, Model model) {
@@ -190,7 +274,7 @@ public class UserController {
     public String getInfo(int id, String token, Model model) {
         // 验证登录
         try {
-            if(userService.verifyLogin(id ,token)) {
+            if(userService.verifyLogin(id ,token, true)) {
                 // 获取 info
                 Optional<UserBase> base = Optional.ofNullable(userService.getUserByID(id));
                 Optional<UserInfo> info = Optional.ofNullable(userService.getUserInfoByID(id));
@@ -207,6 +291,7 @@ public class UserController {
     }
 
     // ----------------------------------------------------------------------
+    // 用户识别 key 相关
 
     @PostMapping("/acc/key/new")
     public String newKey(int id, String token, Model model) {

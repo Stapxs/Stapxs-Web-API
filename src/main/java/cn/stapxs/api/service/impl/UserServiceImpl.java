@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -80,21 +81,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean verifyLogin(int id, String token) {
+        return verifyLogin(id, token, false);
+    }
+
+    @Override
+    public boolean verifyLogin(int id, String token, boolean isBase) {
         System.out.println("操作 > 验证登陆 > verifyLogin > " + id + "/" + token);
         Optional<UserBase> user = Optional.ofNullable(getUserByID(id));
         if(user.isPresent()) {
-                // 验证 token 有效性
-                if (user.get().getUser_token().equals(token)) {
-                    long time = Long.parseLong(token.substring(0, 5) + token.substring(token.length() - 7, token.length() - 2));
-                    long now = System.currentTimeMillis() / 1000;
-                    // 判断 token 是否过期
-                    if(time + 1800 > now) {
-                        System.out.println("操作 > 验证登陆 > verifyLogin > 成功");
+            // 验证 token 有效性
+            if (user.get().getUser_token().equals(token)) {
+                long time = Long.parseLong(token.substring(0, 5) + token.substring(token.length() - 7, token.length() - 2));
+                long now = System.currentTimeMillis() / 1000;
+                // 判断 token 是否过期
+                if(time + 1800 > now) {
+                    if(isBase) {
+                        System.out.println("操作 > 验证登陆（基础） > verifyLogin > 成功");
                         return true;
+                    } else {
+                        // 验证邮箱验证是否通过
+                        int statue = userDao.getMailStatus(id);
+                        if(statue != 0) {
+                            System.out.println("操作 > 验证登陆（严格） > verifyLogin > 成功");
+                            return true;
+                        } else {
+                            System.out.println("操作 > 验证登陆 > verifyLogin > 未验证邮箱");
+                            return false;
+                        }
                     }
-                } else {
-                    System.out.println("操作 > 验证登陆 > verifyLogin > token 无效");
                 }
+            } else {
+                System.out.println("操作 > 验证登陆 > verifyLogin > token 无效");
+            }
         }
         System.out.println("操作 > 验证登陆 > verifyLogin > 失败");
         return false;
@@ -104,6 +122,11 @@ public class UserServiceImpl implements UserService {
     public void updateLoginInfo(int id, String ip) {
         userDao.setLoginInfo(id, ip);
         // TODO 记得在注册的时候新建 info 表项
+    }
+
+    @Override
+    public void loginOut(int id) {
+        userDao.delUserToken(id);
     }
 
     @Override
@@ -139,6 +162,41 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateKeyName(int id, int num, String str) {
         userDao.updateKeyName(id, num, str);
+    }
+
+    @Override
+    public void updateCode(int id, String code) {
+        // 计算过期时间
+        Date endDate = new Date(new Date().getTime() + 300000);
+        // 保存数据
+        userDao.updateCode(id, code, endDate);
+    }
+
+    @Override
+    public String verifyCode(int id, String code) {
+        UserBase base = userDao.getUserByID(id);
+        // 验证是否过期
+        if(base.getCode_time().after(new Date())) {
+            // 比较验证码
+            if(base.getLast_code().equals(code)) {
+                return "OK";
+            } else {
+                return "验证码错误！";
+            }
+        } else {
+            return "验证码超时！";
+        }
+    }
+
+    @Override
+    public void updateMail(int id, String mail) {
+        userDao.updateUserMail(id, mail);
+    }
+
+    @Override
+    public void updateMailState(int id, boolean state) {
+        int status = state ? 1 : 0;
+        userDao.updateUserMailStatue(id, status);
     }
 
     @Override

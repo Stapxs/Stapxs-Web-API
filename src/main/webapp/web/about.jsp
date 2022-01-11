@@ -12,7 +12,7 @@
 <head>
     <title>关于 - 林槐服务接口</title>
     <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/api/about.css">
 </head>
 

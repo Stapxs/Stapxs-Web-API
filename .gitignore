@@ -59,4 +59,5 @@ fabric.properties
 hs_err_pid*
 
 # more
-src/main/resources/jdbc.properties
+src/main/resources/*.properties
+!src/main/resources/log4j.properties

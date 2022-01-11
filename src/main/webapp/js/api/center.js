@@ -1,4 +1,3 @@
-// 验证登录
 const cookies = document.cookie.split('; ')
 let idIn = -1
 let tok = ''
@@ -21,6 +20,61 @@ if(idIn !== -1 && tok !== '') {
         httpRequest.onreadystatechange = function () {
             if (httpRequest.status !== 200) {
                 window.location.href = "/Account"
+            }
+        };
+    } catch (e) {
+        console.error(e)
+        window.location.href = "/Account"
+    }
+    let isFinishNotBase = false
+    // 验证邮箱激活代码正确性
+    const passEmail = function () {
+        let isFinishPass =false
+        const code = getCodeInput(document.getElementById('mail-check-inputs-body'))
+        try {
+            const httpRequest = new XMLHttpRequest();
+            httpRequest.open("POST", "/acc/passMail", true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            httpRequest.send("id=" + idIn + "&token=" + tok + "&code=" + code);
+
+            httpRequest.onreadystatechange = function () {
+                if(httpRequest.responseText.indexOf("status") > 0) {
+                    const json = JSON.parse(httpRequest.responseText)
+                    if (json.status === 200 && !isFinishPass) {
+                        isFinishPass = true
+                        // 刷新页面
+                        location.reload();
+                    } else if(json.status === 403 && !isFinishPass) {
+                        isFinishPass = true
+                        showError("验证邮箱错误：" + JSON.parse(httpRequest.responseText).message)
+                        document.getElementById('mail-button').disabled = false
+                        document.getElementById('mail-button').style.display = 'block'
+                        document.getElementById('mail-button').innerHTML = '<i class="fa fa-envelope" aria-hidden="true"></i> 重新发送'
+                        cleanCodeInput(document.getElementById('mail-check-inputs-body'))
+                    }
+                }
+
+            };
+        } catch (e) {
+            console.error(e)
+        }
+    }
+    // 进行严格登录验证（验证账户是否可用（邮箱是否激活））
+    try {
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.open("POST", "/acc/verifyLogin", true);
+        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        httpRequest.send("id=" + idIn + "&token=" + tok + "&notBase=true");
+
+        httpRequest.onreadystatechange = function () {
+            if (httpRequest.status !== 200 && !isFinishNotBase) {
+                isFinishNotBase = true
+                // 初始化验证码输入框
+                initCodeInput(document.getElementById('mail-check-inputs-body'), false, passEmail)
+                // 隐藏用户中心的主题，显示邮箱验证模块
+                showError('账户检查错误：请验证邮箱！');
+                document.getElementById('main-body').style.display = 'none'
+                document.getElementById('mail-check-body').style.display = 'block'
             }
         };
     } catch (e) {
@@ -299,6 +353,72 @@ function changeSet(sender) {
     }
     document.cookie = "options=" + opt + "; expires=" + exp.toGMTString() + "; path=/";
     uploadColor()
+}
+
+function exitAcc() {
+    try {
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.open("POST", "/acc/OutAcc", true);
+        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        httpRequest.send("id=" + idIn + "&token=" + tok);
+
+        httpRequest.onreadystatechange = function () {
+            if(httpRequest.responseText.indexOf('status') > 0) {
+                const info = JSON.parse(httpRequest.responseText)
+                if(info.status === 200) {
+                    location.reload();
+                } else {
+                    showError('退出登录错误：' + info.message)
+                }
+            }
+        };
+    } catch (e) {
+        showError('退出登录错误：' + e.message)
+    }
+}
+
+function sendMail() {
+    let is_get = false
+    // 验证输入
+    const mail = document.getElementById('mail-input').value
+    const reg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
+    if (!reg.test(mail)) {
+        showError("请输入正确的邮箱！");
+        return false;
+    }
+    document.getElementById('mail-input').disabled = true
+    document.getElementById('mail-input').style.width = '0'
+    setTimeout(() => document.getElementById('mail-input').style.display = 'none', 200)
+    document.getElementById('mail-button').innerHTML = '<i class="fa fa-cog fa-spin" aria-hidden="true"></i> 发送中'
+    try {
+        const httpRequest = new XMLHttpRequest();
+        httpRequest.open("POST", "/acc/verifyMail", true);
+        httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        httpRequest.send("id=" + idIn + "&token=" + tok + "&mail=" + mail);
+
+        httpRequest.onreadystatechange = function () {
+            if(httpRequest.responseText.indexOf('status') > 0) {
+                const info = JSON.parse(httpRequest.responseText)
+                if(info.status === 200 && !is_get) {
+                    is_get = true
+                    // 显示验证码输入框
+                    document.getElementById('mail-button').style.display = 'none'
+                    document.getElementById('mail-check-inputs').style.display = 'block'
+                    document.getElementById('mail-check-inputs-body').click()
+                } else if(info.status === 403 && !is_get) {
+                    is_get = true
+                    showError(info.message)
+                    document.getElementById('mail-button').disabled = false
+                    document.getElementById('mail-button').style.display = 'block'
+                    document.getElementById('mail-button').innerHTML = '<i class="fa fa-envelope" aria-hidden="true"></i> 重新发送'
+                    cleanCodeInput(document.getElementById('mail-check-inputs-body'))
+                }
+            }
+        };
+    } catch (e) {
+        showError('发送邮件错误：' + e.message)
+    }
+    document.getElementById('mail-input').disabled = false
 }
 
 function showError(msg) {

@@ -12,8 +12,8 @@
 <html prefix="og: https://ogp.me/ns#">
 <head>
     <title>林槐服务接口</title>
-    <jsp:include page="../module/head.jsp"/>
-    <link rel="stylesheet" href="../css/index.css">
+    <jsp:include page="${pageContext.request.contextPath}/module/head.jsp"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
 </head>
 
 <body style="background: var(--color-bg);">
@@ -104,5 +104,5 @@
 </div>
 </body>
 <jsp:include page="${pageContext.request.contextPath}/module/js.jsp"/>
-<script src="../js/index.js"></script>
+<script src="${pageContext.request.contextPath}/js/index.js"></script>
 </html>

@@ -48,4 +48,9 @@ public class PageController {
         model.addAttribute("debug", debug);
         return "err/error";
     }
+
+    @RequestMapping("model/code")
+    public String codePage() {
+        return "user/code";
+    }
 }

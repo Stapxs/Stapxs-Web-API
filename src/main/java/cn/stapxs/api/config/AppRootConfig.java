@@ -3,15 +3,16 @@ package cn.stapxs.api.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.web.server.ErrorPage;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
-import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
-import org.springframework.context.annotation.*;
-import org.springframework.http.HttpStatus;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * @Version: 1.0
@@ -39,6 +40,26 @@ public class AppRootConfig {
         druidDataSource.setMaxActive(300000);
         druidDataSource.setDefaultAutoCommit(true);
         return druidDataSource;
+    }
+
+    // 配置 mail
+    @Bean
+    public JavaMailSenderImpl javaMailSender(mailConfig config) {
+        JavaMailSenderImpl impl = new JavaMailSenderImpl();
+        // 设置 mail 参数
+        impl.setHost(config.getHost());
+        impl.setPort(config.getPort());
+        impl.setUsername(config.getUsername());
+        impl.setPassword(config.getPassword());
+        impl.setDefaultEncoding(config.getDefaultEncoding());
+        // 额外配置
+        Properties properties = new Properties();
+        properties.setProperty("mail.smtp.timeout", String.valueOf(config.getTimeout()));
+        properties.setProperty("mail.smtp.ssl.enable", "true");
+        properties.setProperty("mail.smtp.auth", "true");
+        impl.setJavaMailProperties(properties);
+        // 返回
+        return impl;
     }
 
     // 配置 mybatis

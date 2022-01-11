@@ -26,6 +26,8 @@ public class UserBase {
     private String user_token;
     private String login_token;
     private String login_key;
+    private String last_code;
+    private Date code_time;
     private int account_state;
 
     public String getToken() {

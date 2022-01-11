@@ -168,6 +168,32 @@ input {
     margin-left: calc(100% - var(--switch-height) + var(--switch-dot-margin));
 }
 
+.ss-code-input {
+    flex-direction: initial;
+    justify-content: center;
+    padding-top: 30px;
+    display: flex;
+}
+.ss-code-input input {
+    background: var(--color-card-1);
+    outline: 2px solid transparent;
+    caret-color: transparent;
+    transition: outline .3s;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 0 10px;
+    height: 60px;
+    width: 60px;
+    border: 0;
+}
+.ss-code-input input:focus {
+    outline: 2px solid var(--color-main);
+}
+.code-input-err input{
+    outline: 2px solid #e81123;
+}
+
 .ana-card {
     color: var(--color-font);
     text-align: center;

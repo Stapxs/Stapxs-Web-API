@@ -2,7 +2,6 @@ package cn.stapxs.api;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.context.annotation.Bean;
 
 /**
  * @Version: 1.0
@@ -14,12 +13,13 @@ import org.springframework.context.annotation.Bean;
 @Data
 @Builder
 public class appInfo {
-    public static String version = "1.1.4";
-    public static int build = 1;
+    public static String version = "1.2.1";
+    public static int build = 3;
     public static String type = "Dev";
-    public static double verNum = 1.1;
+    public static double verNum = 1.2;
 
     public static String root = "C://Users/Stapxs/Desktop/SS-Web-API/";
+    public static String domain = "api.stapxs.cn";
 
     public String getVersion() {
         return version;
