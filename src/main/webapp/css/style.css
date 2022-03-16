@@ -187,11 +187,17 @@ input {
     width: 60px;
     border: 0;
 }
-.ss-code-input input:focus {
-    outline: 2px solid var(--color-main);
+.ss-code-input input:first-child {
+    padding: 0;
+    margin: 0;
+    height: 0;
+    width: 0;
 }
-.code-input-err input{
-    outline: 2px solid #e81123;
+.ss-code-input-selete {
+    outline: 2px solid var(--color-main) !important;
+}
+.ss-code-input-err {
+    outline: 2px solid #ef5f5f !important;
 }
 
 .ana-card {

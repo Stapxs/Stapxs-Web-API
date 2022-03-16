@@ -18,7 +18,7 @@ public class appInfo {
     public static String type = "Dev";
     public static double verNum = 1.2;
 
-    public static String root = "C://Users/Stapxs/Desktop/SS-Web-API/";
+    public static String root = "/www/wwwroot/api.stapxs.cn/config/SS-Web-API/";
     public static String domain = "api.stapxs.cn";
 
     public String getVersion() {

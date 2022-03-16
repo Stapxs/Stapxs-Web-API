@@ -77,106 +77,117 @@ function getQueryVariable(variable) {
     return false
 }
 
-function initCodeInput(body, allowEdit, fun) {
+function initCodeInput(body, fun, regex) {
+    // 初始化输入框
     if(body.classList.toString().indexOf('ss-code-input') >= 0) {
         // 初始化 label onclick 事件
-        body.onclick = function () {codeInputAllow(body)}
-        body.dataset.allowEdit = allowEdit
-        // 遍历内部 input
-        const inputs = body.getElementsByTagName('input')
-        for(let i=0; i<inputs.length; i++) {
-            inputs[i].dataset.id = (i+1).toString()                                 // 初始化 input id
-            inputs[i].disabled = true                                               // 初始化 input 状态
-            inputs[i].oninput = function () {codeInputChanged(inputs[i], fun)}       // 初始化 input oninput
-            inputs[i].onkeydown = function () {codeInputDel(event, inputs[i])}      // 初始化 input onkeydown
-        }
-    }
-}
-
-function codeInputChanged(sender, fun) {
-    if(sender.value !== '') {
-        sender.value = sender.value.substring(sender.value.length - 1)
-    }
-    // 验证输入内容
-    const num = Number(sender.value)
-    if(sender.value.indexOf(' ') < 0 && !isNaN(num) && num < 10) {
-        sender.disabled = true
-        if(Number(sender.dataset.id) === sender.parentNode.getElementsByTagName('input').length) {
-            // 最后一位
-            if(sender.parentNode.dataset.allowEdit === 'true') {
-                // 末尾不退出
-                sender.disabled = false
-                sender.focus()
-            } else {
-                // 延迟触发结束方法（为了让动画执行结束）
-                setTimeout(() => {
-                    fun()
-                }, 300)
+        body.onclick = function () { codeInputAllow(body) }
+        // 初始化主输入框
+        const input = body.getElementsByTagName('input')[0]
+        input.oninput = function() { codeInputChanged(body, fun, regex) }
+        input.onblur = function() { codeInputNoAllow(body) }
+        input.dataset.typeing = "false"
+        input.addEventListener('compositionstart',function(e){ input.dataset.typeing = "true" }, false)
+        input.addEventListener('compositionend',function(e){ input.dataset.typeing = "false"; }, false)
+        if(input !== undefined) {
+            // 添加显示输入框
+            for(var i=0; i<body.dataset.num; i++) {
+                // 构建
+                let inputShow = document.createElement("input")
+                inputShow.onclick = function () { codeInputAllow(body) }
+                inputShow.dataset.id = (i+1).toString()
+                inputShow.disabled = true
+                // 添加
+                body.appendChild(inputShow)
             }
-        } else {
-            sender.parentNode.getElementsByTagName('input')[Number(sender.dataset.id)].disabled = false
-            sender.parentNode.getElementsByTagName('input')[Number(sender.dataset.id)].focus()
         }
-    } else {
-        sender.value = ''
     }
 }
 
 function codeInputAllow(body) {
-    if(body.getElementsByTagName('input')[0].value === '') {
-        body.getElementsByTagName('input')[0].disabled = false
-        body.getElementsByTagName('input')[0].focus()
+    // 输入框 label 点击事件
+    const inputs = body.getElementsByTagName('input')
+    inputs[0].focus()
+    codeInputChanged(body)
+}
+
+function codeInputNoAllow(body) {
+    const inputs = body.getElementsByTagName('input')
+    for(let i=1; i<inputs.length; i++) {
+        inputs[i].classList = ""
     }
 }
 
-function codeInputDel(key, sender) {
-    if(Number(key.keyCode) === 8){
-        sender.disabled = true
-        if(Number(sender.dataset.id) > 1) {
-            console.log(sender.value + "/" + Number(sender.dataset.id) + "/" + sender.parentNode.getElementsByTagName('input').length)
-            if (sender.value !== '' && Number(sender.dataset.id) === sender.parentNode.getElementsByTagName('input').length) {
-                setTimeout(() => {
-                    sender.disabled = false
-                    sender.value = ''
-                    sender.focus()
-                }, 100)
-            } else {
-                sender.value = ''
-                sender.parentNode.getElementsByTagName('input')[Number(sender.dataset.id) - 2].disabled = false
-                sender.parentNode.getElementsByTagName('input')[Number(sender.dataset.id) - 2].focus()
-                setTimeout(() => {
-                    sender.parentNode.getElementsByTagName('input')[Number(sender.dataset.id) - 2].value = ''
-                }, 100)
-            }
-        } else {
-            setTimeout(() => {
-                sender.disabled = false
-                sender.focus()
-            }, 100)
+function codeInputChanged(body, fun, regex) {
+    // 主输入框变化事件
+    const inputs = body.getElementsByTagName('input')
+    if(inputs !== undefined && inputs.length > 1 && inputs[0].dataset.typeing === "false") {
+        if(regex === undefined) {
+            regex = ""
         }
+        if(inputs[0].dataset.up === "true") {
+            inputs[0].value = inputs[0].value.toUpperCase()
+        }
+        // 变更输入框内容
+        for(let i=1; i<inputs.length; i++) {
+            inputs[i].value = ""
+        }
+        for(let i=0; i<inputs[0].value.length; i++) {
+            // 检查正则表达式
+            const reg = new RegExp(regex)
+            if(reg.test(inputs[0].value.substring(i, i+1))) {
+                if(i < inputs.length - 2) {
+                    inputs[i+1].classList = ""
+                    inputs[i+1].value = inputs[0].value.substring(i, i+1)
+                    if(i + 2 < inputs.length) {
+                        inputs[i+2].classList = "ss-code-input-selete"
+                    }
+                    if(i + 3 < inputs.length) {
+                        inputs[i+3].classList = ""
+                    }
+                } else if( i == inputs.length - 2) {
+                    inputs[i+1].value = inputs[0].value.substring(i, i+1)
+                    if(fun !== undefined) {
+                        // 触发函数
+                        inputs[0].disabled = true
+                        // 完成部分动画
+                        setTimeout(() => {
+                            fun()
+                        }, 300)
+                    }
+                }
+            } else {
+                inputs[0].value = inputs[0].value.substring(0, inputs[0].value.length - 1)
+                inputs[i+1].classList = "ss-code-input-selete ss-code-input-err"
+                setTimeout(() => {
+                    inputs[i+1].classList = "ss-code-input-selete"
+                }, 500)
+            }
+        }
+        if(inputs[0].value.length == 0) {
+            inputs[1].classList = "ss-code-input-selete"
+            inputs[2].classList = ""
+        }
+        // 防止光标不在最后
+        inputs[0].setSelectionRange(inputs[0].value.length, inputs[0].value.length)
     }
 }
 
 function getCodeInput(body) {
     if(body.classList.toString().indexOf('ss-code-input') >= 0) {
-        // 遍历内部 input
         const inputs = body.getElementsByTagName('input')
-        let str = ''
-        for(let i=0; i<inputs.length; i++) {
-            // 拼接字符串
-            str += inputs[i].value
-        }
-        // 返回
-        return str
+        return inputs[0].value.substring(0, inputs.length - 1)
     }
 }
 
 function cleanCodeInput(body) {
     if(body.classList.toString().indexOf('ss-code-input') >= 0) {
-        // 遍历内部 input
         const inputs = body.getElementsByTagName('input')
-        for(let i=0; i<inputs.length; i++) {
-            inputs[i].value = ''
+        inputs[0].value = ""
+        inputs[0].disabled = false
+        for(let i=1; i<inputs.length; i++) {
+            inputs[i].classList = ""
         }
+        codeInputChanged(body)
     }
 }
