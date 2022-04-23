@@ -1,16 +1,13 @@
 package cn.stapxs.api.service.impl;
 
-import cn.stapxs.api.config.mailConfig;
 import cn.stapxs.api.service.MailService;
-import cn.stapxs.api.util.NetWork;
+import cn.stapxs.api.util.Network;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +39,7 @@ public class MailServiceImpl implements MailService {
         }
         // 获取验证码页面
         String url = request.getScheme() +"://" + request.getServerName() + ":" +request.getServerPort() + "/model/code?code=" + code + "&id=" + id;
-        String page = NetWork.get(url, "UTF-8");
+        String page = Network.get(url, "UTF-8");
         // 发送邮件
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);

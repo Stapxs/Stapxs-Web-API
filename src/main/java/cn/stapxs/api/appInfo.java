@@ -13,12 +13,13 @@ import lombok.Data;
 @Data
 @Builder
 public class appInfo {
-    public static String version = "1.2.1";
-    public static int build = 3;
+    public static String version = "1.2.2";
+    public static int build = 1;
     public static String type = "Dev";
     public static double verNum = 1.2;
 
-    public static String root = "/www/wwwroot/api.stapxs.cn/config/SS-Web-API/";
+//    public static String root = "/www/wwwroot/api.stapxs.cn/config/SS-Web-API/";
+    public static String root = "C://Stapx/Program/Stapxs-Web-API/SS-Web-API/";
     public static String domain = "api.stapxs.cn";
 
     public String getVersion() {

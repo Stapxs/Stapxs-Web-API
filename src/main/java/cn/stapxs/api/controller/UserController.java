@@ -8,25 +8,21 @@ import cn.stapxs.api.domain.user.UserInfo;
 import cn.stapxs.api.domain.user.UserKey;
 import cn.stapxs.api.service.MailService;
 import cn.stapxs.api.service.UserService;
-import cn.stapxs.api.util.NetWork;
+import cn.stapxs.api.util.Network;
 import cn.stapxs.api.util.PBKDF2;
 import cn.stapxs.api.util.RSAEncrypt;
 import cn.stapxs.api.util.UI;
 import com.google.gson.Gson;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.http.HttpRequest;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.crypto.BadPaddingException;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -35,7 +31,6 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * @Version: 1.0
@@ -113,7 +108,7 @@ public class UserController {
                 // 保存 token
                 userService.saveToken(user.get().getUser_id(), user.get().getUser_token());
                 // 刷新登录信息
-                String ip = NetWork.getIP(request);
+                String ip = Network.getIP(request);
                 if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
                     ip = request.getRemoteAddr();
                 }

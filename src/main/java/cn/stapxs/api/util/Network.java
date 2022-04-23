@@ -1,5 +1,6 @@
 package cn.stapxs.api.util;
 
+import cn.stapxs.api.appInfo;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.params.HttpMethodParams;
@@ -14,7 +15,7 @@ import java.io.IOException;
  * @Author: Stapxs
  * @Description TO DO
  **/
-public class NetWork {
+public class Network {
     public static String get(String url, String charset) {
         // 生成 HttpClient 对象并设置参数
         HttpClient httpClient = new HttpClient();
@@ -28,6 +29,9 @@ public class NetWork {
         //设置请求重试处理，用的是默认的重试处理：请求三次
         getMethod.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler());
 
+        // 设置请求头
+        getMethod.setRequestHeader("User-Agent", "StapxsWebAPI/" + appInfo.version);
+
         // 执行HTTP GET 请求
         String response = "";
         try {
@@ -39,19 +43,17 @@ public class NetWork {
             }
 
             // 处理HTTP响应内容
-            //HTTP响应头部信息，这里简单打印
+            //HTTP响应头部信息
             Header[] headers = getMethod.getResponseHeaders();
-            for (Header h : headers) {
-                // System.out.println(h.getName() + "---------------" + h.getValue());
-            }
-            //读取HTTP响应内容，这里简单打印网页内容
+            //读取HTTP响应内容
             //读取为字节数组
             byte[] responseBody = getMethod.getResponseBody();
-            response = new String(responseBody, charset);
-            // System.out.println("-----------response:" + response);
-            //读取为InputStream，在网页内容数据量大时候推荐使用
-            //InputStream response = getMethod.getResponseBodyAsStream();
-
+            // 尝试解压 gzip
+            try {
+                responseBody = Gzip.uncompress(responseBody);
+            } finally {
+                response = new String(responseBody, charset);
+            }
         } catch (HttpException e) {
             //发生致命的异常，可能是协议不对或者返回的内容有问题
             System.out.println("请检查输入的URL!");
