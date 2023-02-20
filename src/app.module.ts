@@ -3,10 +3,9 @@ import { AppController } from './app.controller';
 import { InnerController } from './inner/inner.controller';
 import { ConfigModule } from '@nestjs/config';
 import { ToolController } from './tool/tool.controller';
-import { ResourceModule } from './resource/resource.module';
 
 @Module({
-  imports: [ConfigModule.forRoot(), ResourceModule],
+  imports: [ConfigModule.forRoot()],
   controllers: [AppController, InnerController, ToolController]
 })
 export class AppModule {}
