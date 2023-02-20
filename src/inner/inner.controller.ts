@@ -6,6 +6,7 @@
  * @description 这是一些提供给站点其他服务用的功能，不会显示出来
  */
 
+import fetch from 'node-fetch';
 import { Controller, Get, Param } from '@nestjs/common';
 
 @Controller('inner')
@@ -30,12 +31,12 @@ export class InnerController {
         .then(response => response.json())
         .then(data => {
             // 移除一些敏感信息
-            Object.keys(data.attributes).forEach((name: string) => {
+            Object.keys((data as any).attributes).forEach((name: string) => {
                 if(deleteKey.indexOf(name) >= 0) {
-                    data.attributes[name] = 'removed'
+                    (data as any).attributes[name] = 'removed'
                 }
             })
-            delete data.context
+            delete (data as any).context
             info = data
         })
         return info

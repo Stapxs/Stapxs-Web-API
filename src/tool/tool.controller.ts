@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 import { Controller, Get, Param } from '@nestjs/common';
 import { JSDOM as DOM } from 'jsdom';
 
