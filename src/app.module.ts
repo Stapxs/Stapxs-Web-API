@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { InnerController } from './inner/inner.controller';
+import { InnerController } from './controller/inner.controller';
 import { ConfigModule } from '@nestjs/config';
-import { ToolController } from './tool/tool.controller';
-import { TextController } from './text/text.controller';
+import { ToolController } from './controller/tool.controller';
+import { TextController } from './controller/text.controller';
 
 @Module({
   imports: [ConfigModule.forRoot()],

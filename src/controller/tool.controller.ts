@@ -1,6 +1,8 @@
-import fetch from 'node-fetch';
-import { Controller, Get, Param } from '@nestjs/common';
-import { JSDOM as DOM } from 'jsdom';
+import fetch from 'node-fetch'
+import { MinecraftServerListPing as mc } from 'minecraft-status'
+
+import { Controller, Get, Param } from '@nestjs/common'
+import { JSDOM as DOM } from 'jsdom'
 
 @Controller('tool')
 export class ToolController {
@@ -31,6 +33,31 @@ export class ToolController {
         return back
     }
 
+    /**
+     * 发送 Minecraft Server list Ping
+     * @param params 服务器地址:端口号，可以缺省端口号
+     * @returns 服务器返回的原始 List Ping 数据，见 https://wiki.vg/Server_List_Ping
+     */
+    @Get('mc-info/:link')
+    async getMcServerInfo(@Param() params) {
+        const link = (params.link as string).split(':')
+        const address = link[0]
+        let port = 25565
+        if(link.length > 0) {
+            port = Number(link[1])
+        }
+
+        let back = {}
+        await mc.ping(4, address, port, 3000)
+        .then(response => {
+            back = { status: 200, data: response }
+        })
+        .catch(error => {
+            back = { status: 500, data: error }
+        })
+        return back
+    }
+
 }
 
 // 控制器接口信息列表
@@ -39,5 +66,10 @@ export const info = [
         address: '/tool/page-info/:link',
         name: '链接预览',
         description: '获取页面的 The Open Graph protocol 媒体信息。'
+    },
+    {
+        address: '/tool/mc-info/:link',
+        name: 'Minecraft 服务器列表 Ping',
+        description: '获取 Minecraft List Ping 返回的内容。'
     }
 ]

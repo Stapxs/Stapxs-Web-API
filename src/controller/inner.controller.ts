@@ -1,7 +1,7 @@
 /**
  * @file: 支持服务控制器
  * @author: Stapxs
- * @time: 2022-2-10
+ * @time: 2023-2-10
  * @version: 1.0
  * @description 这是一些提供给站点其他服务用的功能，不会显示出来
  */
@@ -19,7 +19,7 @@ export class InnerController {
     @Get('home/:id')
     async getHomeInfo(@Param() params) {
         let info = {}
-        const deleteKey = ['latitude', 'longitude']
+        const deleteKey = ['latitude', 'longitude', 'location']
         const url = process.env.HOME_ADDRESS + '/api/states/' + params.id
         await fetch(url, {
             method: 'GET',
@@ -32,7 +32,7 @@ export class InnerController {
         .then(data => {
             // 移除一些敏感信息
             Object.keys((data as any).attributes).forEach((name: string) => {
-                if(deleteKey.indexOf(name) >= 0) {
+                if(deleteKey.indexOf(name.toLowerCase()) >= 0) {
                     (data as any).attributes[name] = 'removed'
                 }
             })
