@@ -7,6 +7,10 @@
 
 import { Controller, Get } from '@nestjs/common';
 import { version } from '../package.json';
+import { randomInt } from 'crypto';
+
+import { info as textInfo } from './controller/text.controller';
+import { info as toolInfo } from './controller/tool.controller';
 
 @Controller()
 export class AppController {
@@ -14,11 +18,19 @@ export class AppController {
     hello(): {[key:string]: string | number} {
         const welcomeStr = [
             '欢迎使用 Stapxs Web API！',
-            '这是 Stapxs Web API！'
+            '这是 Stapxs Web API！',
+            '阿巴啊巴，请随便看 ……',
+            '客官要来点茶么 ——'
           ]
-          const info = {} as {[key: string]: any}
-          info.msg = welcomeStr[Math.round(Math.random() * welcomeStr.length - 1)]
-          info.version = version
-          return info;
+          return {
+            title: 'Stpaxs Web API',
+            msg: welcomeStr[randomInt(0,welcomeStr.length - 1)],
+            version: version
+          };
+    }
+
+    @Get('info')
+    apiInfo() {
+        return [].concat(textInfo).concat(toolInfo)
     }
 }

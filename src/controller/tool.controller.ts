@@ -63,11 +63,13 @@ export class ToolController {
 // 控制器接口信息列表
 export const info = [
     {
+        type: 'tool',
         address: '/tool/page-info/:link',
         name: '链接预览',
         description: '获取页面的 The Open Graph protocol 媒体信息。'
     },
     {
+        type: 'tool',
         address: '/tool/mc-info/:link',
         name: 'Minecraft 服务器列表 Ping',
         description: '获取 Minecraft List Ping 返回的内容。'

@@ -19,6 +19,10 @@ export class TextController {
                 id: num,
                 ... ana[num]
             }
+            case 'all': return {
+                status: 200,
+                data: ana
+            }
             default: return {
                 status: 403,
                 message: "参数不正确"
@@ -45,7 +49,8 @@ export class TextController {
 // 控制器接口信息列表
 export const info = [
     {
-        address: '/text/ss-ana/:type/:id',
+        type: 'text',
+        address: ['/text/ss-ana', '/text/ss-ana/:type', '/text/ss-ana/:type/:id'],
         name: '获取林槐语录',
         description: '获取林槐语录，参数可缺省。'
     }
