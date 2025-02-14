@@ -6,10 +6,10 @@ import { ToolController } from './controller/tool.controller';
 import { TextController } from './controller/text.controller';
 
 @Module({
-  imports: [ConfigModule.forRoot()],
-  controllers: [
-    AppController, InnerController,
-    ToolController, TextController
-  ]
+    imports: [ConfigModule.forRoot()],
+    controllers: [
+        AppController, InnerController,
+        ToolController, TextController
+    ]
 })
 export class AppModule {}

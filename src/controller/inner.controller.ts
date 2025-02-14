@@ -28,17 +28,17 @@ export class InnerController {
                 'content-type': 'application/json'
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            // 移除一些敏感信息
-            Object.keys((data as any).attributes).forEach((name: string) => {
-                if(deleteKey.indexOf(name.toLowerCase()) >= 0) {
-                    (data as any).attributes[name] = 'removed'
-                }
+            .then(response => response.json())
+            .then(data => {
+                // 移除一些敏感信息
+                Object.keys((data as any).attributes).forEach((name: string) => {
+                    if(deleteKey.indexOf(name.toLowerCase()) >= 0) {
+                        (data as any).attributes[name] = 'removed'
+                    }
+                })
+                delete (data as any).context
+                info = data
             })
-            delete (data as any).context
-            info = data
-        })
         return info
     }
 }

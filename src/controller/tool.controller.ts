@@ -15,21 +15,21 @@ export class ToolController {
     async getPageInfo(@Param() params) {
         const back = {}
         await fetch(params.link)
-        .then(response => response.text())
-        .then(data => {
-            const html = new DOM(data)
-            const document = html.window.document
-            const head = document.getElementsByTagName('head')[0]
-            const meta = head.getElementsByTagName('meta')
-            for(let i=0; i<meta.length; i++) {
-                const item = meta[i]
-                const property = item.getAttribute('property')
-                const content = item.getAttribute('content')
-                if(property && property.startsWith('og:')) {
-                    back[property] = content
+            .then(response => response.text())
+            .then(data => {
+                const html = new DOM(data)
+                const document = html.window.document
+                const head = document.getElementsByTagName('head')[0]
+                const meta = head.getElementsByTagName('meta')
+                for(let i=0; i<meta.length; i++) {
+                    const item = meta[i]
+                    const property = item.getAttribute('property')
+                    const content = item.getAttribute('content')
+                    if(property && property.startsWith('og:')) {
+                        back[property] = content
+                    }
                 }
-            }
-        })
+            })
         return back
     }
 
@@ -49,12 +49,12 @@ export class ToolController {
 
         let back = {}
         await mc.ping(4, address, port, 3000)
-        .then(response => {
-            back = { status: 200, data: response }
-        })
-        .catch(error => {
-            back = { status: 500, data: error }
-        })
+            .then(response => {
+                back = { status: 200, data: response }
+            })
+            .catch(error => {
+                back = { status: 500, data: error }
+            })
         return back
     }
 

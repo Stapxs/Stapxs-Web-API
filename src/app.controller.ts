@@ -21,12 +21,12 @@ export class AppController {
             '这是 Stapxs Web API！',
             '阿巴啊巴，请随便看 ……',
             '客官要来点茶么 ——'
-          ]
-          return {
+        ]
+        return {
             title: 'Stpaxs Web API',
             msg: welcomeStr[randomInt(0,welcomeStr.length - 1)],
             version: version
-          };
+        };
     }
 
     @Get('info')

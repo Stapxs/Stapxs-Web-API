@@ -13,35 +13,35 @@ export class TextController {
     getSSAnaType(@Param('type') type: string) {
         const num = randomInt(0, ana.length - 1)
         switch(type) {
-            case 'text': return ana[num].text
-            case 'json': return {
-                status: 200,
-                id: num,
-                ... ana[num]
-            }
-            case 'all': return {
-                status: 200,
-                data: ana
-            }
-            default: return {
-                status: 403,
-                message: "参数不正确"
-            }
+        case 'text': return ana[num].text
+        case 'json': return {
+            status: 200,
+            id: num,
+            ... ana[num]
+        }
+        case 'all': return {
+            status: 200,
+            data: ana
+        }
+        default: return {
+            status: 403,
+            message: '参数不正确'
+        }
         }
     }
     @Get('ss-ana/:type/:id')
     getSSAnaTypeId(@Param('type') type: string, @Param('id') id: number) {
         switch(type) {
-            case 'text': return ana[id].text
-            case 'json': return {
-                status: 200,
-                id: id,
-                ... ana[id]
-            }
-            default: return {
-                status: 403,
-                message: "参数不正确"
-            }
+        case 'text': return ana[id].text
+        case 'json': return {
+            status: 200,
+            id: id,
+            ... ana[id]
+        }
+        default: return {
+            status: 403,
+            message: '参数不正确'
+        }
         }
     }
 }
