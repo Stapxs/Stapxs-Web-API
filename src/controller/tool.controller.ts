@@ -8,15 +8,21 @@ import { JSDOM as DOM } from 'jsdom'
 export class ToolController {
     /**
      * 获取链接预览
-     * @param params 链接 
+     * @param params 链接
      * @returns og 开头的 meta 信息
      */
     @Get('page-info/:link')
-    async getPageInfo(@Param() params) {
-        const back = {}
+    async getPageInfo(@Param() params: { link: string }) {
+        const back: { [key: string]: string } = {}
         await fetch(params.link)
-            .then(response => response.text())
-            .then(data => {
+            .then(async (response: Response) => {
+                const contentType = response.headers.get('content-type');
+                if (!contentType || !contentType.includes('text/html')) {
+                    throw new Error('链接内容不是有效的 HTML 页面。');
+                }
+                return response.text();
+            })
+            .then((data: string) => {
                 const html = new DOM(data)
                 const document = html.window.document
                 const head = document.getElementsByTagName('head')[0]
@@ -29,6 +35,9 @@ export class ToolController {
                         back[property] = content
                     }
                 }
+            })
+            .catch((error: Error) => {
+                back['error'] = error.message
             })
         return back
     }
