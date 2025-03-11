@@ -28,16 +28,22 @@ export class InnerController {
                 'content-type': 'application/json'
             }
         })
-            .then(response => response.json())
+        // 获取文本，不转换为 JSON
+            .then(response => response.text())
             .then(data => {
-                // 移除一些敏感信息
-                Object.keys((data as any).attributes).forEach((name: string) => {
-                    if(deleteKey.indexOf(name.toLowerCase()) >= 0) {
-                        (data as any).attributes[name] = 'removed'
-                    }
-                })
-                delete (data as any).context
-                info = data
+                try {
+                    data = JSON.parse(data)
+                    // 移除一些敏感信息
+                    Object.keys((data as any).attributes).forEach((name: string) => {
+                        if(deleteKey.indexOf(name.toLowerCase()) >= 0) {
+                            (data as any).attributes[name] = 'removed'
+                        }
+                    })
+                    delete (data as any).context
+                    info = data
+                } catch (e) {
+                    info = { error: data }
+                }
             })
         return info
     }
