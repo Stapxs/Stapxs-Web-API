@@ -4,12 +4,14 @@ import { InnerController } from './controller/inner.controller';
 import { ConfigModule } from '@nestjs/config';
 import { ToolController } from './controller/tool.controller';
 import { TextController } from './controller/text.controller';
+import { SSqqController } from './controller/ssqq.controller';
 
 @Module({
     imports: [ConfigModule.forRoot()],
     controllers: [
         AppController, InnerController,
-        ToolController, TextController
+        ToolController, TextController,
+        SSqqController
     ]
 })
 export class AppModule {}
