@@ -1,3 +1,5 @@
+import { SSqqController } from "src/controller/ssqq.controller";
+
 export class UmamiService {
     private static address = 'https://status.stapxs.cn/api';
 
@@ -11,6 +13,118 @@ export class UmamiService {
             this.ready = true;
         });
     }
+
+    public async getUmamiPageviews(time: string, unit: string, query: { [key: string]: any }) {
+        if(!time) {
+            // 缺失默认为最近 24 小时
+            time = `${Date.now() - 86400000}-${Date.now()}`;
+        }
+        if(time.indexOf('-') === -1 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
+            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
+        }
+
+        if(SSqqController.removeName.includes(query.type) || query.unit) {
+            return { error: '请求参数中包含不被允许的字段' };
+        }
+
+        const data = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/pageviews`, {
+            startAt: Number(time.split('-')[0]),
+            endAt: Number(time.split('-')[1]),
+            unit: unit,
+            ...query
+        });
+        return data;
+    }
+
+    public async getUmamiStatus(time: string, query: { [key: string]: any }) {
+        if(!time) {
+            // 缺失默认为最近 24 小时
+            time = `${Date.now() - 86400000}-${Date.now()}`;
+        }
+        if(time.indexOf('-') === -1 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
+            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
+        }
+
+        if(SSqqController.removeName.includes(query.type)) {
+            return { error: '请求参数中包含不被允许的字段' };
+        }
+
+        const data = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/stats`, {
+            startAt: Number(time.split('-')[0]),
+            endAt: Number(time.split('-')[1]),
+            ...query
+        });
+        return data;
+    }
+
+    public async getUmamiMetrics(name: string, time: string, query: { [key: string]: any }) {
+        if(!time) {
+            // 缺失默认为最近 24 小时
+            time = `${Date.now() - 86400000}-${Date.now()}`;
+        }
+        if(time.indexOf('-') === -1 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
+            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
+        }
+
+        if(SSqqController.removeName.includes(name) || name === 'host') {
+            return { error: `请求的数据类型 ${name} 不被允许` };
+        }
+
+        if(SSqqController.removeName.includes(name) || query.type) {
+            return { error: '请求参数中包含不被允许的字段' };
+        }
+
+        const data = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/metrics`, {
+            startAt: Number(time.split('-')[0]),
+            endAt: Number(time.split('-')[1]),
+            type: name,
+            ...query
+        });
+        return data;
+    }
+
+    public async getUmamiEvents(time: string) {
+        if(!time) {
+            // 缺失默认为最近 24 小时
+            time = `${Date.now() - 86400000}-${Date.now()}`;
+        }
+        if(time.indexOf('-') <= 0 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
+            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
+        }
+
+        const data = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/event-data/events`, {
+            startAt: Number(time.split('-')[0]),
+            endAt: Number(time.split('-')[1])
+        }) as {
+            eventName: string;
+            propertyName: string;
+            dataType: string;
+            total: number;
+        }[];
+
+        if(data instanceof Object && (data as any).error) {
+            return data;
+        }
+
+        // 获取事件具体数量
+        const detailedDataPromises = data.map(async (event) => {
+            const detailedData = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/event-data/values`, {
+                startAt: Number(time.split('-')[0]),
+                endAt: Number(time.split('-')[1]),
+                eventName: event.eventName,
+                propertyName: event.propertyName
+            });
+            return {
+                ...event,
+                details: detailedData
+            };
+        });
+
+        const detailedData = await Promise.all(detailedDataPromises);
+        return detailedData;
+    }
+
+    // ==================================================================
 
     /**
      * 获取 Umami API 的访问 token
@@ -95,7 +209,7 @@ export class UmamiService {
             return JSON.parse(result);
         } catch (e) {
             return {
-                error: '返回数据解析失败'
+                error: result
             }
         }
     }

@@ -15,7 +15,7 @@ import { UmamiService } from 'src/service/umami.service';
 export class SSqqController {
     private umamiService: UmamiService;
 
-    private static removeName = ['country', 'region', 'city']
+    public static removeName = ['country', 'region', 'city']
 
     constructor() {
         this.umamiService = new UmamiService();
@@ -104,27 +104,12 @@ export class SSqqController {
      * @returns 站点页面浏览量数据
      */
     @Get('umami/pageviews/:unit')
+    async getUmamiPageviewsNoTime(@Param('unit') unit: string, @Query() query: { [key: string]: any }) {
+        return await this.umamiService.getUmamiPageviews(null, unit, query);
+    }
     @Get('umami/pageviews/:unit/:time')
     async getUmamiPageviews(@Param('unit') unit: string, @Param('time') time: string, @Query() query: { [key: string]: any }) {
-        if(!time) {
-            // 缺失默认为最近 24 小时
-            time = `${Date.now() - 86400000}-${Date.now()}`;
-        }
-        if(time.indexOf('-') === -1 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
-            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
-        }
-
-        if(SSqqController.removeName.includes(query.type) || query.unit) {
-            return { error: '请求参数中包含不被允许的字段' };
-        }
-
-        const data = await this.umamiService.getData(`/websites/${process.env.UMAMI_SITE_ID}/pageviews`, {
-            startAt: Number(time.split('-')[0]),
-            endAt: Number(time.split('-')[1]),
-            unit: unit,
-            ...query
-        });
-        return data;
+        return await this.umamiService.getUmamiPageviews(time, unit, query);
     }
 
     /**
@@ -134,26 +119,12 @@ export class SSqqController {
      * @returns 站点统计数据
      */
     @Get('umami/status')
+    async getUmamiStatusNoTime(@Query() query: { [key: string]: any }) {
+        return await this.umamiService.getUmamiStatus(null, query);
+    }
     @Get('umami/status/:time')
     async getUmamiStatus(@Param('time') time: string, @Query() query: { [key: string]: any }) {
-        if(!time) {
-            // 缺失默认为最近 24 小时
-            time = `${Date.now() - 86400000}-${Date.now()}`;
-        }
-        if(time.indexOf('-') === -1 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
-            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
-        }
-
-        if(SSqqController.removeName.includes(query.type)) {
-            return { error: '请求参数中包含不被允许的字段' };
-        }
-
-        const data = await this.umamiService.getData(`/websites/${process.env.UMAMI_SITE_ID}/stats`, {
-            startAt: Number(time.split('-')[0]),
-            endAt: Number(time.split('-')[1]),
-            ...query
-        });
-        return data;
+        return await this.umamiService.getUmamiStatus(time, query);
     }
 
     /**
@@ -163,31 +134,12 @@ export class SSqqController {
      * @returns 站点指标数据
      */
     @Get('umami/metrics/:name')
+    async getUmamiMetricsNoTime(@Param('name') name: string, @Query() query: { [key: string]: any }) {
+        return await this.umamiService.getUmamiMetrics(name, null, query);
+    }
     @Get('umami/metrics/:name/:time')
     async getUmamiMetrics(@Param('name') name: string, @Param('time') time: string, @Query() query: { [key: string]: any }) {
-        if(!time) {
-            // 缺失默认为最近 24 小时
-            time = `${Date.now() - 86400000}-${Date.now()}`;
-        }
-        if(time.indexOf('-') === -1 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
-            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
-        }
-
-        if(SSqqController.removeName.includes(name) || name === 'host') {
-            return { error: `请求的数据类型 ${name} 不被允许` };
-        }
-
-        if(SSqqController.removeName.includes(name) || query.type) {
-            return { error: '请求参数中包含不被允许的字段' };
-        }
-
-        const data = await this.umamiService.getData(`/websites/${process.env.UMAMI_SITE_ID}/metrics`, {
-            startAt: Number(time.split('-')[0]),
-            endAt: Number(time.split('-')[1]),
-            type: name,
-            ...query
-        });
-        return data;
+        return await this.umamiService.getUmamiMetrics(name, time, query);
     }
 
     /**
@@ -195,41 +147,11 @@ export class SSqqController {
      * @returns 事件统计数据
      */
     @Get('umami/events')
+    async getUmamiEventsNoTime() {
+        return await this.umamiService.getUmamiEvents(null);
+    }
     @Get('umami/events/:time')
     async getUmamiEvents(@Param('time') time: string) {
-        if(!time) {
-            // 缺失默认为最近 24 小时
-            time = `${Date.now() - 86400000}-${Date.now()}`;
-        }
-        if(time.indexOf('-') === -1 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
-            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
-        }
-
-        const data = await this.umamiService.getData(`/websites/${process.env.UMAMI_SITE_ID}/event-data/events`, {
-            startAt: Number(time.split('-')[0]),
-            endAt: Number(time.split('-')[1])
-        }) as {
-            eventName: string;
-            propertyName: string;
-            dataType: string;
-            total: number;
-        }[];
-
-        // 获取事件具体数量
-        const detailedDataPromises = data.map(async (event) => {
-            const detailedData = await this.umamiService.getData(`/websites/${process.env.UMAMI_SITE_ID}/event-data/values`, {
-                startAt: Number(time.split('-')[0]),
-                endAt: Number(time.split('-')[1]),
-                eventName: event.eventName,
-                propertyName: event.propertyName
-            });
-            return {
-                ...event,
-                details: detailedData
-            };
-        });
-
-        const detailedData = await Promise.all(detailedDataPromises);
-        return detailedData;
+        return await this.umamiService.getUmamiEvents(time);
     }
 }
