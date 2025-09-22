@@ -1,4 +1,4 @@
-import { SSqqController } from "src/controller/ssqq.controller";
+import { SSqqController } from 'src/controller/ssqq.controller';
 
 export class UmamiService {
     private static address = 'https://status.stapxs.cn/api';
@@ -116,6 +116,43 @@ export class UmamiService {
             });
             return {
                 ...event,
+                details: detailedData
+            };
+        });
+
+        const detailedData = await Promise.all(detailedDataPromises);
+        return detailedData;
+    }
+
+    public async getUmamiSessions(time: string) {
+        if(!time) {
+            // 缺失默认为最近 24 小时
+            time = `${Date.now() - 86400000}-${Date.now()}`;
+        }
+        if(time.indexOf('-') <= 0 || !/^\d{13}$/.test(time.split('-')[0]) || !/^\d{13}$/.test(time.split('-')[1])) {
+            return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
+        }
+
+        const data = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/session-data/properties`, {
+            startAt: Number(time.split('-')[0]),
+            endAt: Number(time.split('-')[1])
+        }) as {
+            propertyName: string;
+            total: number;
+        }[];
+
+        if(data instanceof Object && (data as any).error) {
+            return data;
+        }
+
+        const detailedDataPromises = data.map(async (item) => {
+            const detailedData = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/session-data/values`, {
+                startAt: Number(time.split('-')[0]),
+                endAt: Number(time.split('-')[1]),
+                propertyName: item.propertyName
+            });
+            return {
+                ...item,
                 details: detailedData
             };
         });

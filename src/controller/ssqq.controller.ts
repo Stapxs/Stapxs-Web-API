@@ -84,7 +84,7 @@ export class SSqqController {
      * - device 设备类型
      *
      * e.g.： /ssqq/umami/pageviews/day?host=tauri.stapxs.com&url=/Messages
-     * ========================================================================
+     * ==========================================================================
      */
 
     /**
@@ -153,5 +153,14 @@ export class SSqqController {
     @Get('umami/events/:time')
     async getUmamiEvents(@Param('time') time: string) {
         return await this.umamiService.getUmamiEvents(time);
+    }
+
+    @Get('umami/sessions')
+    async getUmamiSessionsNoTime() {
+        return await this.umamiService.getUmamiSessions(null);
+    }
+    @Get('umami/sessions/:time')
+    async getUmamiSessions(@Param('time') time: string) {
+        return await this.umamiService.getUmamiSessions(time);
     }
 }
