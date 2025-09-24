@@ -114,7 +114,7 @@ export class UmamiService {
         );
 
         // 获取事件具体数量
-        const detailedDataPromises = data.map(async (event) => {
+        const detailedDataPromises = filteredData.map(async (event) => {
             const detailedData = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/event-data/values`, {
                 startAt: Number(time.split('-')[0]),
                 endAt: Number(time.split('-')[1]),
