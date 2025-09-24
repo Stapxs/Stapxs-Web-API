@@ -106,6 +106,13 @@ export class UmamiService {
             return data;
         }
 
+        // 想要排除的 eventName 列表
+        const excludedEvents = ['link_view'];
+    
+        const filteredData = data.filter(
+            (event) => !excludedEvents.includes(event.eventName)
+        );
+
         // 获取事件具体数量
         const detailedDataPromises = data.map(async (event) => {
             const detailedData = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/event-data/values`, {
