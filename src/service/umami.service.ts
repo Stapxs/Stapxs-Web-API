@@ -92,7 +92,7 @@ export class UmamiService {
             return { error: '参数 time 格式错误，正确格式为 start-end（时间戳，毫秒）' };
         }
 
-        const data = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/event-data/events`, {
+        const data = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/event-data/properties`, {
             startAt: Number(time.split('-')[0]),
             endAt: Number(time.split('-')[1])
         }) as {
@@ -108,7 +108,7 @@ export class UmamiService {
 
         // 想要排除的 eventName 列表
         const excludedEvents = ['link_view'];
-    
+
         const filteredData = data.filter(
             (event) => !excludedEvents.includes(event.eventName)
         );
@@ -241,7 +241,8 @@ export class UmamiService {
         }
         const url = new URL(UmamiService.address + path);
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-        const res = await fetch(url.toString(), {
+        const urlStr = url.toString();
+        const res = await fetch(urlStr, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json',

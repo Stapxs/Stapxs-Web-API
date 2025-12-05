@@ -10,8 +10,9 @@ import fetch from 'node-fetch';
 import * as crypto from 'crypto';
 
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { execFileSync } from "child_process";
+import { execFileSync } from 'child_process';
 import { UmamiService } from 'src/service/umami.service';
+import { writeFileSync, unlinkSync } from 'fs';
 
 import * as keys from '../assets/ssqq-keys.json'
 
@@ -80,39 +81,40 @@ export class SSqqController {
         const { key, timestamp } = body ?? {};
 
         if (!key || !timestamp) {
-            return { error: '缺少 key 或 timestamp 参数' };
+            return { error: '缺少参数' };
         }
 
         const timestampStr = String(timestamp);
         if (!/^\d{10}$/.test(timestampStr)) {
-            return { error: 'timestamp 必须是 10 位 Unix 时间戳（秒）' };
+            return { error: '操作失败' };
         }
 
         // 判断 timestamp 是否在允许的时间范围内（1 分钟）
         const currentTimestamp = Math.floor(Date.now() / 1000);
         if (Math.abs(currentTimestamp - Number(timestampStr)) > 60) {
-            return { error: 'timestamp 超出允许的时间范围' };
+            return { error: '操作失败' };
         }
 
         // 对 key 进行 gpg 解密
         let decryptedKey;
+
+        const tmpFile = '/tmp/key.asc';
+        writeFileSync(tmpFile, key);
         try {
             decryptedKey = execFileSync('gpg', [
                 '--decrypt',
                 '--batch',
-                '--passphrase', '',
-                '--local-user', process.env.GPG_SIGN_KEY
-            ], {
-                input: key,
-                encoding: 'utf-8'
-            }).toString().trim();
+                tmpFile
+            ], { encoding: 'utf-8' }).toString().trim();
         } catch (error) {
-            return { error: 'key 解密失败，请检查 key 是否正确' };
+            return { error: '操作失败' };
+        } finally {
+            unlinkSync(tmpFile);
         }
 
         // 验证解密后的 key 是否在预设的 keys 列表中
         if (!keys.includes(decryptedKey)) {
-            return { error: '无效的 key' };
+            return { error: '操作失败' };
         }
 
         // 使用 execFile 调用本地 gpg 程序对 data 进行签名
