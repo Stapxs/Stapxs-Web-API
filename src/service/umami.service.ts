@@ -131,7 +131,7 @@ export class UmamiService {
         return detailedData;
     }
 
-    public async getUmamiSessions(time: string) {
+    public async getUmamiSessions(time: string, filter: { [key: string]: any } = {}) {
         if(!time) {
             // 缺失默认为最近 24 小时
             time = `${Date.now() - 86400000}-${Date.now()}`;
@@ -142,7 +142,8 @@ export class UmamiService {
 
         const data = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/session-data/properties`, {
             startAt: Number(time.split('-')[0]),
-            endAt: Number(time.split('-')[1])
+            endAt: Number(time.split('-')[1]),
+            ...filter
         }) as {
             propertyName: string;
             total: number;
@@ -156,7 +157,8 @@ export class UmamiService {
             const detailedData = await this.getData(`/websites/${process.env.UMAMI_SITE_ID}/session-data/values`, {
                 startAt: Number(time.split('-')[0]),
                 endAt: Number(time.split('-')[1]),
-                propertyName: item.propertyName
+                propertyName: item.propertyName,
+                ...filter
             });
             return {
                 ...item,

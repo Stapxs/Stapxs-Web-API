@@ -224,4 +224,8 @@ export class SSqqController {
     async getUmamiSessions(@Param('time') time: string) {
         return await this.umamiService.getUmamiSessions(time);
     }
+    @Post('umami/sessions/:time/filter')
+    async getUmamiSessionsWithFilter(@Param('time') time: string, @Body() filter: { [key: string]: any }) {
+        return await this.umamiService.getUmamiSessions(time, filter);
+    }
 }
