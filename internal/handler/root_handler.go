@@ -51,5 +51,11 @@ func (h *RootHandler) Info(ctx context.Context, c *app.RequestContext) {
 			"name":        "Minecraft 服务器列表 Ping",
 			"description": "获取 Minecraft List Ping 返回的内容。",
 		},
+		map[string]any{
+			"type":        "inner",
+			"address":     "/inner/home/:id",
+			"name":        "Home Assistant 实体信息",
+			"description": "获取 Home Assistant 实体状态并移除敏感字段。",
+		},
 	})
 }

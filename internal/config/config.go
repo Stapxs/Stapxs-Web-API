@@ -6,8 +6,10 @@ import (
 )
 
 type Config struct {
-	Port       string
-	AppVersion string
+	Port        string
+	AppVersion  string
+	HomeAddress string
+	HomeToken   string
 }
 
 func Load() Config {
@@ -22,7 +24,9 @@ func Load() Config {
 	}
 
 	return Config{
-		Port:       port,
-		AppVersion: version,
+		Port:        port,
+		AppVersion:  version,
+		HomeAddress: os.Getenv("HOME_ADDRESS"),
+		HomeToken:   os.Getenv("HOME_TOKEN"),
 	}
 }

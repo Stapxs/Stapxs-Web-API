@@ -29,8 +29,13 @@ func main() {
 		panic(err)
 	}
 
+	toolService := service.NewToolService()
+	innerService := service.NewInnerService(cfg.HomeAddress, cfg.HomeToken)
+
 	rootHandler := handler.NewRootHandler(cfg.AppVersion)
 	textHandler := handler.NewTextHandler(textService)
+	toolHandler := handler.NewToolHandler(toolService)
+	innerHandler := handler.NewInnerHandler(innerService)
 
 	h := server.New(server.WithHostPorts(fmt.Sprintf(":%s", cfg.Port)))
 	h.Use(middleware.Recovery())
@@ -40,7 +45,7 @@ func main() {
 		c.Next(ctx)
 	})
 
-	router.Register(h, rootHandler, textHandler)
+	router.Register(h, rootHandler, textHandler, toolHandler, innerHandler)
 
 	go h.Spin()
 	waitForShutdown(h)
