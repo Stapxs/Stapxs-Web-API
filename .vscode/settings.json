@@ -1,0 +1,8 @@
+{
+  "go.toolsEnvVars": {
+    "GOFLAGS": "-tags=stdjson,gjson"
+  },
+  "terminal.integrated.env.osx": {
+    "GOFLAGS": "-tags=stdjson,gjson"
+  }
+}
