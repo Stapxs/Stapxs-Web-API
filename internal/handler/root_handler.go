@@ -57,5 +57,23 @@ func (h *RootHandler) Info(ctx context.Context, c *app.RequestContext) {
 			"name":        "Home Assistant 实体信息",
 			"description": "获取 Home Assistant 实体状态并移除敏感字段。",
 		},
+		map[string]any{
+			"type":        "ssqq",
+			"address":     "/ssqq/sponsor",
+			"name":        "爱发电赞助者信息",
+			"description": "获取爱发电赞助者列表。",
+		},
+		map[string]any{
+			"type":        "ssqq",
+			"address":     "/ssqq/checkKey",
+			"name":        "GPG 密钥校验",
+			"description": "验证并签名密钥请求。",
+		},
+		map[string]any{
+			"type":        "ssqq",
+			"address":     "/ssqq/umami/*",
+			"name":        "Umami 统计接口",
+			"description": "站点访问统计与会话分析接口。",
+		},
 	})
 }

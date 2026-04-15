@@ -4,10 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"math/rand"
-	"os"
-	"path/filepath"
-	"runtime"
 
+	"stapxs-web-api/hertz-api/internal/assets"
 	"stapxs-web-api/hertz-api/internal/model"
 )
 
@@ -16,19 +14,8 @@ type TextService struct {
 }
 
 func NewTextService() (*TextService, error) {
-	_, currentFile, _, ok := runtime.Caller(0)
-	if !ok {
-		return nil, errors.New("failed to resolve current file")
-	}
-
-	assetPath := filepath.Join(filepath.Dir(currentFile), "..", "assets", "ss-ana.json")
-	data, err := os.ReadFile(assetPath)
-	if err != nil {
-		return nil, err
-	}
-
 	var quotes []model.Quote
-	if err := json.Unmarshal(data, &quotes); err != nil {
+	if err := json.Unmarshal(assets.SSAnaJSON, &quotes); err != nil {
 		return nil, err
 	}
 

@@ -1,19 +1,18 @@
 package service
 
 import (
-	"bytes"
 	"context"
 	"errors"
 	"io"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/mcstatus-io/mcutil/v4/options"
 	"github.com/mcstatus-io/mcutil/v4/status"
-	"golang.org/x/net/html"
 )
 
 type ToolService struct {
@@ -55,33 +54,7 @@ func (s *ToolService) GetPageInfo(rawLink string) map[string]string {
 		return back
 	}
 
-	tokenizer := html.NewTokenizer(bytes.NewReader(body))
-	for {
-		tokenType := tokenizer.Next()
-		if tokenType == html.ErrorToken {
-			break
-		}
-
-		token := tokenizer.Token()
-		if tokenType != html.StartTagToken || token.Data != "meta" {
-			continue
-		}
-
-		property := ""
-		content := ""
-		for _, attr := range token.Attr {
-			if attr.Key == "property" {
-				property = attr.Val
-			}
-			if attr.Key == "content" {
-				content = attr.Val
-			}
-		}
-
-		if strings.HasPrefix(property, "og:") {
-			back[property] = content
-		}
-	}
+	extractOGMeta(string(body), back)
 
 	return back
 }
@@ -139,4 +112,31 @@ func parseAddress(link string) (string, uint16, error) {
 	}
 
 	return host, uint16(portValue), nil
+}
+
+func extractOGMeta(htmlText string, back map[string]string) {
+	metaTagRegex := regexp.MustCompile(`(?is)<meta\s+[^>]*>`)
+	attrRegex := regexp.MustCompile(`(?is)([a-zA-Z_:][a-zA-Z0-9_:\-]*)\s*=\s*(["'])(.*?)\2`)
+
+	metaTags := metaTagRegex.FindAllString(htmlText, -1)
+	for _, metaTag := range metaTags {
+		property := ""
+		content := ""
+
+		attrs := attrRegex.FindAllStringSubmatch(metaTag, -1)
+		for _, attr := range attrs {
+			key := strings.ToLower(strings.TrimSpace(attr[1]))
+			value := strings.TrimSpace(attr[3])
+			if key == "property" {
+				property = value
+			}
+			if key == "content" {
+				content = value
+			}
+		}
+
+		if strings.HasPrefix(property, "og:") {
+			back[property] = content
+		}
+	}
 }

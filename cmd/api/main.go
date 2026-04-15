@@ -31,11 +31,17 @@ func main() {
 
 	toolService := service.NewToolService()
 	innerService := service.NewInnerService(cfg.HomeAddress, cfg.HomeToken)
+	umamiService := service.NewUmamiService(cfg.UmamiSiteID, cfg.UmamiUser, cfg.UmamiPass)
+	ssqqService, err := service.NewSSQQService(cfg.AFDToken, cfg.AFDUserID, cfg.GPGSignKey, umamiService)
+	if err != nil {
+		panic(err)
+	}
 
 	rootHandler := handler.NewRootHandler(cfg.AppVersion)
 	textHandler := handler.NewTextHandler(textService)
 	toolHandler := handler.NewToolHandler(toolService)
 	innerHandler := handler.NewInnerHandler(innerService)
+	ssqqHandler := handler.NewSSQQHandler(ssqqService)
 
 	h := server.New(server.WithHostPorts(fmt.Sprintf(":%s", cfg.Port)))
 	h.Use(middleware.Recovery())
@@ -45,7 +51,7 @@ func main() {
 		c.Next(ctx)
 	})
 
-	router.Register(h, rootHandler, textHandler, toolHandler, innerHandler)
+	router.Register(h, rootHandler, textHandler, toolHandler, innerHandler, ssqqHandler)
 
 	go h.Spin()
 	waitForShutdown(h)

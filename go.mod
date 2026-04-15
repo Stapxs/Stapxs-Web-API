@@ -5,7 +5,6 @@ go 1.25.0
 require (
 	github.com/cloudwego/hertz v0.9.6
 	github.com/mcstatus-io/mcutil/v4 v4.0.1
-	golang.org/x/net v0.52.0
 )
 
 require (
