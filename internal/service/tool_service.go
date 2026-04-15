@@ -116,7 +116,7 @@ func parseAddress(link string) (string, uint16, error) {
 
 func extractOGMeta(htmlText string, back map[string]string) {
 	metaTagRegex := regexp.MustCompile(`(?is)<meta\s+[^>]*>`)
-	attrRegex := regexp.MustCompile(`(?is)([a-zA-Z_:][a-zA-Z0-9_:\-]*)\s*=\s*(["'])(.*?)\2`)
+	attrRegex := regexp.MustCompile(`(?is)([a-zA-Z_:][a-zA-Z0-9_:\-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')`)
 
 	metaTags := metaTagRegex.FindAllString(htmlText, -1)
 	for _, metaTag := range metaTags {
@@ -126,7 +126,10 @@ func extractOGMeta(htmlText string, back map[string]string) {
 		attrs := attrRegex.FindAllStringSubmatch(metaTag, -1)
 		for _, attr := range attrs {
 			key := strings.ToLower(strings.TrimSpace(attr[1]))
-			value := strings.TrimSpace(attr[3])
+			value := strings.TrimSpace(attr[2])
+			if value == "" {
+				value = strings.TrimSpace(attr[3])
+			}
 			if key == "property" {
 				property = value
 			}
