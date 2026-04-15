@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"net"
+	"strings"
 	"time"
 
 	"github.com/cloudwego/hertz/pkg/app"
@@ -12,12 +14,52 @@ import (
 
 func RequestLogger() app.HandlerFunc {
 	return func(ctx context.Context, c *app.RequestContext) {
+		path := string(c.Path())
 		start := time.Now()
 		c.Next(ctx)
 
 		latency := time.Since(start)
-		log.Printf("%s %s status=%d latency_ms=%d", c.Method(), c.Path(), c.Response.StatusCode(), latency.Milliseconds())
+		xff := strings.TrimSpace(string(c.Request.Header.Peek("X-Forwarded-For")))
+		xri := strings.TrimSpace(string(c.Request.Header.Peek("X-Real-IP")))
+		ip := c.ClientIP()
+		if xff != "" {
+			ip = strings.TrimSpace(strings.Split(xff, ",")[0])
+		} else if xri != "" {
+			ip = xri
+		}
+
+		if path == "/healthz" && isLoopbackIP(ip) {
+			return
+		}
+
+		log.Printf(
+			"[%s] %s %d(%d ms) <- %s ## %q",
+			c.Method(),
+			path,
+			c.Response.StatusCode(),
+			latency.Milliseconds(),
+			ip,
+			c.UserAgent(),
+		)
 	}
+}
+
+func isLoopbackIP(ip string) bool {
+	ip = strings.TrimSpace(ip)
+	if ip == "" {
+		return false
+	}
+
+	if strings.Contains(ip, ",") {
+		ip = strings.TrimSpace(strings.Split(ip, ",")[0])
+	}
+
+	parsed := net.ParseIP(ip)
+	if parsed != nil {
+		return parsed.IsLoopback()
+	}
+
+	return strings.EqualFold(ip, "localhost")
 }
 
 func Recovery() app.HandlerFunc {
