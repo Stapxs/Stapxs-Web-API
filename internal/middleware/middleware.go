@@ -33,13 +33,12 @@ func RequestLogger() app.HandlerFunc {
 		}
 
 		log.Printf(
-			"[%s] %s %d(%d ms) <- %s ## %q",
+			"[%s] %s %d(%d ms) <- %s",
 			c.Method(),
 			path,
 			c.Response.StatusCode(),
 			latency.Milliseconds(),
 			ip,
-			c.UserAgent(),
 		)
 	}
 }
