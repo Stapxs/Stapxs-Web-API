@@ -1,0 +1,28 @@
+name: stapxs-web-api
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GOPROXY: ${BUILD_GOPROXY:-https://proxy.golang.org,direct}
+        GOSUMDB: ${BUILD_GOSUMDB:-sum.golang.org}
+        GONOSUMDB: ${BUILD_GONOSUMDB:-}
+        ALPINE_MIRROR: ${BUILD_ALPINE_MIRROR:-}
+    image: stapxs-web-api:local
+    container_name: stapxs-web-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      APP_PORT: ${APP_PORT:-3000}
+      APP_VERSION: ${APP_VERSION:-0.0.3}
+    ports:
+      - "${APP_PORT:-3000}:${APP_PORT:-3000}"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:${APP_PORT:-3000}/healthz"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3

@@ -1,5 +1,13 @@
 FROM golang:1.25-alpine AS builder
 
+ARG GOPROXY=https://proxy.golang.org,direct
+ARG GOSUMDB=sum.golang.org
+ARG GONOSUMDB=
+
+ENV GOPROXY=${GOPROXY}
+ENV GOSUMDB=${GOSUMDB}
+ENV GONOSUMDB=${GONOSUMDB}
+
 WORKDIR /src
 
 COPY go.mod go.sum ./
@@ -10,7 +18,12 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -tags stdjson,gjson -o /out/s
 
 FROM alpine:3.21
 
-RUN apk add --no-cache ca-certificates tzdata wget gnupg \
+ARG ALPINE_MIRROR=
+
+RUN if [ -n "${ALPINE_MIRROR}" ]; then \
+      printf '%s\n' "${ALPINE_MIRROR}/v3.21/main" "${ALPINE_MIRROR}/v3.21/community" > /etc/apk/repositories; \
+    fi \
+    && apk add --no-cache ca-certificates tzdata wget gnupg \
     && addgroup -S app \
     && adduser -S app -G app
 
