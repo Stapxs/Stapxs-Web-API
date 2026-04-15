@@ -1,0 +1,10 @@
+.git
+.gitignore
+.vscode
+old
+README.md.old
+.DS_Store
+*.log
+.env
+coverage
+node_modules

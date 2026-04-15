@@ -31,6 +31,13 @@ func (h *RootHandler) Hello(ctx context.Context, c *app.RequestContext) {
 	})
 }
 
+func (h *RootHandler) Health(ctx context.Context, c *app.RequestContext) {
+	c.JSON(200, map[string]any{
+		"status":  "ok",
+		"version": h.appVersion,
+	})
+}
+
 func (h *RootHandler) Info(ctx context.Context, c *app.RequestContext) {
 	c.JSON(200, []any{
 		map[string]any{

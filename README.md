@@ -13,7 +13,39 @@ Current implementation scope:
 
 ```bash
 go mod tidy
-go run ./cmd/api
+go run -tags stdjson,gjson ./cmd/api
+```
+
+If you compile manually, keep the same build tags:
+
+```bash
+go build -tags stdjson,gjson ./...
+```
+
+Health check endpoint:
+
+```bash
+GET /healthz
+```
+
+## Docker
+
+Build image:
+
+```bash
+docker build -t stapxs-web-api:latest .
+```
+
+Run container:
+
+```bash
+docker run --rm -p 3000:3000 --env-file .env stapxs-web-api:latest
+```
+
+Container healthcheck uses:
+
+```bash
+http://127.0.0.1:${APP_PORT}/healthz
 ```
 
 Environment variables:

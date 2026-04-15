@@ -14,6 +14,7 @@ func Register(
 	ssqqHandler *handler.SSQQHandler,
 ) {
 	h.GET("/", rootHandler.Hello)
+	h.GET("/healthz", rootHandler.Health)
 	h.GET("/info", rootHandler.Info)
 
 	text := h.Group("/text")
